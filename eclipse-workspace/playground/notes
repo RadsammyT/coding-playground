@@ -1,0 +1,2 @@
+this IDEs breakpoints happen before the line that has the breakpoint runs.
+debug shell: run commands in the middle of a break point
