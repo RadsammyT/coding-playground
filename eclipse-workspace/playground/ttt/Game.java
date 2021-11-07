@@ -3,14 +3,16 @@ import rad.Input_Utils;
 import java.util.Random;
 public class Game {
 
-	
+	private static int tieCount;
 	private static String checks;
+	private static String checks2;
+	private static String checksGrid;
 	static Grid grid = new Grid();
 	public static void beginGame()
 	{
 		
 		
-		System.out.println("tic tac toe but you can override your opponents spot");
+		System.out.println("i will tic tac your fucking toes");
 		System.out.println(grid);
 		
 		boolean firstTurn = Input_Utils.readBool("Should X go first? true/false: ");
@@ -36,7 +38,14 @@ public class Game {
 			//System.out.println(getWinner());
 		}
 		
-		System.out.println(getWinner() + " wins");
+		if(getWinner().equals("TIE"))
+		{
+			System.out.println("Tie");
+		}
+		else
+		{
+			System.out.println(getWinner() + " won");
+		}
 		System.out.println(grid);
 		
 	}
@@ -52,14 +61,16 @@ public class Game {
 	{
 		System.out.println("X's turn!");
 		checks ="012345678";
-		String input = "9";
-		while(!(containsIgnoreSequence(input,checks,1,1)))
+		checks2 = "XO";
+		checksGrid = grid.getAllCells();
+		String input = "999";
+		while(!(containsIgnoreSequence(input,checksGrid,1,1)))
 		{
 			input = Input_Utils.readString("enter a number on the grid: ");
 			
 		}
 		
-		if(containsIgnoreSequence(input,checks,1,1))
+		if(containsIgnoreSequence(input,checksGrid,1,1))
 		{
 			
 			return Integer.parseInt(input);
@@ -83,12 +94,11 @@ public class Game {
 	{
 		System.out.println("O's turn!");
 		checks ="012345678";
+		checksGrid = grid.getAllCells();
 		String input = "999";
-		while(!(containsIgnoreSequence(input,checks,1,1)))
+		while(!(containsIgnoreSequence(input,checksGrid,1,1)))
 		{
-			
 			input = Input_Utils.readString("enter a number on the grid: ");
-			
 			
 		}
 		
@@ -155,12 +165,20 @@ public class Game {
 			{
 				return "O";
 			}
+			else if(containsIgnoreSequence(pee,"012345678"))
+			{
+				return "false";
+			}
+			else if(tieCount == 8)
+			{
+				return "TIE";
+			}
 			else
 			{
-				//return "false";
+				tieCount++;
 			}
 		}
-		
+		tieCount = 0;
 		return "false";
 	
 	}
@@ -205,4 +223,24 @@ public class Game {
 		return containsIgnoreSequence(input,ref, Integer.MAX_VALUE, Integer.MAX_VALUE);
 	}
 	
+	public static boolean choiceCheck(String i)
+	{
+		checks2 = "XO";
+		checks = "012345678";
+		int index = Integer.parseInt(i);
+		
+		try
+		{
+			String gridChar = grid.getCell(index);
+			if(!(containsIgnoreSequence(gridChar, checks2)) && !(containsIgnoreSequence(gridChar,checks)))
+			{
+				return true;
+			}
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+		return  (Boolean) null;
+	}
 }
