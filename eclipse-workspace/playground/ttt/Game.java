@@ -99,7 +99,6 @@ public class Game {
 		while(!(containsIgnoreSequence(input,checksGrid,1,1)))
 		{
 			input = Input_Utils.readString("enter a number on the grid: ");
-			
 		}
 		
 		if(containsIgnoreSequence(input,checks,1,1))
