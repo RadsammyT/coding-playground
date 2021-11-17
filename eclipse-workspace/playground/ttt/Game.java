@@ -158,18 +158,22 @@ public class Game {
 			}
 			if(pee.equals("XXX"))
 			{
+				//System.out.println("hmm X");
 				return "X";
+				
 			}
 			else if(pee.equals("OOO"))
 			{
+				//System.out.println("hmm O");
 				return "O";
 			}
 			else if(containsIgnoreSequence(pee,"012345678"))
 			{
-				return "false";
+				
 			}
 			else if(tieCount == 8)
 			{
+				//System.out.println("hmm tie");
 				return "TIE";
 			}
 			else

@@ -13,6 +13,8 @@ public class Timer {
 
 	long startTime = 0;
 	long endTime = 0;
+	long startTimeNano = 0;
+	long endTimeNano = 0;
 	public Timer(){
 		
 	}
@@ -20,6 +22,7 @@ public class Timer {
 	public void startTimer()
 	{
 		this.startTime = System.currentTimeMillis(); // sets startTimer to current time in milliseconds
+		this.startTimeNano = System.nanoTime();
 	}
 	
 	public long getStart()
@@ -34,6 +37,7 @@ public class Timer {
 	public void endTimer()
 	{
 		this.endTime = System.currentTimeMillis(); // sets endTimer to current time in milliseconds
+		this.endTimeNano = System.nanoTime();
 	}
 	
 	public long getEnd()
@@ -69,6 +73,11 @@ public class Timer {
 		}
 		
 		return (double) (this.endTime - this.startTime) / 1000;	
+	}
+	
+	public long getElapseNano()
+	{
+		return (this.endTimeNano - this.startTimeNano) / 100;
 	}
 	
 	public String toString()

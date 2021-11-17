@@ -32,7 +32,7 @@ Timer testTimer = new Timer();
 		
 		writer.close();
 		List<String> textLine = Files.readAllLines(pathtest);
-		String[] test = {"yeet","yoot","汪池のふくまいアストップ"};
+		String[] test = {"yeet","yoot","æ±ªæ± ã�®ã�µã��ã�¾ã�„ã‚¢ã‚¹ãƒˆãƒƒãƒ—"};
 			
 		
 		
@@ -53,12 +53,16 @@ Timer testTimer = new Timer();
 		
 		
 		//System.out.println(Game.PlayerXInput());
+		
+		/*
 		Timer test = new Timer();
 		test.startTimer();
 		Game.beginGame();
 		test.endTimer();
 		System.out.println(test.getElapseDouble());
+		*/
 		
+		rad.ShitShuffler.runLoop(12, 10);
 	}
 }
 	
