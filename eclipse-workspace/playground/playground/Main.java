@@ -53,7 +53,6 @@ Timer testTimer = new Timer();
 		
 		
 		//System.out.println(Game.PlayerXInput());
-		
 		/*
 		Timer test = new Timer();
 		test.startTimer();
@@ -61,8 +60,7 @@ Timer testTimer = new Timer();
 		test.endTimer();
 		System.out.println(test.getElapseDouble());
 		*/
-		
-		rad.ShitShuffler.runLoop(12, 10);
+		rad.ShitShuffler.runLoop(20, 10);
 	}
 }
 	

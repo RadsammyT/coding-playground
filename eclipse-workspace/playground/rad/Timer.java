@@ -3,7 +3,7 @@ package rad;
 /**
  * 
  * @author RadsammyT
- * note: not actually a timer
+ * @note not actually a timer
  * just gets system time in milliseconds, so its
  * not actually 'ticking' while program is running
  * which now that I think of it its kinda efficient.
@@ -77,7 +77,7 @@ public class Timer {
 	
 	public long getElapseNano()
 	{
-		return (this.endTimeNano - this.startTimeNano) / 100;
+		return (this.endTimeNano - this.startTimeNano);
 	}
 	
 	public String toString()

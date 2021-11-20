@@ -10,8 +10,6 @@ public class Game {
 	static Grid grid = new Grid();
 	public static void beginGame()
 	{
-		
-		
 		System.out.println("i will tic tac your fucking toes");
 		System.out.println(grid);
 		
@@ -23,19 +21,16 @@ public class Game {
 			grid.setCell(PlayerXInput(), "X");
 		}
 		
-		//while(getWinner().equals("false"))
 		while(true)
 		{
 			System.out.println(grid);
 			grid.setCell(PlayerOInput(), "O");
 			if(!getWinner().equals("false")) {break;}
 			System.out.println("-------------------");
-			//System.out.println(getWinner());
 			System.out.println(grid);
 			grid.setCell(PlayerXInput(), "X");
 			System.out.println("-------------------");
 			if(!getWinner().equals("false")) {break;}
-			//System.out.println(getWinner());
 		}
 		
 		if(getWinner().equals("TIE"))
@@ -67,7 +62,6 @@ public class Game {
 		while(!(containsIgnoreSequence(input,checksGrid,1,1)))
 		{
 			input = Input_Utils.readString("enter a number on the grid: ");
-			
 		}
 		
 		if(containsIgnoreSequence(input,checksGrid,1,1))
@@ -118,62 +112,44 @@ public class Game {
 		String pee = "";
 		for(int i = 0; i < 8; i++)
 		{	
-			//System.out.println(i);
 			switch(i)
 			{
 			case 0:
 				pee = grid.getCell(0) + grid.getCell(1) + grid.getCell(2);
-				//System.out.println(i);
 				break;
 			case 1:
 				pee = grid.getCell(3) + grid.getCell(4) + grid.getCell(5);
-				//System.out.println(i);
 				break;
 			case 2:
 				pee = grid.getCell(6) + grid.getCell(7) + grid.getCell(8);
-				//System.out.println(i);
 				break;
 			case 3:
 				pee = grid.getCell(0) + grid.getCell(3) + grid.getCell(6);
-				//System.out.println(i);
 				break;
 			case 4:
 				pee = grid.getCell(1) + grid.getCell(4) + grid.getCell(7);
-				//System.out.println(i);
 				break;
 			case 5:
 				pee = grid.getCell(2) + grid.getCell(5) + grid.getCell(8);
-				//System.out.println(i);
 				break;
 			case 6:
 				pee = grid.getCell(2) + grid.getCell(4) + grid.getCell(6);
-				//System.out.println(i);
 				break;
 			case 7:
 				pee = grid.getCell(0) + grid.getCell(4) + grid.getCell(8);
-				//System.out.println(i);
 				break;
-			
-				
 			}
 			if(pee.equals("XXX"))
 			{
-				//System.out.println("hmm X");
 				return "X";
-				
 			}
 			else if(pee.equals("OOO"))
 			{
-				//System.out.println("hmm O");
 				return "O";
 			}
-			else if(containsIgnoreSequence(pee,"012345678"))
-			{
-				
-			}
+			else if(containsIgnoreSequence(pee,"012345678")){}
 			else if(tieCount == 8)
 			{
-				//System.out.println("hmm tie");
 				return "TIE";
 			}
 			else

@@ -3,77 +3,107 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import ttt.Game;
 import rad.Timer;
+
+/**
+ * A little something I worked on. Basically the shit version of shuffling arrays.
+ * 
+ * fun fact: there is a SmileBASIC 4 version of this, which is pretty much the same thing except
+ * its only limited to 7 slots.
+ * 
+ * @author RadsammyT
+ *
+ */
 public class ShitShuffler {
-	static int[] bag;
+	static int[] bag; // named, but not actually initialized
 	static int failedRolls = 0;
 	static int succeededRolls = 0;
 	static long seed = 0;
-	static int lengthStatic;
-	static Random test = new Random();
+	static int failedRollMarker = 1000000;
+	static int lengthStatic; // this is static because we need this value for our methods later on
+	
+	static boolean markerSwitch = false;
+	
+	static Random rand = new Random();
+	
+	
+	/**
+	 * 
+	 * @param length how long the bags length should be
+	 * @param repeat how many times this method should run
+	 * @throws InterruptedException as a just in case. usually i put this there 
+	 * for TimeUnit sleep commands
+	 */
 	public static void runLoop(int length, long repeat) throws InterruptedException
 	{
 		bag = new int[length];
-		lengthStatic = length;
+		lengthStatic = length; 
 		Timer time = new Timer();
-		while(!(succeededRolls == repeat))
+		while(succeededRolls != repeat)
 		{
-		time.startTimer();
-		 Random test = new Random();
-		while(!arrayIsUniqueRewrite())
-		{
-			randomizeBag();
-			randomizeSeed();
-//			if(failedRolls == 50)
-//			{
-//				bag = new int[] {5,4,3,2,1,0,6};
-//			}
-			
-			//System.out.println(arrayToString().compareTo("0123456"));
-			//System.out.println(arrayToString() + " : " + arrayIsUnique() + " : " + failedRolls);
-			failedRolls++;
-			//TimeUnit.MILLISECONDS.sleep(10);
-			
-		}
+			time.startTimer();
+			while(!arrayIsUnique())
+			{
+				randomizeBag();
+				failedRolls++;
+				if(failedRolls >= failedRollMarker && markerSwitch == true)
+				{
+					System.out.println((failedRolls /1000000) + "M...");
+					failedRollMarker += 1000000;
+				}
+			}
 		time.endTimer();
-		System.out.println( arrayToStringFormatted() + " : " + (failedRolls - 1) + " : " + (succeededRolls + 1) + " : " + time.getElapseNano());
+		System.out.println( arrayToStringFormatted() + " : FR > " + (failedRolls ) + " : SR > " + (succeededRolls + 1) + " : TIME > " + time.getElapseDouble());
+		
 		failedRolls = 0;
+		failedRollMarker = 1000000;
 		bag = new int[length];
 		succeededRolls++;
-		//TimeUnit.MILLISECONDS.sleep(100);
 		}
 	}
 	
-	
-	public static void run(long repeat, long seed) throws InterruptedException
-	{
-		
-		test.setSeed(seed);
-		for(int i = 0; i < repeat ; i++)
-		{
-		while(!arrayIsUnique())
-		{
-			randomizeBag();
-			randomizeSeed();
-			failedRolls++;
-			
-		}
-		
-		System.out.println( arrayToString() + " : " + (failedRolls - 1));
-		}
-	}
+	/**
+	 * Every integer in the bag is randomized from 0 to the bags length via the rand instance 
+	 * of the Random class.
+	 */
 	
 	public static void randomizeBag()
 	{
 		for(int i=0; i < bag.length ; i++)
 		{
-			bag[i] = test.nextInt(bag.length);
+			bag[i] = rand.nextInt(bag.length);
 		}
 	}
 	
+	/**
+	 * @deprecated I have no fucking clue how to have different seeds running as the thread runs two 
+	 * separate ShitShuffler commands.
+	 * ex:
+	 * 
+	 * runLoop(4,1); // first run
+	 * 
+	 * outputs:
+	 * 
+	 * {0,1,2,3}
+	 * 
+	 * 
+	 * runLoop(4,1); // second run, again in the same thread
+	 * 
+	 * STILL outputs
+	 * 
+	 * {0,1,2,3}
+	 */
+	
 	public static void randomizeSeed()
 	{
-			test.setSeed(test.nextLong() / 1 + failedRolls);	
+			rand.setSeed(rand.nextLong() / 1 + failedRolls);	
 	}
+	
+	
+	/**
+	 * @deprecated This method returns the string without spaces. Depreciated because the
+	 * fact that this method returns without spaces is a flaw in of itself.
+	 * @return The string. Without spaces. I am fucking dumb
+	 */
 	
 	public static String arrayToString()
 	{
@@ -86,7 +116,11 @@ public class ShitShuffler {
 		
 		return aTS;
 	}
-	
+	/**
+	 * 
+	 * @return The string WITH spaces this time.
+	 * Only used for output while running this class' runLoop method.
+	 */
 	public static String arrayToStringFormatted()
 	{
 		String aTS = "";
@@ -98,21 +132,14 @@ public class ShitShuffler {
 		
 		return aTS;
 	}
-	/*
-	 * lets say we have an input called "1234560"
-	 * 
-	 * our board is empty, so were on a clean slate.
-	 * 
-	 * for every character in the input string:
-	 * 		check if the character is in the board.
-	 * 		if it isn't:
-	 * 			add the character to the board.
-	 * 		if it is:
-	 * 			end the process, return false.
-	 * return true.
-	 * 
+	
+	/**
+	 * @deprecated This method has no support for numbers 10 and above. 
+	 * @see arrayIsUnique()
+	 * @return true if any character in the String is the same as in the preceeding characters in the board.
+	 * false if all characters are unique, and no matching ones are encountered in this method
 	 */
-	public static boolean arrayIsUnique()
+	public static boolean arrayIsUniqueDEPRECIATED()
 	{
 		String input = arrayToString();
 		String board = "";
@@ -131,48 +158,36 @@ public class ShitShuffler {
 		
 		return true;
 	}
-	// TODO make this work with double-digits
-	public static boolean arrayIsUniqueRewrite() throws ArrayIndexOutOfBoundsException, InterruptedException
+	/**
+	 * 
+	 * @return true if all indexs in the array are unique to one another.
+	 */
+
+	public static boolean arrayIsUnique()
 	{
-		int[] in = bag;
+		
 		int[] board = new int[lengthStatic];
 		int inRef = 0;
 		int boardRef = 0;
-		//System.out.println("aIUR: arrays/vars initalized");
 		for(int i = 0; i < board.length ; i++)
 		{
 			board[i] = -1;
 		}
-		//System.out.println("aIUR: all board vars are now -1");
 		for(int i = 0; i < bag.length ; i++)
 		{
 			inRef = bag[i];
-			//System.out.println("aIUR: inRef set");
 			for(int j = 0; j < board.length ; j++)
 			{
 				boardRef = board[j];
-				///TimeUnit.MILLISECONDS.sleep(43);
-				//System.out.println("aIUR: boardRef set");
 				if(inRef == boardRef)
 				{
-					//System.out.println("aIUR: false.");
 					return false;
 				}
-				else
-				{
-					//System.out.println("aIUR: not false, continuing");
-				}
-				//System.out.println("aIUR: out of j loop");
-				
 			}
-			
 			board[i] = inRef;
 			
-			
 		}
-		
 		return true;
-		
 	}
 	
 	
