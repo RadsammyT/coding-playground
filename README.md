@@ -1,5 +1,6 @@
-# eclipse-playground
+# coding-playground
  Stuff thats just there
+ or stuff that I made just for lols
 
 # fun facts
 This repo helped me when I was using IntelliJ Idea for a few minutes or so when it deleted my entire playground (java) directory. 
