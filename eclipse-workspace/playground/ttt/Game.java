@@ -3,7 +3,7 @@ import rad.Input_Utils;
 import java.util.Random;
 public class Game {
 
-	private static int tieCount;
+	//private static int tieCount;
 	private static String checks;
 	private static String checks2;
 	private static String checksGrid;
@@ -13,9 +13,9 @@ public class Game {
 		System.out.println("i will tic tac your fucking toes");
 		System.out.println(grid);
 		
-		boolean firstTurn = Input_Utils.readBool("Should X go first? true/false: ");
+		//boolean firstTurn = Input_Utils.readBool("Should X go first? true/false: ");
 		
-		if(firstTurn)
+		if(Input_Utils.readBool("Should X go first? true/false: "))
 		{
 			System.out.println(grid);
 			grid.setCell(PlayerXInput(), "X");
@@ -105,10 +105,11 @@ public class Game {
 	/**
 	 * @author RadsammyT
 	 *  based on presets, determines the winner
-	 * of the current game	 
+	 *  of the current game	 
 	 */
 	public static String getWinner()
 	{
+		//tieCount = 0;
 		String pee = "";
 		for(int i = 0; i < 8; i++)
 		{	
@@ -141,32 +142,43 @@ public class Game {
 			}
 			if(pee.equals("XXX"))
 			{
+				System.out.println("x?");
 				return "X";
 			}
 			else if(pee.equals("OOO"))
 			{
+				System.out.println("o?");
 				return "O";
 			}
 			else if(containsIgnoreSequence(pee,"012345678")){}
-			else if(tieCount == 8)
+			
+			/*else if(tieCount >= 8)	// thrown away code that determined a tie
 			{
+				System.out.println("tie?");		
 				return "TIE";
 			}
 			else
 			{
 				tieCount++;
 			}
+			*/
+			else if(tieCheck())
+			{
+				return "TIE";
+			}
 		}
-		tieCount = 0;
+		System.out.println("false.");
+		//tieCount = 0;
 		return "false";
 	
 	}
 	/**
 	 * Checks the input for ANY letters that occur in the ref string. 
-	 * @param input The String that is checked in this method by the reference String
-	 * @param ref The String that determines the reference characters for this method
-	 * @param charLimit if the result of characters found is GREATER than this number,
+	 * @param input - The String that is checked in this method by the reference String
+	 * @param ref - The String that determines the reference characters for this method
+	 * @param charLimit - if the result of characters found is GREATER than this number,
 	 * it returns false. 
+	 * @param lengthLimit - if the input string has more characters than the specified limit, return false.
 	 * @return True if input contains ANY character in the reference AND the appropriate amount of letter
 	 */
 	public static boolean containsIgnoreSequence(String input, String ref, int charLimit, int lengthLimit)
@@ -221,5 +233,19 @@ public class Game {
 			return false;
 		}
 		return  (Boolean) null;
+	}
+	
+	public static boolean tieCheck()
+	{
+		int tie = 0;
+		for(String i: grid.grid)
+		{
+			if(!(containsIgnoreSequence(i,"012345678")))
+			{
+				tie++;
+			}
+		}
+		if(tie >= 9) {return true;}
+		else {return false;}
 	}
 }

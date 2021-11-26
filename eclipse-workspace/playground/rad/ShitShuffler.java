@@ -3,6 +3,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import ttt.Game;
 import rad.Timer;
+import java.lang.Math;
 
 /**
  * A little something I worked on. Basically the shit version of shuffling arrays.
@@ -19,17 +20,21 @@ public class ShitShuffler {
 	static int succeededRolls = 0;
 	static long seed = 0;
 	static int failedRollMarker = 1000000;
+	static int failedRollStep = 1000000;
+	static int fRLength;
 	static int lengthStatic; // this is static because we need this value for our methods later on
-	
-	static boolean markerSwitch = false;
-	
+	/* 
+	 * switch to indicate failedRolls for every 1 million of em (thats a lot, rite?)
+	 * especially considering that it does this every half a second or so.
+	 */
+	static boolean markerSwitch = false;  
 	static Random rand = new Random();
 	
 	
 	/**
 	 * 
-	 * @param length how long the bags length should be
-	 * @param repeat how many times this method should run
+	 * @param length - how long the bags length should be
+	 * @param repeat - how many times this method rolls successfully. 
 	 * @throws InterruptedException as a just in case. usually i put this there 
 	 * for TimeUnit sleep commands
 	 */
@@ -37,7 +42,9 @@ public class ShitShuffler {
 	{
 		bag = new int[length];
 		lengthStatic = length; 
+		fRLength = Integer.toString(failedRollStep).length();
 		Timer time = new Timer();
+		
 		while(succeededRolls != repeat)
 		{
 			time.startTimer();
@@ -47,8 +54,9 @@ public class ShitShuffler {
 				failedRolls++;
 				if(failedRolls >= failedRollMarker && markerSwitch == true)
 				{
-					System.out.println((failedRolls /1000000) + "M...");
-					failedRollMarker += 1000000;
+					System.out.println((failedRolls /(1000000f)) + "M...");
+					//System.out.println(failedRolls);
+					failedRollMarker += failedRollStep;
 				}
 			}
 		time.endTimer();
@@ -64,8 +72,18 @@ public class ShitShuffler {
 	/**
 	 * Every integer in the bag is randomized from 0 to the bags length via the rand instance 
 	 * of the Random class.
+	 * <p>
+	 * PLEASE NOTE: This is an overload of runLoop(int, long). Please see that for details on the other parameters.
+	 * </p>
+	 * @param printMarkers if true, print the number of failed rolls (ex: 4M...) every 1 million.
+	 * @throws InterruptedException 
 	 */
-	
+	public static void runLoop(int length, long repeat, boolean printMarkers) throws InterruptedException
+	{
+		markerSwitch = printMarkers;
+		runLoop(length, repeat);
+		markerSwitch = false; //as a just-in-case. 
+	}
 	public static void randomizeBag()
 	{
 		for(int i=0; i < bag.length ; i++)

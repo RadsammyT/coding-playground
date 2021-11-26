@@ -18,13 +18,18 @@ public class Timer {
 	public Timer(){
 		
 	}
-
+	/**
+	 * Sets both startTime and Nano.
+	 */
 	public void startTimer()
 	{
 		this.startTime = System.currentTimeMillis(); // sets startTimer to current time in milliseconds
 		this.startTimeNano = System.nanoTime();
 	}
-	
+	/**
+	 * 
+	 * @return startTime in milliseconds
+	 */
 	public long getStart()
 	{
 		if(startTime != 0)
@@ -33,13 +38,18 @@ public class Timer {
 		}
 		return -1;
 	}
-	
+	/**
+	 * Sets both endTime and Nano.
+	 */
 	public void endTimer()
 	{
 		this.endTime = System.currentTimeMillis(); // sets endTimer to current time in milliseconds
 		this.endTimeNano = System.nanoTime();
 	}
-	
+	/**
+	 * 
+	 * @return endTime in milliseconds
+	 */
 	public long getEnd()
 	{
 		if(endTime != 0)
@@ -48,9 +58,12 @@ public class Timer {
 		}
 		return -1;
 	}
-	
-	public long getElapse() // returns the elapsed time. if either 
-							// start or endTimes are 0/Unset, return -1
+	/**
+	 * 
+	 * @return elapsed time (calculated with endTime - startTime).
+	 * @return -1 if either start or endTimes are 0/unset.
+	 */
+	public long getElapse() 
 	{
 		
 		if(this.endTime == 0 || this.startTime == 0 )
@@ -61,10 +74,14 @@ public class Timer {
 		
 		
 	}
-	public double getElapseDouble() // returns the difference as a double
-									// while also dividing it by 1000 because
-									// its a double so why the fuck not.
-									// if either start or endTimes are 0/Unset, return -1
+	/**
+	 * 
+	 * @return the difference as a double. while also divide it by 1000 because its a double.
+	 * so why the fuck not.
+	 * @return -1 if either start or endTimes are 0/Unset.
+	 */
+	
+	public double getElapseDouble() 
 	{
 		
 		if(this.endTime == 0 || this.startTime == 0 )
@@ -74,12 +91,18 @@ public class Timer {
 		
 		return (double) (this.endTime - this.startTime) / 1000;	
 	}
-	
+	/**
+	 * 
+	 * @return the difference in nanoseconds.
+	 */
 	public long getElapseNano()
 	{
 		return (this.endTimeNano - this.startTimeNano);
 	}
-	
+	/**
+	 * ahh, the classic and overused override in every fucking java class.
+	 * basically returns starting time, ending time, along with elapsed time.
+	 */
 	public String toString()
 	{
 		return "startTime: " + this.startTime + " |  endTime: " + this.endTime + " | ELAPSE: " + (float) (this.getElapse() / 1000f) + " seconds";
