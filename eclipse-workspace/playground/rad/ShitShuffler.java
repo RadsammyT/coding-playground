@@ -11,7 +11,17 @@ import java.lang.Math;
  * fun fact: there is a SmileBASIC 4 version of this, which is pretty much the same thing except
  * its only limited to 7 slots.
  * 
- * @author RadsammyT
+ *
+ *
+ *<p>
+ *HOW IT WORKS:
+ *</p>
+ *
+ *<p>
+ *Lets say when running, you specify that the bag is 10 indexes long, and that there must be 10 successful rolls before stopping. What ShitShuffler does is that for every index, it randomizes every one of them from 0 to the bags length (exclusive, so 9 in this case). this shufflers method, arrayIsUnique(), checks to see if there are any duplicates found in the bag. If there are ANY duplicates, throw the whole thing away, and redo the rolling process. If not, then tick the successful roll count to 1, and do it all again until the requirement of successful rolls has been satisfied.
+ *
+ *
+ *@author RadsammyT
  *
  */
 public class ShitShuffler {
@@ -51,6 +61,7 @@ public class ShitShuffler {
 			while(!arrayIsUnique())
 			{
 				randomizeBag();
+				if(arrayIsUnique()) {break;}
 				failedRolls++;
 				if(failedRolls >= failedRollMarker && markerSwitch == true)
 				{
@@ -84,6 +95,22 @@ public class ShitShuffler {
 		runLoop(length, repeat);
 		markerSwitch = false; //as a just-in-case. 
 	}
+	/**
+	 * This is a version of ShitShuffler that ACTUALLY returns an array instead of printing it.
+	 * @param length the length of the array to return
+	 * @return the shuffled array
+	 */
+	public static int[] run(int length)
+	{
+		bag = new int[length];
+		lengthStatic = length;
+		while(!arrayIsUnique())
+		{
+			randomizeBag();
+		}
+		return bag;
+	}
+	
 	public static void randomizeBag()
 	{
 		for(int i=0; i < bag.length ; i++)

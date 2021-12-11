@@ -13,8 +13,6 @@ public class Game {
 		System.out.println("i will tic tac your fucking toes");
 		System.out.println(grid);
 		
-		//boolean firstTurn = Input_Utils.readBool("Should X go first? true/false: ");
-		
 		if(Input_Utils.readBool("Should X go first? true/false: "))
 		{
 			System.out.println(grid);
@@ -29,8 +27,9 @@ public class Game {
 			System.out.println("-------------------");
 			System.out.println(grid);
 			grid.setCell(PlayerXInput(), "X");
-			System.out.println("-------------------");
 			if(!getWinner().equals("false")) {break;}
+			System.out.println("-------------------");
+			
 		}
 		
 		if(getWinner().equals("TIE"))
@@ -66,7 +65,6 @@ public class Game {
 		
 		if(containsIgnoreSequence(input,checksGrid,1,1))
 		{
-			
 			return Integer.parseInt(input);
 		}
 		return (Integer) null;
@@ -142,17 +140,18 @@ public class Game {
 			}
 			if(pee.equals("XXX"))
 			{
-				System.out.println("x?");
+				//System.out.println("x?");
 				return "X";
 			}
 			else if(pee.equals("OOO"))
 			{
-				System.out.println("o?");
+				//System.out.println("o?");
 				return "O";
 			}
 			else if(containsIgnoreSequence(pee,"012345678")){}
 			
-			/*else if(tieCount >= 8)	// thrown away code that determined a tie
+			/*
+			else if(tieCount >= 8)	// thrown away code that determined a tie
 			{
 				System.out.println("tie?");		
 				return "TIE";
@@ -162,15 +161,23 @@ public class Game {
 				tieCount++;
 			}
 			*/
-			else if(tieCheck())
-			{
-				return "TIE";
-			}
+			
+			/*
+			 * there was a tie check here, but since it keeps checking every loop, and that it would falsely declare
+			 * a tie when in reality it didnt... I moved it after the for-switch.
+			 */
 		}
-		System.out.println("false.");
+		
+		if(tieCheck())
+		{
+			return "TIE";
+		}
+		
+		//System.out.println("false.");
 		//tieCount = 0;
 		return "false";
-	
+		
+		
 	}
 	/**
 	 * Checks the input for ANY letters that occur in the ref string. 
@@ -213,7 +220,11 @@ public class Game {
 	{
 		return containsIgnoreSequence(input,ref, Integer.MAX_VALUE, Integer.MAX_VALUE);
 	}
-	
+	/**
+	 * @deprecated never used in the actual TTT game.
+	 * @param i the number (as a string) turned into an integer.
+	 * @return true if the index leads to a spot on the grid that is NOT X or O. false otherwise.
+	 */
 	public static boolean choiceCheck(String i)
 	{
 		checks2 = "XO";
@@ -248,4 +259,6 @@ public class Game {
 		if(tie >= 9) {return true;}
 		else {return false;}
 	}
+	
+	
 }

@@ -1,5 +1,5 @@
 package playground;
-import rad.Timer;
+import rad.*;
 import java.nio.file.*;
 import java.io.*;
 import java.util.List;
@@ -51,16 +51,16 @@ Timer testTimer = new Timer();
 		*/
 		
 		
-		
-		//System.out.println(Game.PlayerXInput());
-		
+		/*
 		Timer test = new Timer();
 		test.startTimer();
 		Game.beginGame();
 		test.endTimer();
 		System.out.println(test.getElapseDouble());
-		
-		//rad.ShitShuffler.runLoop(20, 10, true);
+		*/
+	
+		rad.jFrame.ttt_gui.init();
+//		System.out.println(rad.Fibbonachi.listToString(rad.Fibbonachi.run(5)));
 	}
 }
 	

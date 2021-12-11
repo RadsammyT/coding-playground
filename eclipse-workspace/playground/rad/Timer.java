@@ -27,7 +27,6 @@ public class Timer {
 		this.startTimeNano = System.nanoTime();
 	}
 	/**
-	 * 
 	 * @return startTime in milliseconds
 	 */
 	public long getStart()
@@ -47,7 +46,6 @@ public class Timer {
 		this.endTimeNano = System.nanoTime();
 	}
 	/**
-	 * 
 	 * @return endTime in milliseconds
 	 */
 	public long getEnd()
@@ -61,7 +59,7 @@ public class Timer {
 	/**
 	 * 
 	 * @return elapsed time (calculated with endTime - startTime).
-	 * @return -1 if either start or endTimes are 0/unset.
+	 * -1 if either start or endTimes are 0/unset.
 	 */
 	public long getElapse() 
 	{
@@ -77,8 +75,7 @@ public class Timer {
 	/**
 	 * 
 	 * @return the difference as a double. while also divide it by 1000 because its a double.
-	 * so why the fuck not.
-	 * @return -1 if either start or endTimes are 0/Unset.
+	 * so why the fuck not. will also return -1 if either start or endTimes are 0/Unset.
 	 */
 	
 	public double getElapseDouble() 

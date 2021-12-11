@@ -3,13 +3,17 @@
 // STINKY NIG-
 
 package rad;
-
+/**
+ * 
+ * @author RadsammyT
+ * @deprecated
+ */
 public class LongCompress {
 
 	public static double run(long value)
 	{
 		
-		long recipe = (2147483000 + 49 + 600) * 2;
+		long recipe = Integer.MAX_VALUE;
 		long compact = value / recipe;
 		return (double) compact;
 		
