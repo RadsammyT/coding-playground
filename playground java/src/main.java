@@ -7,5 +7,6 @@ public class main {
 
     public static void main(String args[]) throws InterruptedException {
         rad.TextboxSorcery.run("konnichiwa bitches", 100);
+        rad.ShitShuffler.runLoop(20, 1, true);
     }
 }

@@ -48,12 +48,8 @@ public class ShitShuffler {
 	static int failedRollMarker = 5000;
 	static int failedRollStep = failedRollMarker;
 	static int failedRollSum = 0;
-	/*
-	 * switch to indicate failedRolls for every (failedRollMarker) rolls, (thats a
-	 * lot, rite?)
-	 * especially considering that it does this every half a second or so.
-	 */
-	static boolean markerSwitch = false;
+	
+	static boolean markerSwitch = false; 
 	static Random rand = new Random();
 
 	/**
@@ -64,7 +60,7 @@ public class ShitShuffler {
 	 *                              for TimeUnit sleep commands
 	 */
 	public static void runLoop(int length, long repeat) throws InterruptedException {
-		//System.out.println("Buffering...");
+		//System.out.println("Buffering..."); // this was for eclipse's wierd bug with terminal outputs
 		//TimeUnit.SECONDS.sleep(1);
 		bag = new int[length];
 		// lengthStatic = length;
