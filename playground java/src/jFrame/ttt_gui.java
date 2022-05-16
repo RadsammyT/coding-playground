@@ -7,7 +7,7 @@ import ttt.Grid;
 //import ttt.Game;
 //import java.util.ArrayList;
 public class ttt_gui {
-// they are all static so that they can be accessed by all methods within this class
+	// they are all static so that they can be accessed by all methods within this class
 	static Grid grid = new Grid();
 	static JFrame frame = new JFrame();
 	static JButton zerozero = new JButton();
@@ -19,22 +19,22 @@ public class ttt_gui {
 	static JButton twozero = new JButton();
 	static JButton twoone = new JButton();
 	static JButton twotwo = new JButton();
-	
+
 	static JButton startX = new JButton();
 	static JButton startO = new JButton();
 	static JButton reset = new JButton();
-	
-	static JButton[] gridButton = {zerozero, zeroone, zerotwo, onezero,oneone,onetwo,twozero,twoone,twotwo};
-	
+
+	static JButton[] gridButton = { zerozero, zeroone, zerotwo, onezero, oneone, onetwo, twozero, twoone, twotwo };
+
 	static JLabel turn = new JLabel();
 	static JLabel winner = new JLabel();
-	
+
 	static JLabel title = new JLabel();
 	static String CURRENT_TURN = "???";
 	static final String TURN_X = "X";
 	static final String TURN_O = "O";
-	public static void init()
-	{
+
+	public static void init() {
 		//JButton[] gridButton = {zerozero, zeroone, zerotwo, onezero,oneone,onetwo,twozero,twoone,twotwo};
 		/* button layout
 		 * 
@@ -47,110 +47,101 @@ public class ttt_gui {
 		ImageIcon titleIcon = new ImageIcon("C:/Users/RadsammyT/eclipse-workspace/playground/cypher2ttt_fix.jpg");
 		JFrame frame = new JFrame();
 		frame.setLayout(null);
-		frame.setSize(550,500);
+		frame.setSize(550, 500);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setTitle("tic tac fuck");
 		frame.setIconImage(icon.getImage());
 		//JButton startX = new JButton();
-		startX.setBounds(10,50,200,50);
+		startX.setBounds(10, 50, 200, 50);
 		startX.setText("play (X FIRST)");
 		startX.setVisible(true);
-		startX.addActionListener(e->{
+		startX.addActionListener(e -> {
 			//System.out.println("fuck");
 			begin("X");
 		});
-		
-		startO.setBounds(320,50,200,50);
+
+		startO.setBounds(320, 50, 200, 50);
 		startO.setText("play (O FIRST)");
 		startO.setVisible(true);
-		startO.addActionListener(e->{
+		startO.addActionListener(e -> {
 			//System.out.println("fuck");
 			begin("O");
 		});
-		
+
 		title.setIcon(titleIcon);
 		title.setVisible(true);
-		title.setBounds(-50,0,500,500);
-		
+		title.setBounds(-50, 0, 500, 500);
+
 		reset.setVisible(false);
-		reset.setBounds(450,420,83,40);
+		reset.setBounds(450, 420, 83, 40);
 		reset.setText("MENU");
-		reset.addActionListener(e->{
+		reset.addActionListener(e -> {
 			reset();
 		});
-		
+
 		frame.add(startX);
 		frame.add(startO);
 		frame.add(winner);
 		frame.add(turn);
 		frame.add(reset);
 		frame.add(title);
-		for(JButton i: gridButton)
-		{
+		for (JButton i : gridButton) {
 			frame.add(i);
 			i.setVisible(true); // just in case 
 		}
 	}
-	
-	public static void begin(String startingTurn)
-	{
+
+	public static void begin(String startingTurn) {
 		CURRENT_TURN = startingTurn;
-		
+
 		startX.setVisible(false);
 		startO.setVisible(false);
 		title.setVisible(false);
 		turn.setVisible(true);
-		turn.setBounds(480,50,1000,25);
+		turn.setBounds(480, 50, 1000, 25);
 		turn.setText("turn: " + CURRENT_TURN);
 		reset.setVisible(true);
 		// turn.setForeground(new Color(255,0,0));
-		
-		for(JButton i: gridButton)
-		{
+
+		for (JButton i : gridButton) {
 			//frame.add(i);
 			i.setFont(new Font("NSimSun", Font.PLAIN, 80));
 			i.setText("-");
 			i.setVisible(true); // just in case 
 		}
-		
-		for(int i = 0 ; i < gridButton.length ; i++)
-		{
-			if(i<3)
-			{
-				gridButton[i].setBounds(i*150,10,150,150);
+
+		for (int i = 0; i < gridButton.length; i++) {
+			if (i < 3) {
+				gridButton[i].setBounds(i * 150, 10, 150, 150);
 			}
-			
-			else if(i<6)
-			{
-				gridButton[i].setBounds((i-3)*150,(10+150),150,150);
+
+			else if (i < 6) {
+				gridButton[i].setBounds((i - 3) * 150, (10 + 150), 150, 150);
 			}
-			
-			else if(i<9)
-			{
-				gridButton[i].setBounds((i-6)*150,(10+300),150,150);
+
+			else if (i < 9) {
+				gridButton[i].setBounds((i - 6) * 150, (10 + 300), 150, 150);
 			}
-			
-//			gridButton[i].addActionListener(e->{
-//				clickButton(startXV);
-//			});
-//			startXV++;
+
+			//			gridButton[i].addActionListener(e->{
+			//				clickButton(startXV);
+			//			});
+			//			startXV++;
 		}
 		//startXV = 1;
 		actionFuck();
 	}
-	
-	public static void javaFonts()
-	{
-		String fonts[] = 
-	 GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
-			    for (int i = 0; i < fonts.length; i++) {
-			      System.out.println(fonts[i]);
-			    }
+	public static void javaFonts() {
+		String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+
+		for (int i = 0; i < fonts.length; i++) {
+			System.out.println(fonts[i]);
+		}
 	}
-	
+
 	public static void clickButton(int i)
 	{
 		if(gridButton[i].getText().equals("-"))
@@ -191,8 +182,8 @@ public class ttt_gui {
 				
 		}
 	}
-	
-	/**
+
+/**
 	 * <p>
 	 * the reason why it looks like this shit is because for loops don't fix shit for this, it just sets their clickButton values to one number only
 	 * and i fucking hate it
@@ -211,7 +202,14 @@ public class ttt_gui {
 		gridButton[6].addActionListener(e->{clickButton(6);});
 		gridButton[7].addActionListener(e->{clickButton(7);});
 		gridButton[8].addActionListener(e->{clickButton(8);});
-		
+		// Local variable i defined in an enclosing scope must be final or effectively final - Java(536871575)
+		// first of all what the fuck is this shit
+		/*
+		for(int i = 0 ; i < gridButton.length ; i++)
+		{
+			gridButton[i].addActionListener(e->{clickButton(i);});
+		}
+		*/
 		
 	}
 	
