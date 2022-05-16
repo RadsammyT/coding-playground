@@ -2,13 +2,14 @@ package rad;
 
 public class fibbTime {
     
-    public static void run()
+    public static int run()
     {
         int numPrimes = 0;
         for(int i =2; i<=250001; i++)
         {
-            numPrimes+=isPrime(i);
+            numPrimes += isPrime(i);
         }
+        return numPrimes;
     }//System.out.println(rad.Collatz.run((long) Long.MAX_VALUE));
 
     public static int isPrime(int n) {
