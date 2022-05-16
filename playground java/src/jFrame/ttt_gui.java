@@ -233,7 +233,7 @@ public class ttt_gui {
 		startO.setVisible(true);
 		title.setVisible(true);
 	}
-	// BELOW ARE OBLIGATORY COPY AND PASTES FROM ttt.Game because I can't somehow import em properly
+	// BELOW ARE OBLIGATORY COPY AND PASTES FROM ttt.Game because they don't work if they are referenced from ttt.Game and i don't know why
 	public static String getWinner()
 	{
 		//tieCount = 0;
