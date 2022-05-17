@@ -3,6 +3,8 @@ package rad;
 import java.util.Scanner;
 import java.lang.Exception;
 import rad.NegativeNumberException;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Collatz{
 	
@@ -31,7 +33,7 @@ public class Collatz{
 	 * @throws NegativeNumberException
 	 */
 	
-	public static long run(long in, int returnMode, boolean printSteps) throws NegativeNumberException   
+	public static long[] run(long in, boolean printSteps) throws NegativeNumberException   
 	
 	{
 		
@@ -75,37 +77,20 @@ public class Collatz{
 
 		}
 		while(in != 1);
-		switch(returnMode) {
-		case 0: return iter;
-		case 1: return odd;
-		case 2: return even;
-		case 3: 
-			    System.out.println(iter);
-			    System.out.println(odd);
-			    System.out.println(even);
-			    return -1;
-		}
-		return -2; // you might have not set the returnMode correctly
+		return new long[] {odd, even, iter}; 
 	}
 	
-	public static long run(long in) throws NegativeNumberException 
+	public static long[] run(long in) throws NegativeNumberException 
 	// uses a shorthand version of .run, returnMode defaults to 0, printSteps defaults to false.
 	{
 		
-		return run(in, 0, false);
+		return run(in, false);
 		//int returnStatement = Collatz.run(in, 0, false);
 		//return returnStatement;
 		
 	}
 	
-	public static long run(long in, int returnMode) throws NegativeNumberException  
-	// shorthand version of .run, printSteps defaults to false.
-	{
-		//int returnStatement = Collatz.run(in, returnMode, false);
-		//return returnStatement;
-		return run(in, returnMode, false);
-	}
-	
+
 }
 /** 
 class NegativeNumberException extends Exception
