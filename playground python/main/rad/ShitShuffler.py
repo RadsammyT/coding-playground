@@ -52,4 +52,4 @@ def shuffle(list):
 def __main__():
     run(10, 10)
 
-__main__()
+#__main__()

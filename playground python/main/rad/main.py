@@ -1,12 +1,11 @@
 from time import sleep
 from collatz import *
 from timerClass import *
-from textbox import *
 import PySimpleGUI as pg
 import ShitShuffler
 
 
-'''
+
 def MainOne():
     t = Timer()
     t.start()
@@ -20,7 +19,7 @@ def MainOne():
 
 def MainTwo():
     ShitShuffler.Run()
-'''
+
 def MainThree():
     
     lay = [[pg.Text('Length of list | repeat')], 
@@ -53,6 +52,7 @@ def MainFour():
         elif event == 'Submit':
             win['output'].update(values['input'])
     win.close()
+
 
 
 
