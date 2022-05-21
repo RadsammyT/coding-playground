@@ -7,7 +7,7 @@ import ttt.Grid;
 //import ttt.Game;
 //import java.util.ArrayList;
 public class ttt_gui {
-	// they are all static so that they can be accessed by all methods within this class
+	// they are all static so that they can be accessed by all funcs within this class
 	static Grid grid = new Grid();
 	static JFrame frame = new JFrame();
 	static JButton zerozero = new JButton();
@@ -113,6 +113,7 @@ public class ttt_gui {
 		}
 
 		for (int i = 0; i < gridButton.length; i++) {
+
 			if (i < 3) {
 				gridButton[i].setBounds(i * 150, 10, 150, 150);
 			}
@@ -131,7 +132,7 @@ public class ttt_gui {
 			//			startXV++;
 		}
 		//startXV = 1;
-		actionFuck();
+		act2();
 	}
 
 	public static void javaFonts() {
@@ -142,10 +143,8 @@ public class ttt_gui {
 		}
 	}
 
-	public static void clickButton(int i)
-	{
-		if(gridButton[i].getText().equals("-"))
-		{
+	public static void clickButton(int i) {
+		if (gridButton[i].getText().equals("-")) {
 			/*
 			gridButton[i].setText(CURRENT_TURN); 
 			grid.setCell(i, CURRENT_TURN);
@@ -154,186 +153,161 @@ public class ttt_gui {
 			else if(CURRENT_TURN.equals(TURN_O)) {CURRENT_TURN = TURN_X;}
 			turn.setText("turn: "+CURRENT_TURN);
 			*/
-				if(getWinner().equals("false"))
-				{
-				gridButton[i].setText(CURRENT_TURN); 
+			if (getWinner().equals("false")) {
+				gridButton[i].setText(CURRENT_TURN);
 				grid.setCell(i, CURRENT_TURN);
 				//System.out.println(grid.toString());
-				
-				if(CURRENT_TURN.equals(TURN_X)) {CURRENT_TURN = TURN_O;}
-				else if(CURRENT_TURN.equals(TURN_O)) {CURRENT_TURN = TURN_X;}
-				
-				turn.setText("turn: "+CURRENT_TURN);
+
+				if (CURRENT_TURN.equals(TURN_X)) {
+					CURRENT_TURN = TURN_O;
+				} else if (CURRENT_TURN.equals(TURN_O)) {
+					CURRENT_TURN = TURN_X;
 				}
-				if(!getWinner().equals("false")) {
-					winner.setBounds(480,150,100,100);
-					if(getWinner().equals("TIE"))
-					{
+
+				turn.setText("turn: " + CURRENT_TURN);
+			}
+			if (!getWinner().equals("false")) {
+				winner.setBounds(480, 150, 100, 100);
+				if (getWinner().equals("TIE")) {
 					//System.out.println("WIN");
 					winner.setText(getWinner());
-					}
-					else
-					{
-						winner.setText(getWinner() + " WINS.");
-					}
-					
+				} else {
+					winner.setText(getWinner() + " WINS.");
+				}
+
 				winner.setVisible(true);
 			}
-				
+
 		}
 	}
 
-/**
-	 * <p>
-	 * the reason why it looks like this shit is because for loops don't fix shit for this, it just sets their clickButton values to one number only
-	 * and i fucking hate it
-	 * </p>
-	 * CURSE YOU LAMBDA EXPRESSIONS (if thats really whats causing it idfk)
-	 */
-	public static void actionFuck()
-	{
-		
-		gridButton[0].addActionListener(e->{clickButton(0);});
-		gridButton[1].addActionListener(e->{clickButton(1);});
-		gridButton[2].addActionListener(e->{clickButton(2);});
-		gridButton[3].addActionListener(e->{clickButton(3);});
-		gridButton[4].addActionListener(e->{clickButton(4);});
-		gridButton[5].addActionListener(e->{clickButton(5);});
-		gridButton[6].addActionListener(e->{clickButton(6);});
-		gridButton[7].addActionListener(e->{clickButton(7);});
-		gridButton[8].addActionListener(e->{clickButton(8);});
-		// Local variable i defined in an enclosing scope must be final or effectively final - Java(536871575)
-		// first of all what the fuck is this shit
-		/*
-		for(int i = 0 ; i < gridButton.length ; i++)
-		{
-			gridButton[i].addActionListener(e->{clickButton(i);});
-		}
-		*/
-		
+	private static void act1(JButton[] arr, int i) {
+		arr[i].addActionListener(e -> {
+			clickButton(i);
+		});
 	}
-	
-	public static void reset()
+
+	public static void act2() // turning a 9-line function into two functions that take up 4 (or 6 ig) lines total. i am not sure how to feel about this
 	{
-		for(JButton i: gridButton)
-		{
+		for (int i = 0; i < gridButton.length; i++) {
+			act1(gridButton, i);
+		}
+	}
+	/*
+		for context:
+		testFunc() {
+			for(int i = 0 to ex 9) {
+				addListener(e -> {clickButton(i);});
+			}
+		}
+		this wouldn't work since i needs to be "final". 
+		it would work if you pasted 8 more addListener's with incrementing i's, from 0 to ex 9.
+		and yet doing a hacky two function solution like this works
+		maybe because act1's int i param is considered final in the first place?
+	*/
+
+	public static void reset() {
+		for (JButton i : gridButton) {
 			i.setVisible(false);
 			i.setText("-");
-			
+
 		}
-		for(int i = 0; i < grid.grid.length;i++)
-		{
+		for (int i = 0; i < grid.grid.length; i++) {
 			grid.setCell(i, Integer.toString(i));
 		}
 		winner.setVisible(false);
 		turn.setVisible(false);
 		reset.setVisible(false);
-		
+
 		startX.setVisible(true);
 		startO.setVisible(true);
 		title.setVisible(true);
 	}
+
 	// BELOW ARE OBLIGATORY COPY AND PASTES FROM ttt.Game because they don't work if they are referenced from ttt.Game and i don't know why
-	public static String getWinner()
-	{
+	public static String getWinner() {
 		//tieCount = 0;
-		String pee = "";
-		for(int i = 0; i < 8; i++)
-		{	
-			switch(i)
-			{
-			case 0:
-				pee = grid.getCell(0) + grid.getCell(1) + grid.getCell(2);
-				break;
-			case 1:
-				pee = grid.getCell(3) + grid.getCell(4) + grid.getCell(5);
-				break;
-			case 2:
-				pee = grid.getCell(6) + grid.getCell(7) + grid.getCell(8);
-				break;
-			case 3:
-				pee = grid.getCell(0) + grid.getCell(3) + grid.getCell(6);
-				break;
-			case 4:
-				pee = grid.getCell(1) + grid.getCell(4) + grid.getCell(7);
-				break;
-			case 5:
-				pee = grid.getCell(2) + grid.getCell(5) + grid.getCell(8);
-				break;
-			case 6:
-				pee = grid.getCell(2) + grid.getCell(4) + grid.getCell(6);
-				break;
-			case 7:
-				pee = grid.getCell(0) + grid.getCell(4) + grid.getCell(8);
-				break;
+		String pee = ""; // *please* don't ask me why
+		for (int i = 0; i < 8; i++) {
+			switch (i) {
+				case 0:
+					pee = grid.getCell(0) + grid.getCell(1) + grid.getCell(2);
+					break;
+				case 1:
+					pee = grid.getCell(3) + grid.getCell(4) + grid.getCell(5);
+					break;
+				case 2:
+					pee = grid.getCell(6) + grid.getCell(7) + grid.getCell(8);
+					break;
+				case 3:
+					pee = grid.getCell(0) + grid.getCell(3) + grid.getCell(6);
+					break;
+				case 4:
+					pee = grid.getCell(1) + grid.getCell(4) + grid.getCell(7);
+					break;
+				case 5:
+					pee = grid.getCell(2) + grid.getCell(5) + grid.getCell(8);
+					break;
+				case 6:
+					pee = grid.getCell(2) + grid.getCell(4) + grid.getCell(6);
+					break;
+				case 7:
+					pee = grid.getCell(0) + grid.getCell(4) + grid.getCell(8);
+					break;
 			}
-			if(pee.equals("XXX"))
-			{
+			if (pee.equals("XXX")) {
 				return "X";
-			}
-			else if(pee.equals("OOO"))
-			{
+			} else if (pee.equals("OOO")) {
 				return "O";
+			} else if (containsIgnoreSequence(pee, "012345678")) {
 			}
-			else if(containsIgnoreSequence(pee,"012345678")){}
-			
-			
+
 		}
-		
-		if(tieCheck())
-		{
+
+		if (tieCheck()) {
 			return "TIE";
 		}
-		
+
 		return "false";
-		
-		
+
 	}
-	
-	public static boolean tieCheck()
-	{
+
+	public static boolean tieCheck() {
 		int tie = 0;
-		for(String i: grid.grid)
-		{
-			if(!(containsIgnoreSequence(i,"012345678")))
-			{
+		for (String i : grid.grid) {
+			if (!(containsIgnoreSequence(i, "012345678"))) {
 				tie++;
 			}
 		}
-		if(tie >= 9) {return true;}
-		else {return false;}
+		if (tie >= 9) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-	
-	public static boolean containsIgnoreSequence(String input, String ref, int charLimit, int lengthLimit)
-	{
+
+	public static boolean containsIgnoreSequence(String input, String ref, int charLimit, int lengthLimit) {
 		int result = 0;
 		char checkedInput;
 		char checkedRef;
-		for(int i = 0; i<input.length(); i++)
-		{
+		for (int i = 0; i < input.length(); i++) {
 			checkedInput = input.charAt(i);
-			for( int j = 0; j < ref.length(); j++)
-			{
+			for (int j = 0; j < ref.length(); j++) {
 				checkedRef = ref.charAt(j);
-				if(checkedInput == checkedRef)
-				{
+				if (checkedInput == checkedRef) {
 					result++;
 				}
 			}
 		}
-		
-		if(result <= charLimit && result != 0 && input.length() <= lengthLimit)
-		{
+
+		if (result <= charLimit && result != 0 && input.length() <= lengthLimit) {
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
-	
-	public static boolean containsIgnoreSequence(String input, String ref)
-	{
-		return containsIgnoreSequence(input,ref, Integer.MAX_VALUE, Integer.MAX_VALUE);
+
+	public static boolean containsIgnoreSequence(String input, String ref) {
+		return containsIgnoreSequence(input, ref, Integer.MAX_VALUE, Integer.MAX_VALUE);
 	}
 }
