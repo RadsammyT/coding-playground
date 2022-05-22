@@ -32,4 +32,4 @@ class Timer:
         elapsed = self._stop_time - self._start_time
         return  f"{elapsed:0.6f}"
     def getElapsedFloat(self):
-        return self._stop_time - self._start_time
+        return (self._stop_time - self._start_time)
