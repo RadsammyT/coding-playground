@@ -8,7 +8,7 @@ def run(len, repeatMax):
     :return: list of shuffled numbers
 
     randomizes the list from numbers 1 to len
-    if array doesn't repeat any numbers, it will randomize the list again
+    if array repeats any numbers, it will randomize the list again
 
     """
     list = []
