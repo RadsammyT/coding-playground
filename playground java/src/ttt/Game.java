@@ -12,7 +12,7 @@ public class Game {
 	static String checks2;
 	static String checksGrid;
 	static Grid grid = new Grid();
-	public static void beginGame() {
+	public static void run() {
 		System.out.println("i will tic tac your fucking toes");
 		System.out.println(grid);
 

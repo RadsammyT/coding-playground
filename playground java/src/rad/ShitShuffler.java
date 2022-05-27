@@ -59,7 +59,7 @@ public class ShitShuffler {
 	 * @throws InterruptedException as a just in case. usually i put this there
 	 *                              for TimeUnit sleep commands
 	 */
-	public static void runLoop(int length, long repeat) throws InterruptedException {
+	public static void runLoop(int length, long repeat) {
 		//System.out.println("Buffering..."); // this was for eclipse's wierd bug with terminal outputs
 		//TimeUnit.SECONDS.sleep(1);
 		bag = new int[length];
@@ -118,7 +118,7 @@ public class ShitShuffler {
 	 *                     every 1 million.
 	 * @throws InterruptedException
 	 */
-	public static void runLoop(int length, long repeat, boolean printMarkers) throws InterruptedException {
+	public static void runLoop(int length, long repeat, boolean printMarkers) {
 		markerSwitch = printMarkers;
 		runLoop(length, repeat);
 		markerSwitch = false; // as a just-in-case.
@@ -140,7 +140,7 @@ public class ShitShuffler {
 		return bag;
 	}
 
-	public static void run() throws InterruptedException {
+	public static void run() {
 		// input of length and repeat
 		Scanner sc = new Scanner(System.in);
 		System.out.print("How long should the bag be?     ");
