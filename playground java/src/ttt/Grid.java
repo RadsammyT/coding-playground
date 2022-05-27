@@ -2,7 +2,9 @@ package ttt;
 
 public class Grid extends Game{
 
-	public String[] grid = {"0","1","2","3","4","5","6","7","8",};
+	public String[] grid = { "0", "1", "2",
+							 "3", "4", "5",
+							 "6","7","8"};
 	
 	public String getCell(int i)
 	{
@@ -24,7 +26,7 @@ public class Grid extends Game{
 		String result = null;
 		for(String g: grid)
 		{
-			result = result + g;
+			result += g;
 		}
 		return result;
 	}

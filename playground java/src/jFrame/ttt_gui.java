@@ -225,6 +225,7 @@ public class ttt_gui {
 	}
 
 	// BELOW ARE OBLIGATORY COPY AND PASTES FROM ttt.Game because they don't work if they are referenced from ttt.Game and i don't know why
+	// TODO: make sure that imports work
 	public static String getWinner() {
 		//tieCount = 0;
 		String pee = ""; // *please* don't ask me why
@@ -281,9 +282,9 @@ public class ttt_gui {
 		}
 		if (tie >= 9) {
 			return true;
-		} else {
-			return false;
 		}
+		return false;
+		
 	}
 
 	public static boolean containsIgnoreSequence(String input, String ref, int charLimit, int lengthLimit) {
