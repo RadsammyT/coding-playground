@@ -140,7 +140,7 @@ public class ShitShuffler {
 		return bag;
 	}
 
-	public static void run() {
+	public static Runnable run() {
 		// input of length and repeat
 		Scanner sc = new Scanner(System.in);
 		System.out.print("How long should the bag be?     ");
@@ -151,6 +151,7 @@ public class ShitShuffler {
 
 		sc.close();
 		runLoop(len, rep, true);
+		return null;
 
 	}
 

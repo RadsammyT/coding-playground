@@ -34,7 +34,7 @@ public class ttt_gui {
 	static final String TURN_X = "X";
 	static final String TURN_O = "O";
 
-	public static void init() {
+	public static Runnable init() {
 		//JButton[] gridButton = {zerozero, zeroone, zerotwo, onezero,oneone,onetwo,twozero,twoone,twotwo};
 		/* button layout
 		 * 
@@ -91,6 +91,7 @@ public class ttt_gui {
 			frame.add(i);
 			i.setVisible(true); // just in case 
 		}
+		return null;
 	}
 
 	public static void begin(String startingTurn) {
@@ -310,5 +311,9 @@ public class ttt_gui {
 
 	public static boolean containsIgnoreSequence(String input, String ref) {
 		return containsIgnoreSequence(input, ref, Integer.MAX_VALUE, Integer.MAX_VALUE);
+	}
+
+	public static Runnable run() {
+		return init();
 	}
 }

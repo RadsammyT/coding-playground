@@ -12,7 +12,7 @@ public class Game {
 	static String checks2;
 	static String checksGrid;
 	static Grid grid = new Grid();
-	public static void run() {
+	public static Runnable run() {
 		System.out.println("i will tic tac your fucking toes");
 		System.out.println(grid);
 
@@ -43,6 +43,7 @@ public class Game {
 			System.out.println(getWinner() + " won");
 		}
 		System.out.println(grid);
+		return null;
 
 	}
 

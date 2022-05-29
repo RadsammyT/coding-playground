@@ -6,7 +6,8 @@ import javax.swing.*;
 import jFrame.ttt_gui;
 public class Main {
 
-	public static void main(String args[]) throws InterruptedException, NegativeNumberException {
+	public static void main(String args[]) throws InterruptedException, NegativeNumberException, Select {
+		//Select.run();
 		
 	}
 }
