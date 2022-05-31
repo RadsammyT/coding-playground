@@ -52,8 +52,8 @@ bool isUnique(vector<int> v)
 int main()
 {
 
-    int length;
-    int max;
+    int length = 0;
+    int max = 0;
     while(length < 1){
         printf("length?: ");
          cin >> length;
@@ -81,6 +81,7 @@ int main()
     
     srand(time(NULL));
     std::vector<int> v;
+    int failMark = 5000;
     while(repeat <= max - 1)
     {
         v.clear();
@@ -92,7 +93,11 @@ int main()
             repeat++;
         } else{ 
             fail++;
-            printf("fail %d \r", fail);
+            if(fail >= failMark) {
+                failMark = failMark + 5000;
+                printf("fail: %d\r", fail);
+            }
+            
         }
 
 	
