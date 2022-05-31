@@ -1,109 +1,101 @@
-#include <random>
 #include <iostream>
-#include <cstring>
+#include <stdio.h>
 #include <vector>
 
-/**
- * @brief 
- * 
- */
+using namespace std;
 
-void printArray();
-void randomizeArray();
-void printArray(int arrIn[])
-{
+void printVector(vector < int > v);
+void randomizeVector(vector < int > & v);
+bool isUnique(vector < int > v);
+
+void printVector(vector < int > v) {
     // print array
-    for (int i = 0; i < sizeof(arrIn) / sizeof(arrIn[0]); ++i)
-    {
-        std::cout << arrIn[i] << " ";
+    for (int i = 0; i < v.size(); ++i) {
+        std::cout << v[i] << " ";
     }
-    printf("\n");
+    return;
+}
+void randomizeVector(vector < int > & v) {
+    //srand(time(NULL));
+
+    for (int i = 0; i < v.size(); i++) {
+        v[i] = rand() % (v.size()) + 1;
+    }
+
     return;
 }
 
-void randomizeArray(int arrIn[])
-{
+bool isUnique(vector < int > v) {
+    for (int i = 0; i < v.size(); i++) {
+        for (int j = i + 1; j < v.size(); j++) {
+            if (v[i] == v[j] && i != j) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+/**
+ * @brief test
+ * 
+ * @return int 
+ */
+int main() {
+
+    int length = 0;
+    int max = 0;
+    while (length < 1) {
+        printf("length?: ");
+        cin >> length;
+    }
+    while (max < 1) {
+        printf("max?: ");
+        cin >> max;
+    }
+    int repeat = 0;
+    int fail = 0;
+    //vector methods : what they do
+    //push_back : add an element to the end of the vector
+    //pop_back : remove the last element of the vector
+    //reserve : reserve a certain amount of space for the vector
+    //resize : resize the vector to a certain size
+    //clear : clear the vector along with all its elements
+    //size : return the size of the vector
+    //at : return the element at a certain index
+    //front : return the first element of the vector
+    //back : return the last element of the vector
+    //insert : insert an element at a certain index
+    //erase : erase an element at a certain index
+    //swap : swap two elements at a certain index
+
+
     srand(time(NULL));
+    std::vector < int > v;
+    int failMark = 0;
+    int failStep = 5000;
+    std::string test = "WOOHOO";
+    printf("%s", test);
+    while (repeat <= max - 1) {
+        v.clear();
+        v.resize(length);
+        randomizeVector(v);
+        if (isUnique(v)) {
+            printVector(v);
+            printf(" : %d \n", fail);
+            repeat++;
+        } else {
+            fail++;
+            if (fail >= failMark) {
+                failMark = failMark + failStep;
+                printf("fail: %d\r", fail);
+            }
 
-    for (int i = 0; i < sizeof(arrIn) / sizeof(arrIn[0]); i++)
-    {
-        arrIn[i] = rand() % (sizeof(arrIn) / sizeof(arrIn[0])) + 1;
-    }
-
-    return;
-}
-
-// checks if the int array has no duplicate numbers
-bool isUnique(int arrIn[])
-{
-   /* 
-   int target = sizeof(arr) / sizeof(arr[0]);
-    short int count = 0;
-    for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); i++)
-    {
-        if(arr[i] == target)
-        {
-            count++;
         }
 
-    }
-
-    if(count == 1 )
-    {
-        return true;
-    }
-    
-
-    return false;
-    */
-
-   for (int i; i < sizeof(arrIn) / sizeof(arrIn[0]); i++)
-   {
-         for (int j; j < sizeof(arrIn) / sizeof(arrIn[0]); j++)
-         {
-              if(i != j)
-              {
-                if(arrIn[i] == arrIn[j])
-                {
-                     return false;
-                }
-              }
-         }
-   }
-
-       return true;
-}
-
-
-
-int main()
-{
-
-    srand(time(NULL));
-
-    int max, length;
-    std::cout << "Enter the max number: ";
-    std::cin >> max;
-
-    std::cout << "Enter the length of the array: ";
-    std::cin >> length;
-
-    int arr[length];
-
-    for(int i = 0; i < length; i++)
-    {
-        arr[i] = rand() % max + 1;
-    }
-
-    while(!isUnique(arr))
-    {
-        randomizeArray(arr);
 
     }
-    for(int i = 0; i < length; i++)
-    {
-        std::cout << arr[i] << " ";
-    }
 
 
+    return 0;
 }
