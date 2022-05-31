@@ -10,31 +10,39 @@ public class Select extends Exception {
     }
 
     public static Runnable run() throws Select {
-        // HashMap<Integer, Runnable> h = new HashMap<>();
-        // h.put(1, ttt_gui.run());
-        // Scanner sc = new Scanner(System.in);
-        
-        // h.get(sc.nextInt());
-        // sc.close();
+        HashMap<Integer, Runnable> map = new HashMap<Integer, Runnable>();
+        map.put(1, new Runnable() {
+            public void run() {
+                rad.ShitShuffler.run();
+            }
+        });
+        map.put(2, new Runnable() {
+            public void run() {
+                ttt.Game.run();
+            }
+        });
+        map.put(3, new Runnable() {
+            public void run() {
+                ttt_gui.init();
+            }
+        });
+
         Scanner sc = new Scanner(System.in);
         
-        System.out.println("0: ttt_gui \n" +
-                            "1: ttt CLI \n" +
-                            "2: ShitShuffler");
+        System.out.println("1: shitshuffler \n" +
+                            "2: tic-tac-toe \n" +
+                            "3: tic-tac-toe gui");
 
-        int selection = sc.nextInt();
 
-        switch (selection) {
-            case 0:
-                return ttt_gui.run();
-            case 1:
-                return ttt.Game.run();
-            case 2:
-                return rad.ShitShuffler.run();
-        
-            default:
-                throw new Select("invalid selection");
+        try{
+            map.get(sc.nextInt()).run();
+        } catch (Exception e) {
+            System.out.println("INVALID:" + e.getLocalizedMessage());
         }
+        sc.close();
+
+        return null;
+
         
     }
 
