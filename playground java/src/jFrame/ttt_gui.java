@@ -34,7 +34,7 @@ public class ttt_gui {
 	static final String TURN_X = "X";
 	static final String TURN_O = "O";
 
-	public static Runnable init() {
+	public static void init() {
 		//JButton[] gridButton = {zerozero, zeroone, zerotwo, onezero,oneone,onetwo,twozero,twoone,twotwo};
 		/* button layout
 		 * 
@@ -91,7 +91,6 @@ public class ttt_gui {
 			frame.add(i);
 			i.setVisible(true); // just in case 
 		}
-		return null;
 	}
 
 	public static void begin(String startingTurn) {
@@ -314,6 +313,7 @@ public class ttt_gui {
 	}
 
 	public static Runnable run() {
-		return init();
+		init();
+		return null;
 	}
 }
