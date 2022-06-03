@@ -1,15 +1,12 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
-
+#include "test.h"
 
 
 int main() {
-    int i = 0;
-    while(i != INT32_MAX) {
-        i++;
-    }
-    printf("INT32_MAX reached: %d", i);
-    return 0;
+    rad::testClass t;
+    t.setT(43);
+    t.getT();
 }
 
