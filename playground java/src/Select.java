@@ -1,8 +1,5 @@
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
-import jFrame.ttt_gui;
 
 public class Select extends Exception {
     public Select(String err) {
@@ -23,7 +20,12 @@ public class Select extends Exception {
         });
         map.put(3, new Runnable() {
             public void run() {
-                ttt_gui.init();
+                jFrame.ttt_gui.run();
+            }
+        });
+        map.put(4, new Runnable() {
+            public void run() {
+                System.out.println("placeholder");
             }
         });
 
@@ -31,7 +33,8 @@ public class Select extends Exception {
         
         System.out.println("1: shitshuffler \n" +
                             "2: tic-tac-toe \n" +
-                            "3: tic-tac-toe gui");
+                            "3: tic-tac-toe gui \n" +
+                            "4: placeholder \n");
 
 
         try {

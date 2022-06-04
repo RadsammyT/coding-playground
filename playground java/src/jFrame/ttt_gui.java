@@ -210,11 +210,12 @@ public class ttt_gui {
 		for (JButton i : gridButton) {
 			i.setVisible(false);
 			i.setText("-");
-
 		}
+
 		for (int i = 0; i < grid.grid.length; i++) {
 			grid.setCell(i, Integer.toString(i));
 		}
+
 		winner.setVisible(false);
 		turn.setVisible(false);
 		reset.setVisible(false);
