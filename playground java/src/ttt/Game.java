@@ -1,4 +1,6 @@
 package ttt;
+import java.io.IOException;
+
 import rad.InputUtils;
 //import java.util.Random;
 
@@ -24,23 +26,23 @@ public class Game {
 		while (true) {
 			System.out.println(grid);
 			grid.setCell(PlayerOInput(), "O");
-			if (!getWinner().equals("false")) {
+			if (!getWinner(grid).equals("false")) {
 				break;
 			}
 			System.out.println("-------------------");
 			System.out.println(grid);
 			grid.setCell(PlayerXInput(), "X");
-			if (!getWinner().equals("false")) {
+			if (!getWinner(grid).equals("false")) {
 				break;
 			}
 			System.out.println("-------------------");
 
 		}
 
-		if (getWinner().equals("TIE")) {
+		if (getWinner(grid).equals("TIE")) {
 			System.out.println("Tie");
 		} else {
-			System.out.println(getWinner() + " won");
+			System.out.println(getWinner(grid) + " won");
 		}
 		System.out.println(grid);
 		
@@ -132,7 +134,7 @@ public class Game {
 	 *  based on presets, determines the winner
 	 *  of the current game	 
 	 */
-	public static String getWinner() {
+	public static String getWinner(Grid grid) {
 		//tieCount = 0;
 		String pee = "";
 		for (int i = 0; i < 8; i++) {
@@ -190,7 +192,7 @@ public class Game {
 			 */
 		}
 
-		if (tieCheck()) {
+		if (tieCheck(grid)) {
 			return "TIE";
 		}
 
@@ -251,10 +253,10 @@ public class Game {
 		} catch (Exception e) {
 			return false;
 		}
-		return (Boolean) null;
+		return new IOException("choiceCheck failed").getClass().getName().equals("java.lang.IllegalArgumentException");
 	}
 
-	public static boolean tieCheck() {
+	public static boolean tieCheck(Grid grid) {
 		int tie = 0;
 		for (String i: grid.grid) {
 			if (!(containsIgnoreSequence(i, "012345678"))) {
@@ -263,9 +265,9 @@ public class Game {
 		}
 		if (tie >= 9) {
 			return true;
-		} else {
-			return false;
 		}
+		return false;
+		
 	}
 	
 	public static Runnable run() {

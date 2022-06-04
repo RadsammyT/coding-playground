@@ -153,7 +153,7 @@ public class ttt_gui {
 			else if(CURRENT_TURN.equals(TURN_O)) {CURRENT_TURN = TURN_X;}
 			turn.setText("turn: "+CURRENT_TURN);
 			*/
-			if (getWinner().equals("false")) {
+			if (Game.getWinner(grid).equals("false")) {
 				gridButton[i].setText(CURRENT_TURN);
 				grid.setCell(i, CURRENT_TURN);
 				//System.out.println(grid.toString());
@@ -166,13 +166,13 @@ public class ttt_gui {
 
 				turn.setText("turn: " + CURRENT_TURN);
 			}
-			if (!getWinner().equals("false")) {
+			if (!Game.getWinner(grid).equals("false")) {
 				winner.setBounds(480, 150, 100, 100);
-				if (getWinner().equals("TIE")) {
+				if (Game.getWinner(grid).equals("TIE")) {
 					//System.out.println("WIN");
-					winner.setText(getWinner());
+					winner.setText(Game.getWinner(grid));
 				} else {
-					winner.setText(getWinner() + " WINS.");
+					winner.setText(Game.getWinner(grid) + " WINS.");
 				}
 
 				winner.setVisible(true);
@@ -224,94 +224,10 @@ public class ttt_gui {
 		title.setVisible(true);
 	}
 
-	// BELOW ARE OBLIGATORY COPY AND PASTES FROM ttt.Game because they don't work if they are referenced from ttt.Game and i don't know why
-	// TODO: make sure that imports work
-	public static String getWinner() {
-		//tieCount = 0;
-		String pee = ""; // *please* don't ask me why
-		for (int i = 0; i < 8; i++) {
-			switch (i) {
-				case 0:
-					pee = grid.getCell(0) + grid.getCell(1) + grid.getCell(2);
-					break;
-				case 1:
-					pee = grid.getCell(3) + grid.getCell(4) + grid.getCell(5);
-					break;
-				case 2:
-					pee = grid.getCell(6) + grid.getCell(7) + grid.getCell(8);
-					break;
-				case 3:
-					pee = grid.getCell(0) + grid.getCell(3) + grid.getCell(6);
-					break;
-				case 4:
-					pee = grid.getCell(1) + grid.getCell(4) + grid.getCell(7);
-					break;
-				case 5:
-					pee = grid.getCell(2) + grid.getCell(5) + grid.getCell(8);
-					break;
-				case 6:
-					pee = grid.getCell(2) + grid.getCell(4) + grid.getCell(6);
-					break;
-				case 7:
-					pee = grid.getCell(0) + grid.getCell(4) + grid.getCell(8);
-					break;
-			}
-			if (pee.equals("XXX")) {
-				return "X";
-			} else if (pee.equals("OOO")) {
-				return "O";
-			} else if (containsIgnoreSequence(pee, "012345678")) {
-			}
-
-		}
-
-		if (tieCheck()) {
-			return "TIE";
-		}
-
-		return "false";
-
-	}
-
-	public static boolean tieCheck() {
-		int tie = 0;
-		for (String i : grid.grid) {
-			if (!(containsIgnoreSequence(i, "012345678"))) {
-				tie++;
-			}
-		}
-		if (tie >= 9) {
-			return true;
-		}
-		return false;
-		
-	}
-
-	public static boolean containsIgnoreSequence(String input, String ref, int charLimit, int lengthLimit) {
-		int result = 0;
-		char checkedInput;
-		char checkedRef;
-		for (int i = 0; i < input.length(); i++) {
-			checkedInput = input.charAt(i);
-			for (int j = 0; j < ref.length(); j++) {
-				checkedRef = ref.charAt(j);
-				if (checkedInput == checkedRef) {
-					result++;
-				}
-			}
-		}
-
-		if (result <= charLimit && result != 0 && input.length() <= lengthLimit) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public static boolean containsIgnoreSequence(String input, String ref) {
-		return containsIgnoreSequence(input, ref, Integer.MAX_VALUE, Integer.MAX_VALUE);
-	}
-
+	// copy pasted functions from ttt.Game *were* here to make the game work.
+	// apparently the imported functions might have referenced a STATIC grid in ttt.Game, which would overshadow ttt_gui's grid, i think.
+	// the fix for this would be to add a grid param to the imported functions so that the proper grid would be referenced correctly.
+	
 	public static Runnable run() {
 		init();
 		return null;

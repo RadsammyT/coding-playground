@@ -34,7 +34,7 @@ public class Select extends Exception {
                             "3: tic-tac-toe gui");
 
 
-        try{
+        try {
             map.get(sc.nextInt()).run();
         } catch (Exception e) {
             System.out.println("INVALID:" + e.getLocalizedMessage());
