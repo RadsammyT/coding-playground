@@ -1,10 +1,11 @@
-from time import sleep
 from rad.collatz import *
+from time import sleep
 from rad.timerClass import *
 import PySimpleGUI as pg
 import rad.ShitShuffler
 import itertools as it
 from rad.textbox import *
+import os
 
 def MainOne():
     t = Timer()
@@ -36,25 +37,19 @@ def MainThree():
         elif event == pg.WIN_CLOSED:
             break
 
-        
-
-    
-
-    #pg.Window('Test', lay, margins=(100,100)).read()
 def MainFour():
     for i in it.permutations(range(10)):
         print(i)
 
-
-
+def MainFive():
+    os.system("echo test")
 
 dict = {'1': MainOne,
      '2': MainTwo,
      '3': MainThree, 
-     '4': MainFour
+     '4': MainFour,
+     '5': MainFive
      }
 
 inp = input("Main_: ")
 dict[inp]()
-
-
