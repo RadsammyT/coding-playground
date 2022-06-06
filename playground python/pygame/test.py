@@ -22,13 +22,13 @@ while run:
             sys.exit()
         # move image if key is pressed, must be continuous
         if event.type == pg.KEYDOWN:
-            if event.key == pg.K_LEFT:
+            if event.key == pg.K_a:
                 imgX -= 10
-            if event.key == pg.K_RIGHT:
+            if event.key == pg.K_d:
                 imgX += 10
-            if event.key == pg.K_UP:
+            if event.key == pg.K_w:
                 imgY -= 10
-            if event.key == pg.K_DOWN:
+            if event.key == pg.K_s:
                 imgY += 10
             
 
@@ -38,6 +38,6 @@ while run:
                 
     pg.display.flip()
 pg.quit()
-sys.exit()
+print(sys.exit())
 
 

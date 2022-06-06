@@ -7,6 +7,6 @@
 int main() {
     rad::testClass t;
     t.setT(43);
-    t.getT();
+    printf("%d\n", t.getT());
 }
 

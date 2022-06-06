@@ -51,7 +51,7 @@ public class Collatz {
 				}
 			}
 			if ( in < 0) {
-				throw new NegativeNumberException("Number is negative. Are you using an extremely large as f*ck input?");
+				throw new NegativeNumberException("Number is negative due to overflow via 3x+1"); 
 				//return -3;
 
 			}

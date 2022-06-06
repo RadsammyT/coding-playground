@@ -114,17 +114,13 @@ public class ttt_gui {
 
 		for (int i = 0; i < gridButton.length; i++) {
 
-			if (i < 3) {
+			if (i < 3) 
 				gridButton[i].setBounds(i * 150, 10, 150, 150);
-			}
-
-			else if (i < 6) {
+			else if (i < 6) 
 				gridButton[i].setBounds((i - 3) * 150, (10 + 150), 150, 150);
-			}
-
-			else if (i < 9) {
+			else if (i < 9) 
 				gridButton[i].setBounds((i - 6) * 150, (10 + 300), 150, 150);
-			}
+			
 
 			//			gridButton[i].addActionListener(e->{
 			//				clickButton(startXV);
