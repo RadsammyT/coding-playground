@@ -58,20 +58,22 @@ int main() {
     //vector methods : what they do
     //push_back : add an element to the end of the vector
     //pop_back : remove the last element of the vector
-    //reserve : reserve a certain amount of space for the vector
-    //resize : resize the vector to a certain size
+    //reserve : reserve specified amount of space for the vector
+    //resize : resize the vector to specified size
     //clear : clear the vector along with all its elements
     //size : return the size of the vector
-    //at : return the element at a certain index
+    //at : return the element at specified index
     //front : return the first element of the vector
     //back : return the last element of the vector
-    //insert : insert an element at a certain index
-    //erase : erase an element at a certain index
-    //swap : swap two elements at a certain index
-
+    //insert : insert an element at specified index
+    //erase : erase an element at specified index
+    //swap : swap two elements at specified index
+    // brought to you by github copilot
+    
 
     srand(time(NULL));
     std::vector < int > v;
+    
     int failMark = 0;
     int failStep = 5000;
     std::string test = "WOOHOO";
