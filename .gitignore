@@ -1,5 +1,7 @@
 
-playground c++/executables
+playground c++/executables/*
+!playground c++/executables/
+!playground c++/executables/Dummy.txt
 .vscode/*
 playground python/rad/__pycache__/*
 playground python/rad/build/*
