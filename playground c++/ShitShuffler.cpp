@@ -76,8 +76,6 @@ int main() {
     
     int failMark = 0;
     int failStep = 5000;
-    std::string test = "WOOHOO";
-    printf("%s", test);
     while (repeat <= max - 1) {
         v.clear();
         v.resize(length);

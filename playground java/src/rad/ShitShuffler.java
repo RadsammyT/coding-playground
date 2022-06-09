@@ -1,14 +1,9 @@
 //import shit, don't mind this garbage
 package rad;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import ttt.Game;
-import rad.Timer;
-import java.lang.Math;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -89,10 +84,7 @@ public class ShitShuffler {
 					+ " : TIME > " + time.getElapseDouble());
 			// BAG : FR > 0 : SR > 1 : TIME > 0.0
 			System.out.println(failedRolls / ((double) time.getElapse() / 1000) + " failed rolls per second");
-			// 0.0 failed rolls per second
 
-			//if failedRolls is Infinity, do not add to the list
-			
 			failedRollSum += failedRolls;			
 
 			failedRolls = 0;

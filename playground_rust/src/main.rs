@@ -1,17 +1,22 @@
+// use std::time::SystemTime;
+use std::*;
 mod test;
-use std::time::{SystemTime, UNIX_EPOCH};
+// use std::time::*;
+// use ran::*;
 
-use ran::*;
 fn main() {
-    // seed number generator using system time in nanoseconds
-    let seed = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().subsec_nanos();
-    
-    println!("{}", add());
-    println!("{}", test::test(1));
-    // generate a random number from src
-    println!("{:?}", generators::ranvvu8(1,1));
-    
 
+println!("{}", std::i128::MAX);
+let mut test:i128 = 1;
+let mut step_mark:i128 = 0;
+while test != std::i128::MAX{
+    test *= 2;
+    if test >= step_mark{
+        println!("{}",test);
+        step_mark += 1000000000;
+    }
+}
+add();
 }
 
 // return int function
