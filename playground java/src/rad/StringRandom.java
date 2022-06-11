@@ -5,7 +5,7 @@ import java.util.Random;
 public class StringRandom {
     public static String run(String in) {
         Random r = new Random();
-        r.setSeed(System.currentTimeMillis());
+        r.setSeed(System.nanoTime());
         return run(in, r);
     }
     
@@ -16,7 +16,8 @@ public class StringRandom {
 		begin = r.nextInt(in.length());
         return in.substring(
                 begin,
-                r.nextInt(begin, in.length() + 1)
+                r.nextInt(begin,
+                                in.length() + 1)
             );
     }
 }

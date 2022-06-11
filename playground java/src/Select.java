@@ -25,16 +25,16 @@ public class Select extends Exception {
         });
         map.put(4, new Runnable() {
             public void run() {
-                System.out.println("placeholder");
+                ttt.revamp.Game.begin();
             }
         });
 
         Scanner sc = new Scanner(System.in);
         
         System.out.println("1: shitshuffler \n" +
-                            "2: tic-tac-toe \n" +
-                            "3: tic-tac-toe gui \n" +
-                            "4: placeholder \n");
+                            "2: tic-tac-toe old \n" +
+                            "3: tic-tac-toe old gui \n" +
+                            "4: tic-tac-toe revamp \n");
 
 
         try {

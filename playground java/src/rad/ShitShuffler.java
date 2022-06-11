@@ -227,6 +227,7 @@ public class ShitShuffler {
 	 *         characters in the board.
 	 * @return if all characters are unique, and no matching ones are encountered in
 	 *         this method
+	 * I'm keeping this function here since 
 	 */
 	public static boolean arrayIsUniqueDEPRECIATED() {
 		String input = arrayToString();

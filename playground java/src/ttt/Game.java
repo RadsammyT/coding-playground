@@ -15,7 +15,7 @@ public class Game {
 	static String checksGrid;
 	static Grid grid = new Grid();
 	public static void beginGame() {
-		System.out.println("i will tic tac your fucking toes");
+		System.out.println("i will tic tac your f***ing toes");
 		System.out.println(grid);
 
 		if (InputUtils.readBool("Should X go first? true/false: ")) {
@@ -258,8 +258,11 @@ public class Game {
 
 	public static boolean tieCheck(Grid grid) {
 		int tie = 0;
-		for (String i: grid.grid) {
-			if (!(containsIgnoreSequence(i, "012345678"))) {
+		for (String i : grid.grid) {
+			// if (!(containsIgnoreSequence(i, "012345678"))) {
+			// 	tie++;
+			// }
+			if(i.equals("X") || i.equals("O")) {
 				tie++;
 			}
 		}

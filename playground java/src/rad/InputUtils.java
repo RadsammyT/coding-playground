@@ -3,7 +3,9 @@ import java.util.Scanner;
 
 /**
  * @author RadsammyT
- * This class is used to get user input.
+ * This class is used to get user input from the console.
+ * You may ask why I couldn't have just use the scanner in all .java files where input is needed,
+ * but to me its more easier/convenient to use this class.
  * If the scanner throws an error, it will be caught and the user will be prompted to try again.
  * 
  */
@@ -61,6 +63,15 @@ public class InputUtils {
 		}
 	}
 
+	/**
+	 * TODO: redo readBool so that any non-boolean input will be caught and the user will be prompted to try again.
+	 * Boolean.parseBoolean(input) will return false for any non-boolean input.
+	 * This is literally their implementation, I shit you not:
+	 * "true".equalsIgnoreCase(input);
+	 * end implementation. holy fucking shit.
+	 * 
+	 */
+
 	public static boolean readBool(String input) {
 		while (true) {
 			try {
@@ -68,10 +79,13 @@ public class InputUtils {
 				String i = sc.nextLine();
 				return Boolean.parseBoolean(i);
 			} catch (Exception e) {
-				continue;
+				System.out.println(e.getLocalizedMessage());
+				
+				sc.nextLine();
 			}
 		}
 	}
 
+	
 
 }

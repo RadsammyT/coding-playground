@@ -183,23 +183,20 @@ public class ttt_gui {
 		});
 	}
 
-	public static void act2() // turning a 9-line function into two functions that take up 4 (or 6 ig) lines total. i am not sure how to feel about this
-	{
-		for (int i = 0; i < gridButton.length; i++) {
-			act1(gridButton, i);
-		}
+	public static void act2() { // turning a 9-line function into two functions that take up 4 (or 6 ig) lines total. i am not sure how to feel about this
+		for (int i = 0; i < gridButton.length; i++) act1(gridButton, i);
 	}
 	/*
 		for context:
 		testFunc() {
-			for(int i = 0 to ex 9) {
+			for(int i = 0 to excl 9) {
 				addListener(e -> {clickButton(i);});
 			}
 		}
 		this wouldn't work since i needs to be "final". 
 		it would work if you pasted 8 more addListener's with incrementing i's, from 0 to ex 9.
 		and yet doing a hacky two function solution like this works
-		maybe because act1's int i param is considered final in the first place?
+		maybe because act1's int i param is considered final in the first place unless mutated?
 	*/
 
 	public static void reset() {
@@ -209,7 +206,7 @@ public class ttt_gui {
 		}
 
 		for (int i = 0; i < grid.grid.length; i++) {
-			grid.setCell(i, Integer.toString(i));
+			grid.setCell(i, "-");
 		}
 
 		winner.setVisible(false);
