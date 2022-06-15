@@ -90,12 +90,7 @@ int main() {
                 failMark = failMark + failStep;
                 printf("fail: %d\r", fail);
             }
-
         }
-
-
     }
-
-
     return 0;
 }

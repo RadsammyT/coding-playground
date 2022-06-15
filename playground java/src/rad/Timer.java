@@ -4,7 +4,7 @@ package rad;
  * 
  * @author RadsammyT
  * @note not actually a timer
- * just gets system time in each method, so its
+ * just gets system time in each function, so its
  * not actually 'ticking' while program is running
  * which now that I think of it its kinda efficient.
  */

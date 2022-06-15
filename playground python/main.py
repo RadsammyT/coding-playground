@@ -38,18 +38,16 @@ def MainThree():
             break
 
 def MainFour():
-    for i in it.permutations(range(10)):
+    for i in it.permutations(range(2)):
         print(i)
 
 def MainFive():
     os.system("echo test")
 
-dict = {'1': MainOne,
-     '2': MainTwo,
-     '3': MainThree, 
-     '4': MainFour,
-     '5': MainFive
-     }
+dict = [MainOne, MainTwo, MainThree, MainFour, MainFive]
+for i,j in enumerate(dict):
+    print(str(i) + " " + str(j.__name__))
+    
 
 inp = input("Main_: ")
-dict[inp]()
+dict[int(inp)]()

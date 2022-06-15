@@ -1,24 +1,28 @@
-struct timer {
-    start: u64,
-    end: u64,
+use std::time::SystemTime;
+
+
+pub(crate) struct timer {
+    pub(crate) start: f64,
+    pub(crate) end: f64,
 }
 
-fn startTimer(timer: &mut timer) {
-    timer.start = SystemTime::now().elapsed().unwrap().as_millis();
+pub(crate) fn start_timer(timer: &mut timer) {
+    timer.start = SystemTime::now().elapsed().unwrap().as_secs_f64();
 }
 
-fn endTimer(timer: &mut timer) {
-    timer.end = SystemTime::now().elapsed().unwrap().as_millis();
+pub(crate)  fn end_timer(timer: &mut timer) {
+    timer.end = SystemTime::now().elapsed().unwrap().as_secs_f64();
 }
 
-fn getElapsed(timer: &mut timer) -> u64 {
-    return timer.end - timer.start;
+pub(crate)  fn get_elapsed(timer: &mut timer) -> f64 {
+    return timer.start - timer.end;
+    // timer.start - timer.end
 }
 
-fn main() {
+pub(crate)  fn main() {
     let mut timer = timer {
-        start: 0,
-        end: 0,
+        start: 0.0,
+        end: 0.0,
     };
     
 }

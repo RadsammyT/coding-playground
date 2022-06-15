@@ -5,7 +5,7 @@ import java.io.PrintStream;
 public class Game {
     public static void begin() {
         PrintStream ps = System.out;
-        ps.println("inputs for the grid are 1-based, not 0-based. 1,1 is the top left corner.");        
+        ps.println("inputs for the grid are 1-based, not 0-based. \n coordinates are handled as if they are placed in the 4th quadrant of a coordinate plane. \n");        
         Grid grid = new Grid(rad.InputUtils.readInt("input size of grid (squared) : "));
         // System.out.println(grid.getSize());
         // System.out.println(checkWinner(grid));
@@ -14,9 +14,6 @@ public class Game {
         // System.out.println(checkDiag(grid, true));
         // System.out.println(checkDiag(grid, false));
         // System.out.println(grid.toString());
-        rad.InputUtils.readBool(
-            "" // This is here because xFirst's readBool would be skipped after grid's readInt, so I need to put something here.
-        );
         
         ps.println(grid.toString());
 
