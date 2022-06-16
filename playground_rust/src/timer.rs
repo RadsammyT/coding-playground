@@ -15,10 +15,10 @@ pub(crate)  fn end_timer(timer: &mut timer) {
 }
 
 pub(crate)  fn get_elapsed(timer: &mut timer) -> f64 {
-    return timer.start - timer.end;
+    return timer.end - timer.start;
     // timer.start - timer.end
 }
-
+/* 
 pub(crate)  fn main() {
     let mut timer = timer {
         start: 0.0,
@@ -26,3 +26,4 @@ pub(crate)  fn main() {
     };
     
 }
+*/

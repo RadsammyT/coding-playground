@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
-
+#include "test.h"
 using namespace std;
 
 void printVector(vector < int > v);
@@ -76,6 +76,8 @@ int main() {
     
     int failMark = 0;
     int failStep = 5000;
+    rad::Timer t;
+    t.startTimer();
     while (repeat <= max - 1) {
         v.clear();
         v.resize(length);
@@ -92,5 +94,7 @@ int main() {
             }
         }
     }
+    t.endTimer();
+    t.printTime();
     return 0;
 }

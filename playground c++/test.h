@@ -1,35 +1,34 @@
+#include <time.h>
 
 namespace rad {
 
-    int test() {
-        printf("test");
-        return 0;
-    }
-
-    namespace wtf { // nested namespaces. oh the humanity
-        int what() {
-            printf("wtf");
-            return 0;
-        }
-    }
-
-    class testClass {
-        int t = 0;
+    class Timer {
+        clock_t timer = -1;
 
         public:
-            int test(){
-                printf("testClass");
-                return 0;
+            Timer(){
+                
             }
 
-            int getT() {
-                return t;
+
+            void startTimer()
+            {
+                this->timer = clock();
             }
-            int setT(int in) {
-                this->t = in;
-                return 0;
+
+            void endTimer() {
+                if(this->timer != -1) {
+                    this->timer = clock() - this->timer;
+                } else {
+                    printf("Timer not started\n");
+                }
+            }
+
+            float getTime() {
+                return (float) this->timer/1000;
+            }
+            void printTime() {
+                printf("%.3f", getTime());
             }
     };
-    
-
 }
