@@ -1,5 +1,5 @@
 #include <time.h>
-
+// clock can only get time in thousands
 namespace rad {
 
     class Timer {
@@ -25,10 +25,13 @@ namespace rad {
             }
 
             float getTime() {
-                return (float) this->timer/1000;
+                return (float) this->timer/CLOCKS_PER_SEC;
             }
-            void printTime() {
-                printf("%.3f", getTime());
+            void printTime(bool newLine = true) {
+                if(newLine)
+                    printf("%.3f\n", this->getTime());
+                else
+                    printf("%.3f", this->getTime());
             }
     };
 }

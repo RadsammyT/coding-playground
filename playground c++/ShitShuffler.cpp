@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
-#include "test.h"
+#include "timer.h"
 using namespace std;
 
 void printVector(vector < int > v);
