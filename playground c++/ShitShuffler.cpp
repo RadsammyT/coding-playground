@@ -73,18 +73,48 @@ int main() {
 
     srand(time(NULL));
     std::vector < int > v;
-    
+    std::vector<float> vt;
+
     int failMark = 0;
     int failStep = 5000;
-    rad::Timer t;
-    t.startTimer();
+    rad::Timer per;
+    
+    // while (repeat <= max - 1) {
+        
+    //     per.startTimer();
+    //     while(!isUnique(v)) {
+    //         randomizeVector(v);
+    //         if(isUnique(v)) {
+    //             per.endTimer();
+    //             printVector(v);
+    //             printf("%.3f \n", per.getTime());
+    //             repeat++;
+
+    //             break;
+    //         } else {
+    //             fail++;
+    //             if(fail >= failStep) {
+    //                 failMark += failStep;
+    //                 fail = 0;
+    //             }
+    //             v.clear();
+    //             v.resize(length);
+    //         }
+    //     }
+    // }
+
     while (repeat <= max - 1) {
+        if(!per.isStarted) {
+            per.startTimer();
+        }
         v.clear();
         v.resize(length);
         randomizeVector(v);
         if (isUnique(v)) {
+            per.endTimer();
+            vt.push_back(per.getTime());
             printVector(v);
-            printf(" : %d \n", fail);
+            printf(" : %d, %.3f \n", fail, per.getTime());
             repeat++;
         } else {
             fail++;
@@ -94,7 +124,11 @@ int main() {
             }
         }
     }
-    t.endTimer();
-    t.printTime();
+    float vtSum = 0;
+    for(int i = 0; i < vt.size(); i++) {
+        vtSum += vt[i];
+    }
+    printf("%.3f \n", vtSum);
+
     return 0;
 }

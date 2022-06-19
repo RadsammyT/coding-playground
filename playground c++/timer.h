@@ -4,9 +4,13 @@ namespace rad {
 
     class Timer {
         clock_t timer = -1;
+        // doing timer != -1 is flawed because it would only work if the timer wasn't started at all since it's initialization.
 
-        public:
-            Timer(){
+    public:
+        bool isStarted = false; 
+
+        Timer()
+        {
                 
             }
 
@@ -14,11 +18,13 @@ namespace rad {
             void startTimer()
             {
                 this->timer = clock();
+                this->isStarted = true;
             }
 
             void endTimer() {
                 if(this->timer != -1) {
                     this->timer = clock() - this->timer;
+                    this->isStarted = false;
                 } else {
                     printf("Timer not started\n");
                 }
@@ -33,5 +39,7 @@ namespace rad {
                 else
                     printf("%.3f", this->getTime());
             }
+
+            
     };
 }
