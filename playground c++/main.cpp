@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "test.h"
+#include "timer.h"
 using namespace std;
 int main(int, char**) {
 	rad::Timer t;

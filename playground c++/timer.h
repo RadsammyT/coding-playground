@@ -9,14 +9,10 @@ namespace rad {
     public:
         bool isStarted = false; 
 
-        Timer()
-        {
-                
-            }
+        Timer(){}
 
 
-            void startTimer()
-            {
+            void startTimer() {
                 this->timer = clock();
                 this->isStarted = true;
             }

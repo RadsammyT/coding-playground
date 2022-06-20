@@ -38,7 +38,7 @@ def MainThree():
             break
 
 def MainFour():
-    for i in it.permutations(range(2)):
+    for i in it.permutations(range(3)):
         print(i)
 
 def MainFive():
