@@ -2,21 +2,20 @@ use std::time::SystemTime;
 
 
 pub(crate) struct timer {
-    pub(crate) start: f64,
-    pub(crate) end: f64,
+    pub(crate) start: Option<SystemTime>,
+    pub(crate) end: Option<SystemTime>,
 }
 
 pub(crate) fn start_timer(timer: &mut timer) {
-    timer.start = SystemTime::now().elapsed().unwrap().as_secs_f64();
+    timer.start = Some(SystemTime::now());
 }
 
 pub(crate)  fn end_timer(timer: &mut timer) {
-    timer.end = SystemTime::now().elapsed().unwrap().as_secs_f64();
+    timer.end = Some(SystemTime::now());
 }
 
-pub(crate)  fn get_elapsed(timer: &mut timer) -> f64 {
-    return timer.end - timer.start;
-    // timer.start - timer.end
+pub(crate)  fn get_elapsed(timer: &mut timer) -> Option<f64> {
+    return Some(timer.end?.duration_since(timer.start?).unwrap().as_secs_f64())
 }
 /* 
 pub(crate)  fn main() {
