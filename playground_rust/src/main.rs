@@ -8,8 +8,8 @@ mod timer;
 
 fn main() {
     let mut timer = timer::timer{
-        start: 0.0,
-        end: 0.0,
+        start: None,
+        end: None,
     };
 
     let mut test: i128 = 1;
@@ -22,7 +22,7 @@ fn main() {
     }
 
     timer::end_timer(&mut timer);
-    println!("{}", timer::get_elapsed(&mut timer));
+    println!("{}", timer::get_elapsed(&mut timer).unwrap());
 
 
 }
