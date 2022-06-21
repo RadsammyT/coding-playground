@@ -1,29 +1,29 @@
 use std::time::SystemTime;
 use std;
 
-pub(crate) struct Timer {
-    pub(crate) start: Option<SystemTime>,
-    pub(crate) end: Option<SystemTime>,
+pub struct Timer {
+    pub start: Option<SystemTime>,
+    pub end: Option<SystemTime>,
 }
 
-pub(crate) fn start_timer(timer: &mut Timer) {
+pub fn start_timer(timer: &mut Timer) {
     timer.start = Some(SystemTime::now());
 }
 
-pub(crate)  fn end_timer(timer: &mut Timer) {
+pub  fn end_timer(timer: &mut Timer) {
     timer.end = Some(SystemTime::now());
 }
 
-pub(crate)  fn get_elapsed(timer: &mut Timer) -> Option<f64> {
+pub  fn get_elapsed(timer: &mut Timer) -> Option<f64> {
     return Some(timer.end?.duration_since(timer.start?).unwrap().as_secs_f64())
 }
 
-pub(crate) fn get_epoch(timer: &mut Timer) -> Option<f64> {
+pub fn get_epoch(timer: &mut Timer) -> Option<f64> {
     return Some(timer.end?.duration_since(std::time::UNIX_EPOCH).unwrap().as_secs_f64());
 }
 
 
-pub(crate)  fn test(exit: bool) {
+pub  fn test(exit: bool) {
     let mut timer = Timer {
         start: None,
         end: None,

@@ -7,4 +7,3 @@ edition = "2021"
 
 [dependencies]
 # random
-ran = "0.3.3"

@@ -1,17 +1,16 @@
 // use std::time::SystemTime;
 use std::{*, time::SystemTime};
-mod test;
-mod timer;
+mod rad;
 
 
 fn main() {
-    let mut timer = timer::Timer{
+    let mut timer = rad::timer::Timer{
         start: None,
         end: None,
     };
 
     let mut test: i128 = 1;
-    timer::start_timer(&mut timer);
+    rad::timer::start_timer(&mut timer);
 
     println!("{}", i128::MAX);
     while test < 10000 {
@@ -19,11 +18,11 @@ fn main() {
         println!("{}", test);
     }
 
-    timer::end_timer(&mut timer);
-    println!("{}", timer::get_elapsed(&mut timer).unwrap());
+    rad::timer::end_timer(&mut timer);
+    println!("{}", rad::timer::get_elapsed(&mut timer).unwrap());
 
-    timer::test(true);
-    println!("Test");
+    rad::timer::test(true);
+    println!("Test"); // if exit is true, this won't be called because the program is alreay exited
 }
 
 // return int function
