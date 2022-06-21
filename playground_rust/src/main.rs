@@ -1,13 +1,11 @@
 // use std::time::SystemTime;
 use std::{*, time::SystemTime};
 mod test;
-// use std::time::*;
-// use ran::*;
 mod timer;
 
 
 fn main() {
-    let mut timer = timer::timer{
+    let mut timer = timer::Timer{
         start: None,
         end: None,
     };
@@ -24,7 +22,8 @@ fn main() {
     timer::end_timer(&mut timer);
     println!("{}", timer::get_elapsed(&mut timer).unwrap());
 
-
+    timer::test(true);
+    println!("Test");
 }
 
 // return int function
