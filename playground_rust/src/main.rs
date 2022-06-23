@@ -9,14 +9,10 @@ fn main() {
         end: None,
     };
 
-    let mut test: i128 = 1;
+    let mut test: Option<i128> = Some(1);
     rad::timer::start_timer(&mut timer);
 
-    println!("{}", i128::MAX);
-    while test < 10000 {
-        test += 1;
-        println!("{}", test);
-    }
+    println!("{}",test.unwrap());
 
     rad::timer::end_timer(&mut timer);
     println!("{}", rad::timer::get_elapsed(&mut timer).unwrap());
