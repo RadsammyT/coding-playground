@@ -83,7 +83,7 @@ public class ShitShuffler {
 			System.out.println(Arrays.toString(bag) + " : FR > " + (failedRolls) + " : SR > " + (succeededRolls + 1)
 					+ " : TIME > " + time.getElapseDouble());
 			// BAG : FR > 0 : SR > 1 : TIME > 0.0
-			System.out.println(failedRolls / ((double) time.getElapse() / 1000) + " failed rolls per second");
+			System.out.println((int)(failedRolls / ((double) time.getElapse() / 1000)) + " failed rolls per second");
 
 			failedRollSum += failedRolls;			
 
