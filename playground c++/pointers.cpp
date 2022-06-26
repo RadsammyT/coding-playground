@@ -7,5 +7,5 @@ int test(int* p) {
 int main() {
     int x = 10;
     int *p = &x;
-    std::cout << *p << std::endl;
+    std::cout << test(p) << std::endl;
 }

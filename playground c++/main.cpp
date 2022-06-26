@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "timer.h"
+#include "input.cpp"
 using namespace std;
 int main(int, char**) {
 	rad::Timer t;
@@ -12,6 +13,8 @@ int main(int, char**) {
 
 	t.endTimer();
 
-	printf("%.3f", t.getTime());
+	printf("%.3f \n", t.getTime());
+	cout << readInt("Enter an integer: ") << endl;
+
 	return 0;
 }

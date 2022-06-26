@@ -1,5 +1,5 @@
 #include <time.h>
-// clock can only get time in thousands
+// clock can only get time in thousandths/0.001's
 namespace rad {
 
     class Timer {
@@ -18,7 +18,7 @@ namespace rad {
             }
 
             void endTimer() {
-                if(this->timer != -1) {
+                if(this->isStarted) {
                     this->timer = clock() - this->timer;
                     this->isStarted = false;
                 } else {
