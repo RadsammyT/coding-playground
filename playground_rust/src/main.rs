@@ -4,21 +4,8 @@ mod rad;
 
 
 fn main() {
-    let mut timer = rad::timer::Timer{
-        start: None,
-        end: None,
-    };
-
-    let mut test: Option<i128> = Some(1);
-    rad::timer::start_timer(&mut timer);
-
-    println!("{}",test.unwrap());
-
-    rad::timer::end_timer(&mut timer);
-    println!("{}", rad::timer::get_elapsed(&mut timer).unwrap());
-
-    rad::timer::test(true);
-    println!("Test"); // if exit is true, this won't be called because the program is alreay exited
+    let pain = rad::input::line("PAIN: ".to_string());
+    println!("{}", pain);
 }
 
 // return int function
