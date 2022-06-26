@@ -43,11 +43,12 @@ def MainFour():
 
 def MainFive():
     os.system("echo test")
+    
 
-dict = [MainOne, MainTwo, MainThree, MainFour, MainFive]
-for i,j in enumerate(dict):
+arr = [MainOne, MainTwo, MainThree, MainFour, MainFive]
+for i,j in enumerate(arr):
     print(str(i) + " " + str(j.__name__))
     
 
 inp = input("Main_: ")
-dict[int(inp)]()
+arr[int(inp)]()

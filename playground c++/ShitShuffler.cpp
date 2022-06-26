@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <vector>
 #include "timer.h"
+#include <stdlib.h>
 using namespace std;
 
 void printVector(vector < int > v);
@@ -42,7 +43,6 @@ bool isUnique(vector < int > v) {
  * @return int 
  */
 int main() {
-
     int length = 0;
     int max = 0;
     while (length < 1) {

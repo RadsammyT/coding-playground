@@ -11,20 +11,27 @@ def run(len, repeatMax):
     if array repeats any numbers, it will randomize the list again
 
     """
+    len = int(len)
+    repeatMax = int(repeatMax)
+
     list = []
     repeat = 0
     fails = 0
-    for i in range(1, len + 1):
+    failStep = 1000
+    failMarker = 0
+    for i in range(1, int(len) + 1):
         list.append(i)
 
-    while not repeat >= repeatMax:
+    while not repeat >= int(repeatMax):
         list = shuffle(list)
         if isUnique(list):
             print(list)
             repeat = repeat + 1
         else:
             fails = fails + 1
-            print("fails: " + str(fails) + "\r", end="")
+            if fails >= failMarker:
+                failMarker += failStep
+                print("Fails: " + str(fails), end = '\r')
             
 
         
