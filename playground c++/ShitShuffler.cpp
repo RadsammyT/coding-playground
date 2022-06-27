@@ -3,6 +3,7 @@
 #include <vector>
 #include "timer.h"
 #include <stdlib.h>
+#include "input.cpp"
 using namespace std;
 
 void printVector(vector < int > v);
@@ -128,7 +129,8 @@ int main() {
     for(int i = 0; i < vt.size(); i++) {
         vtSum += vt[i];
     }
-    printf("%.3f \n", vtSum);
+    printf("TOTAL: %.3f \n", vtSum);
 
+    
     return 0;
 }

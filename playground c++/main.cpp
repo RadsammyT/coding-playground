@@ -3,7 +3,7 @@
 #include "timer.h"
 #include "input.cpp"
 using namespace std;
-int main(int, char**) {
+int main(int argc, char** argv) {
 	rad::Timer t;
 	t.startTimer();
 	int a[1] = {1234};
@@ -14,7 +14,8 @@ int main(int, char**) {
 	t.endTimer();
 
 	printf("%.3f \n", t.getTime());
-	cout << readInt("Enter an integer: ") << endl;
-
+	cout << readInt("Enter an integer: ") << "\n";
+	cout << readString("String: ") << "\n";
+	userHalt();
 	return 0;
 }

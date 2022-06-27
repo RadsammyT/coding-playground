@@ -1,3 +1,6 @@
+// I can't convert this into a header file
+// it would error otherwise but idfk aaaaa
+
 #include <string>
 #include <iostream>
 
@@ -12,3 +15,24 @@ int readInt(std::string prompt) {
     }
     return x;
 }
+
+std::string readString(std::string prompt) {
+    std::string x;
+    std::cout << prompt;
+    try {
+        std::cin >> x;
+    } catch(std::exception e) {
+        std::cout << "Invalid input" << std::endl;
+        return readString(prompt);
+    }
+
+    return x;
+}
+
+void userHalt(bool printMessage = true) {
+    if(printMessage)
+        std::cout << "Press enter to continue...";
+    std::cin.ignore();
+    std::cin.get();
+}
+
