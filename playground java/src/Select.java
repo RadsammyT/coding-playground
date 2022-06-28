@@ -28,8 +28,6 @@ public class Select extends Exception {
                 ttt.revamp.Game.begin();
             }
         });
-
-        Scanner sc = new Scanner(System.in);
         
         System.out.println("1: shitshuffler \n" +
                             "2: tic-tac-toe old \n" +
@@ -37,12 +35,9 @@ public class Select extends Exception {
                             "4: tic-tac-toe revamp \n");
 
 
-        try {
-            map.get(sc.nextInt()).run();
-        } catch (Exception e) {
-            System.out.println("INVALID:" + e.getLocalizedMessage());
-        }
-        sc.close();
+        map.get(rad.InputUtils.readInt(
+            ""
+        )).run();
 
         return null;
 

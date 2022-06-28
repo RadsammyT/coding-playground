@@ -64,7 +64,7 @@ public class InputUtils {
 	}
 
 /**
-	 * TODO: redo readBool so that any non-boolean input will be caught and the user will be prompted to try again.
+	 
 	 * Boolean.parseBoolean(input) will return false for any non-boolean input.
 	 * This is literally their implementation, I shit you not:
 	 * "true".equalsIgnoreCase(input);
@@ -73,31 +73,14 @@ public class InputUtils {
 	 */
 
 	public static boolean readBool(String input) {
-		/* 
-		while (true) {
-			try {
-				System.out.print(input);
-				String i = sc.nextLine();
-				return Boolean.parseBoolean(i);
-			} catch (Exception e) {
-				System.out.println(e.getLocalizedMessage());
-				
-				sc.nextLine();
-			}
-		}
-		*/
-		// old implementation
-		
 		while (true) {
 			try {
 				System.out.println(input);
 				String i = sc.nextLine();
 				if (i.equalsIgnoreCase("true") ||
-						i.equalsIgnoreCase("yes")
-					) {
+						i.equalsIgnoreCase("yes")) {
 					return true;
 				}
-				
 				if (i.equalsIgnoreCase("false")) {
 					return false;
 				}
@@ -106,7 +89,16 @@ public class InputUtils {
 			}
 		}
 	}
+	/**
+	 * this is basically "press enter to continue"
+	 * @param input
+	 */
+	public static void userHalt(String input) {
+		System.out.println(input);
+		try {
+			System.in.read();
+		} catch (Exception e) {
 
-	
-
+		}
+	}
 }

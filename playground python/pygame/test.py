@@ -1,5 +1,6 @@
 '''
-navigate terminal to the folder test.py is in and run this module
+navigate terminal to the root directory of the project and run the following command:
+python3 ./playground python/pygame/test.py
 '''
 import pygame as pg
 import sys

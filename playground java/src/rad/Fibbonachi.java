@@ -4,16 +4,16 @@ import java.util.List;
 public class Fibbonachi {
 
 	public static List < Integer > run(int length) {
-		List < Integer > test = new ArrayList < Integer > ();
+		List < Integer > out = new ArrayList < Integer > ();
 
-		test.add(0);
-		test.add(1);
+		out.add(0);
+		out.add(1);
 
 		for (int i = 0; i < length; i++) {
-			test.add(test.get(i) + test.get(i + 1));
+			out.add(out.get(i) + out.get(i + 1));
 		}
 
-		return test;
+		return out;
 	}
 	/*
 	public static String listToString(List<Integer> test)
