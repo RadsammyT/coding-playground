@@ -47,12 +47,10 @@ int main() {
     int length = 0;
     int max = 0;
     while (length < 1) {
-        printf("length?: ");
-        cin >> length;
+        length = readInt("Length?:");
     }
     while (max < 1) {
-        printf("max?: ");
-        cin >> max;
+        max = readInt("Max?:");
     }
     int repeat = 0;
     int fail = 0;
@@ -80,30 +78,6 @@ int main() {
     int failStep = 5000;
     rad::Timer per;
     
-    // while (repeat <= max - 1) {
-        
-    //     per.startTimer();
-    //     while(!isUnique(v)) {
-    //         randomizeVector(v);
-    //         if(isUnique(v)) {
-    //             per.endTimer();
-    //             printVector(v);
-    //             printf("%.3f \n", per.getTime());
-    //             repeat++;
-
-    //             break;
-    //         } else {
-    //             fail++;
-    //             if(fail >= failStep) {
-    //                 failMark += failStep;
-    //                 fail = 0;
-    //             }
-    //             v.clear();
-    //             v.resize(length);
-    //         }
-    //     }
-    // }
-
     while (repeat <= max - 1) {
         if(!per.isStarted) {
             per.startTimer();
@@ -131,6 +105,6 @@ int main() {
     }
     printf("TOTAL: %.3f \n", vtSum);
 
-    
+    userHalt();
     return 0;
 }
