@@ -16,6 +16,6 @@ int main(int argc, char** argv) {
 	printf("%.3f \n", t.getTime());
 	cout << readInt("Enter an integer: ") << "\n";
 	cout << readString("String: ") << "\n";
-	userHalt();
+	userHalt("Press enter to exit...");
 	return 0;
 }

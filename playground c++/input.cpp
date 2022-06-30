@@ -29,9 +29,8 @@ std::string readString(std::string prompt) {
     return x;
 }
 
-void userHalt(bool printMessage = true) {
-    if(printMessage)
-        std::cout << "Press enter to continue...";
+void userHalt(std::string message = "") {
+    std::cout << message;
     std::cin.ignore();
     std::cin.get();
 }
