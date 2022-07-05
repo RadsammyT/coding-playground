@@ -95,10 +95,6 @@ public class InputUtils {
 	 */
 	public static void userHalt(String input) {
 		System.out.println(input);
-		try {
-			System.in.read();
-		} catch (Exception e) {
-
-		}
+		sc.nextLine();
 	}
 }

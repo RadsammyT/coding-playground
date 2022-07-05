@@ -7,7 +7,8 @@ fn main() {
     let pain = rad::input::line("PAIN: ".to_string());
     println!("{}", pain);
 
-    let test: i32 = rad::input::line("integer? :".to_string()).parse::<i32>().unwrap();
+    let test = rad::input::line("integer? :".to_string()).parse::<i32>().unwrap_or(-1);
+    println!("{}", test);
 }
 
 // return int function

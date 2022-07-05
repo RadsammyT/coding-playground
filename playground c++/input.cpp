@@ -3,35 +3,36 @@
 
 #include <string>
 #include <iostream>
-
-int readInt(std::string prompt) {
-    int x;
-    std::cout << prompt;
-    try {
-        std::cin >> x;
-    } catch(std::exception e) {
-        std::cout << "Invalid input" << std::endl;
-        return readInt(prompt);
-    }
-    return x;
-}
-
-std::string readString(std::string prompt) {
-    std::string x;
-    std::cout << prompt;
-    try {
-        std::cin >> x;
-    } catch(std::exception e) {
-        std::cout << "Invalid input" << std::endl;
-        return readString(prompt);
+namespace rad { 
+    int readInt(std::string prompt) {
+        int x;
+        std::cout << prompt;
+        try {
+            std::cin >> x;
+        } catch(std::exception e) {
+            std::cout << "Invalid input" << std::endl;
+            return readInt(prompt);
+        }
+        return x;
     }
 
-    return x;
-}
+    std::string readString(std::string prompt) {
+        std::string x;
+        std::cout << prompt;
+        try {
+            std::cin >> x;
+        } catch(std::exception e) {
+            std::cout << "Invalid input" << std::endl;
+            return readString(prompt);
+        }
 
-void userHalt(std::string message = "") {
-    std::cout << message;
-    std::cin.ignore();
-    std::cin.get();
-}
+        return x;
+    }
 
+    void userHalt(std::string message = "") {
+        std::cout << message;
+        std::cin.ignore();
+        std::cin.get();
+    }
+
+}

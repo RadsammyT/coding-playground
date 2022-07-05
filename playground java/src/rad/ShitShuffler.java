@@ -135,14 +135,15 @@ public class ShitShuffler {
 	public static Runnable run() {
 		// input of length and repeat
 		Scanner sc = new Scanner(System.in);
-		System.out.print("How long should the bag be?     ");
+		System.out.print("How long should the bag be? :");
 		int len = sc.nextInt();
 
-		System.out.print("How many times should the bag be shuffled?     ");
+		System.out.print("How many times should the bag be shuffled? :");
 		long rep = sc.nextLong();
 
-		sc.close();
 		runLoop(len, rep, true);
+		rad.InputUtils.userHalt("Press enter to continue");
+		sc.close();
 		return null;
 
 	}

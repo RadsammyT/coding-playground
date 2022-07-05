@@ -8,14 +8,14 @@ int main(int argc, char** argv) {
 	t.startTimer();
 	int a[1] = {1234};
 	for (int i = 0; i < 100; i++) {
-		printf("%p : %d \n", &a[i], a[i]);
+		printf("%p (%d) : %d \n", &a[i], i, a[i]);
 	}
 
 	t.endTimer();
 
 	printf("%.3f \n", t.getTime());
-	cout << readInt("Enter an integer: ") << "\n";
-	cout << readString("String: ") << "\n";
-	userHalt("Press enter to exit...");
+	cout << rad::readInt("Enter an integer: ") << "\n";
+	cout << rad::readString("String: ") << "\n";
+	rad::userHalt("Press enter to exit...");
 	return 0;
 }
