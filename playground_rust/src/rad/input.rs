@@ -2,7 +2,7 @@
 
 pub fn line(prompt: String) -> String {
     println!("{}", prompt);
-    let mut out: String = String::new();
+    let mut out: String = "".to_string();
     match std::io::stdin().read_line(&mut out) {
         Ok(_n) => {
             return out;

@@ -8,6 +8,6 @@ import leetcode.leetcode;
 import java.io.*;
 public class Main {
 	public static void main(String args[]) throws InterruptedException, NegativeNumberException, Select {
-		rad.ShitShuffler.run();
+		Select.run();
 	}
 }
