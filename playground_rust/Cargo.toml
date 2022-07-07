@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 # random
+text_io = "0.1.10"
+rand = "0.8.5"
