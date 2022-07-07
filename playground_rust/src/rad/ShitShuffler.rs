@@ -24,9 +24,9 @@ fn is_unique(v: &[i32]) -> bool {
 
 pub fn run() {
 
-    println!("length? ");
+    println!("length? (15 or less is recommended)");
     let length: i32 = try_read!().unwrap_or(-1);
-    println!("repeat? ");
+    println!("repeat for how many times? (for larger lengths, less is recommended)");
     let repeat_max: i32 = try_read!().unwrap_or(-1);
     let mut repeat: i32  = 0;
     let mut fail: u64 = 0;
