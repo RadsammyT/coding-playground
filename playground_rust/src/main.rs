@@ -23,7 +23,7 @@ fn main() {
         end: None,
     };
     Timer::start_timer(&mut timer);
-    rad::ShitShuffler::run();
+    rad::shit_shuffler::run();
     Timer::end_timer(&mut timer);
     println!("{}",Timer::get_elapsed(&mut timer).unwrap());
 }

@@ -11,11 +11,11 @@ impl Timer {
         timer.start = Some(SystemTime::now());
     }
 
-    pub  fn end_timer(timer: &mut Timer) {
+    pub fn end_timer(timer: &mut Timer) {
         timer.end = Some(SystemTime::now());
     }
 
-    pub  fn get_elapsed(timer: &mut Timer) -> Option<f64> {
+    pub fn get_elapsed(timer: &mut Timer) -> Option<f64> {
         return Some(timer.end?.duration_since(timer.start?).unwrap().as_secs_f64())
     }
 
