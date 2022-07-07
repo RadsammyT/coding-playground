@@ -18,7 +18,7 @@ fn main() {
     // }
     // println!("{:?}", vec);
 
-    rad::ShitShuffler::run();
+    //rad::ShitShuffler::run();
 }
 
 // return int function
