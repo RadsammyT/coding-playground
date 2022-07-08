@@ -47,10 +47,10 @@ int main() {
     int length = 0;
     int max = 0;
     while (length < 1) {
-        length = readInt("Length?:");
+        length = rad::readInt("Length?:");
     }
     while (max < 1) {
-        max = readInt("Max?:");
+        max = rad::readInt("Max?:");
     }
     int repeat = 0;
     int fail = 0;
@@ -105,6 +105,6 @@ int main() {
     }
     printf("TOTAL: %.3f \n", vtSum);
 
-    userHalt();
+    rad::userHalt();
     return 0;
 }

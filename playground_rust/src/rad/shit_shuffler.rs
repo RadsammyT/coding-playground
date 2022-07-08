@@ -30,7 +30,6 @@ pub fn run() {
     let repeat_max: i32 = try_read!().unwrap_or(-1);
     let mut repeat: i32  = 0;
     let mut fail: u64 = 0;
-
     let mut vec: Vec<i32> = vec![];
     for _ in 0..length {
         vec.push(0);

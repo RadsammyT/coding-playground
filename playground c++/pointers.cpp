@@ -6,7 +6,7 @@ int test(int* p) {
 
 int main() {
     int x = 10;
-    int *p = &x;
+    int* p = &x;
     std::cout << test(p) << "\n";
 
     int arr[] = {69};
