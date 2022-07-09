@@ -1,8 +1,10 @@
-pub fn test(mut a: i64) -> i64 {
-    let b = a;
-    for i in 0..b {
-        a += i;
+pub fn test() {
+    println!("Normal arrays");
+    let arr: [i32; 5] = [1,2,3,4,5];
+    let mut fuck = 0;
+    for i in arr {
+        fuck += i;
     }
 
-    return a;
+    println!("{fuck}");
 }

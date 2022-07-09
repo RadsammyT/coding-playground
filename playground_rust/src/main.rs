@@ -18,14 +18,17 @@ fn main() {
     //     vec.push(rand::thread_rng().gen_range(0..11));
     // }
     // println!("{:?}", vec);
-    let mut timer = Timer {
-        start: None,
-        end: None,
-    };
-    Timer::start_timer(&mut timer);
-    rad::shit_shuffler::run();
-    Timer::end_timer(&mut timer);
-    println!("{}",Timer::get_elapsed(&mut timer).unwrap());
+
+    // let mut timer = Timer {
+    //     start: None,
+    //     end: None,
+    // };
+    // Timer::start_timer(&mut timer);
+    // rad::shit_shuffler::run();
+    // Timer::end_timer(&mut timer);
+    // println!("{}",Timer::get_elapsed(&mut timer).unwrap());
+
+    rad::test::test();
 }
 
 // return int function
