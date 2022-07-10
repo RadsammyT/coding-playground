@@ -3,7 +3,8 @@
 
 #include <string>
 #include <iostream>
-namespace rad { 
+#pragma once
+namespace input { 
     int readInt(std::string prompt) {
         int x;
         std::cout << prompt;

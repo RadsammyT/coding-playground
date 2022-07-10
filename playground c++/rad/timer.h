@@ -1,6 +1,6 @@
 #include <time.h>
 // clock can only get time in thousandths/0.001's
-namespace rad {
+namespace timer {
 
     class Timer {
         clock_t timer = -1;

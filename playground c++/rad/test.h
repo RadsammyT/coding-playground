@@ -1,4 +1,4 @@
-namespace rad {
+namespace test {
     class testClass {
 
         int test = 0;

@@ -5,7 +5,7 @@
 #include "rad/pointers.cpp"
 using namespace std;
 int main() {
-	int test = rad::readInt("test int? ");
+	int test = input::readInt("test int? ");
 	printf("%d", test);
 	return 0;
 }
