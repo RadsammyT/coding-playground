@@ -5,7 +5,7 @@
 */
 
 // use std::time::SystemTime;
-use std::{*, time::SystemTime};
+use std::{*};
 use rad::timer::Timer;
 use text_io::*; // cool beans user input lib
 use rand::*;

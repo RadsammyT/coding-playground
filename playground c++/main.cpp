@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include "timer.h"
-#include "input.cpp"
+#include "rad/timer.h"
+#include "rad/input.cpp"
 using namespace std;
 int main(int argc, char** argv) {
 	rad::Timer t;

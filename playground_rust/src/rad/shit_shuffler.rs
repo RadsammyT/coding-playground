@@ -1,5 +1,10 @@
 use text_io::*;
 use rand::*;
+/// All elements of the vector are set to a random number from 0 to the length of the vector (Exclusive)
+/// # Example
+/// ```
+/// vec = shuffle(&mut vec).to_vec();
+/// ```
 fn shuffle(v: &mut Vec<i32>) -> Vec<i32>{
     let test = v.len() as i32;
 
@@ -10,6 +15,9 @@ fn shuffle(v: &mut Vec<i32>) -> Vec<i32>{
     return v.to_vec();
 }
 
+/// Checks if all elements in the vector are unique, and are never used again in the vector.
+/// 
+/// 
 fn is_unique(v: &[i32]) -> bool {
 
     for i in 0..v.len() {
