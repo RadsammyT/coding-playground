@@ -27,16 +27,22 @@ fn main() {
     // rad::shit_shuffler::run();
     // Timer::end_timer(&mut timer);
     // println!("{}",Timer::get_elapsed(&mut timer).unwrap());
-
-    rad::test::test();
+    
+    //rad::test::test();
+    select();
 }
 
-// return int function
-fn _add() -> i32 {
-    let mut ret = 1;
-    for i in 0..10 {
-        ret += i;
+fn select() {
+    println!("1: shitshuffler \n2: test print");
+    let sel: i32 = try_read!().unwrap_or(-1);
+    match sel {
+        
+        1 => {
+            rad::shit_shuffler::run();
+        }
+        2 => {
+            println!("cool beans");
+        }
+        _ => println!("invalid")
     }
-    return ret;
 }
-
