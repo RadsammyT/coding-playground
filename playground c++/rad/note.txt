@@ -1,0 +1,1 @@
+do not compile the files in playground c++/rad. they don't have a main() function.

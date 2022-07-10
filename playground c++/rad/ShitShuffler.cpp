@@ -38,45 +38,19 @@ bool isUnique(vector < int > v) {
 
     return true;
 }
-/**
- * @brief test
- * 
- * @return int 
- */
-int main() {
-    int length = 0;
-    int max = 0;
-    while (length < 1) {
-        length = rad::readInt("Length?:");
-    }
-    while (max < 1) {
-        max = rad::readInt("Max?:");
-    }
-    int repeat = 0;
-    int fail = 0;
-    //vector methods : what they do
-    //push_back : add an element to the end of the vector
-    //pop_back : remove the last element of the vector
-    //reserve : reserve specified amount of space for the vector
-    //resize : resize the vector to specified size
-    //clear : clear the vector along with all its elements
-    //size : return the size of the vector
-    //at : return the element at specified index
-    //front : return the first element of the vector
-    //back : return the last element of the vector
-    //insert : insert an element at specified index
-    //erase : erase an element at specified index
-    //swap : swap two elements at specified index
-    // brought to you by github copilot
-    
-
-    srand(time(NULL));
-    std::vector < int > v;
-    std::vector<float> vt;
+// TIL that the order in which a function is initialized does matter when
+// calling it in a main function
+void run(int length, int max) {
 
     int failMark = 0;
     int failStep = 5000;
+    int repeat = 0;
+    long fail = 0;
+    std::vector < int > v;
+    std::vector<float> vt;
     rad::Timer per;
+    
+     srand(time(NULL));
     
     while (repeat <= max - 1) {
         if(!per.isStarted) {
@@ -106,5 +80,17 @@ int main() {
     printf("TOTAL: %.3f \n", vtSum);
 
     rad::userHalt();
+}
+
+int main() {
+    int length = 0;
+    int max = 0;
+    while (length < 1) {
+        length = rad::readInt("Length?:");
+    }
+    while (max < 1) {
+        max = rad::readInt("Max?:");
+    }
+    run(length, max);
     return 0;
 }

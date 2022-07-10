@@ -4,7 +4,7 @@ int test(int* p) {
     return *p;
 }
 
-int test() {
+int test2() {
     int x = 10;
     int* p = &x;
     std::cout << test(p) << "\n";
@@ -14,4 +14,6 @@ int test() {
     for (int i = -f; i < f; i++){
         printf("%p (%d): %d\n", &arr[i], i, arr[i]);
     }
+
+    return 0;
 }

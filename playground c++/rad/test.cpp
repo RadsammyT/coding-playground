@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main() {
+int test() {
     // rad::testClass t;
     // t.setT(43);
     // printf("%d\n", t.getT());
