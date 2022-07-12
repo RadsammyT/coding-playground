@@ -1,5 +1,6 @@
 use text_io::*;
 use rand::*;
+use super::timer::Timer;
 /// All elements of the vector are set to a random number from 0 to the length of the vector (Exclusive)
 /// # Example
 /// ```
@@ -32,26 +33,36 @@ fn is_unique(v: &[i32]) -> bool {
 
 pub fn run() {
 
+    let mut timer = Timer {
+        start: None,
+        end: None,
+    };
+
     println!("length? (15 or less is recommended)");
     let length: i32 = try_read!().unwrap_or(-1);
     println!("repeat for how many times? (for larger lengths, less is recommended)");
     let repeat_max: i32 = try_read!().unwrap_or(-1);
     let mut repeat: i32  = 0;
     let mut fail: u64 = 0;
+    let mut failPer: u64 = 0;
     let mut vec: Vec<i32> = vec![];
     for _ in 0..length {
         vec.push(0);
     }
-
+    Timer::start_timer(&mut timer);
+    
     while !(repeat >= repeat_max) {
         vec = shuffle(&mut vec).to_vec();
         if is_unique(&vec) {
-            println!("{:?} {}", vec, &fail);
+            println!("{:?} {}", vec, &failPer);
+            fail += failPer;
+            failPer = 0;
             repeat += 1;
         } else {
-            fail += 1;
+            failPer += 1;
         }
     }
-    
+    Timer::end_timer(&mut timer);
+    println!("{} total fails, {} seconds", fail, Timer::get_elapsed(&mut timer).unwrap());
 
 }

@@ -24,6 +24,17 @@ pub fn test() {
     }
     println!("{}", test);
 
+    thread::sleep(time::Duration::from_secs_f32(3.5));
+
+    println!("pointers");
+    let pointee: i32 = 69;
+    let pointer = &pointee as *const i32;
+    let null = ptr::null() as *const i32;
+
+    println!("pointee addr: {:p}", &pointee);
+    println!("pointer addr: {:p}", pointer);
+    println!("null addr: {:p}", null);
+
 
 
 

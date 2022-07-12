@@ -33,7 +33,7 @@ fn main() {
 }
 
 fn select() {
-    println!("1: shitshuffler \n2: test print");
+    println!("1: shitshuffler \n2: test show"); //because println! counts 
     let sel: i32 = try_read!().unwrap_or(-1);
     match sel {
         
@@ -41,8 +41,12 @@ fn select() {
             rad::shit_shuffler::run();
         }
         2 => {
-            println!("cool beans");
+            rad::test::test();
         }
-        _ => println!("invalid")
+        _ => {
+            println!("invalid");
+            select();
+        }
     }
 }
+
