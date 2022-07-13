@@ -17,8 +17,9 @@ fn main() {
 }
 
 fn select() {
-    println!("1: shitshuffler \n2: test show \n3: collatz \n4: test"); //because println! counts indentation when calling it across multiple lines
+    println!("1: shitshuffler \n2: test show \n3: collatz \n4: test");
     /*
+     * because println! counts indentation when calling it across multiple lines
      * example:
      * fn main() {
      *      println!("test
