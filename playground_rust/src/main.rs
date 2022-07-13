@@ -13,27 +13,23 @@ mod rad;
 
 
 fn main() {
-    // let mut vec: Vec<i128> = vec![];
-    // for i in 0..10 {
-    //     vec.push(rand::thread_rng().gen_range(0..11));
-    // }
-    // println!("{:?}", vec);
-
-    // let mut timer = Timer {
-    //     start: None,
-    //     end: None,
-    // };
-    // Timer::start_timer(&mut timer);
-    // rad::shit_shuffler::run();
-    // Timer::end_timer(&mut timer);
-    // println!("{}",Timer::get_elapsed(&mut timer).unwrap());
-    
-    //rad::test::test();
     select();
 }
 
 fn select() {
-    println!("1: shitshuffler \n2: test show"); //because println! counts 
+    println!("1: shitshuffler \n2: test show \n3: collatz \n4: test"); //because println! counts indentation when calling it across multiple lines
+    /*
+     * example:
+     * fn main() {
+     *      println!("test
+     *      test");
+     * }
+     * output:
+     * test
+     *      test
+     * 
+     * you get the point
+     */
     let sel: i32 = try_read!().unwrap_or(-1);
     match sel {
         
@@ -42,6 +38,18 @@ fn select() {
         }
         2 => {
             rad::test::test();
+        }
+        3 => {
+            rad::collatz::run(try_read!().unwrap_or(15), try_read!().unwrap_or(true));
+        }
+        4 => {
+            let mut vec: Vec<i128> = vec![];
+            vec.push(0);
+            vec.push(1);
+            for i in 0..100 {
+                vec.push(vec[i] + vec[i+1]);
+            }
+            println!("{:?}", vec);
         }
         _ => {
             println!("invalid");

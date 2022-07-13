@@ -1,7 +1,7 @@
 use std::*;
 
 pub fn test() {
-    println!("Normal arrays");
+    println!("Normal arrays \n");
     let arr: [i32; 5] = [1,2,3,4,5];
     println!("{:?}", arr);
     let mut test = 0;
@@ -12,7 +12,7 @@ pub fn test() {
 
     thread::sleep(time::Duration::from_secs_f32(3.5));
 
-    println!("Vector");
+    println!("Vector \n");
     let mut vec: Vec<i32> = vec![];
     test = 0;
     for i in 1..11 {
@@ -26,7 +26,7 @@ pub fn test() {
 
     thread::sleep(time::Duration::from_secs_f32(3.5));
 
-    println!("pointers");
+    println!("pointers \n");
     let pointee: i32 = 69;
     let pointer = &pointee as *const i32;
     let null = ptr::null() as *const i32;
