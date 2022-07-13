@@ -17,7 +17,7 @@ fn main() {
 }
 
 fn select() {
-    println!("1: shitshuffler \n2: test show \n3: collatz \n4: test");
+    println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb");
     /*
      * because println! counts indentation when calling it across multiple lines
      * example:
@@ -40,6 +40,9 @@ fn select() {
         2 => {
             rad::test::test();
         }
+        /*
+            func({println!("input"); read!()})
+        */
         3 => { // cursed
             rad::collatz::run({println!("input"); try_read!().unwrap()},
             {println!("print steps? (true/false)"); try_read!().unwrap()});
@@ -53,6 +56,7 @@ fn select() {
             }
             println!("{:?}", vec);
         }
+        
         _ => {
             println!("invalid");
             select();
