@@ -40,8 +40,9 @@ fn select() {
         2 => {
             rad::test::test();
         }
-        3 => {
-            rad::collatz::run(try_read!().unwrap_or(15), try_read!().unwrap_or(true));
+        3 => { // cursed
+            rad::collatz::run({println!("input"); try_read!().unwrap()},
+            {println!("print steps? (true/false)"); try_read!().unwrap()});
         }
         4 => {
             let mut vec: Vec<i128> = vec![];

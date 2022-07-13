@@ -5,7 +5,18 @@ pub struct Timer {
     pub start: Option<SystemTime>,
     pub end: Option<SystemTime>,
 }
+
 impl Timer {
+    ///returns a timer struct with both SystemTimes set to None
+    /// 
+    /// # Example
+    /// ```
+    /// let mut timer = Timer::new();
+    /// ```
+    pub fn new() -> Timer {
+       return Timer {start: None, end: None}
+    }
+
 
     pub fn start_timer(timer: &mut Timer) {
         timer.start = Some(SystemTime::now());

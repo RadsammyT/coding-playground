@@ -1,4 +1,5 @@
 pub fn run(mut input: i128, print_steps: bool) -> [i32; 3] {
+    
     let mut arr: [i32;3] = [0,0,0];
     /*
     arr[0] = iter
