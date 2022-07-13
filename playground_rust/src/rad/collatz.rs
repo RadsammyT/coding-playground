@@ -6,7 +6,7 @@ pub fn run(mut input: i128, print_steps: bool) -> [i32; 3] {
     arr[2] = even
     */
     if print_steps { println!("{input}"); }
-    loop {
+    loop { // oh cool. 
         if input % 2 == 1 {
             input = (3*input) + 1;
             arr[0] += 1; 
