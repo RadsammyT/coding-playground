@@ -17,7 +17,7 @@ fn main() {
 }
 
 fn select() {
-    println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb");
+    println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb, 102 numbers");
     /*
      * because println! counts indentation when calling it across multiple lines
      * example:
@@ -29,7 +29,7 @@ fn select() {
      * test
      *      test
      * 
-     * you get the point
+     * you get the point... right?
      */
     let sel: i32 = try_read!().unwrap_or(-1);
     match sel {
@@ -48,13 +48,17 @@ fn select() {
             {println!("print steps? (true/false)"); try_read!().unwrap()});
         }
         4 => {
+            let mut timer = Timer::new();
+            Timer::start_timer(&mut timer);
             let mut vec: Vec<i128> = vec![];
             vec.push(0);
             vec.push(1);
             for i in 0..100 {
                 vec.push(vec[i] + vec[i+1]);
             }
+            Timer::end_timer(&mut timer);
             println!("{:?}", vec);
+            println!("{} seconds", Timer::get_elapsed(&mut timer).unwrap());
         }
         
         _ => {

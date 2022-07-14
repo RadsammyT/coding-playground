@@ -29,7 +29,7 @@ impl Timer {
     pub fn get_elapsed(timer: &mut Timer) -> Option<f64> {
         return Some(timer.end?.duration_since(timer.start?).unwrap().as_secs_f64())
     }
-
+    
     pub fn get_epoch(timer: &mut Timer) -> Option<f64> {
         return Some(timer.end?.duration_since(std::time::UNIX_EPOCH).unwrap().as_secs_f64());
     }

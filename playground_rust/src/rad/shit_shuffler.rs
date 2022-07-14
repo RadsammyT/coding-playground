@@ -41,7 +41,7 @@ pub fn run() {
     let repeat_max: i32 = try_read!().unwrap_or(-1);
     let mut repeat: i32  = 0;
     let mut fail: u64 = 0;
-    let mut failPer: u64 = 0;
+    let mut fail_per: u64 = 0;
     let mut vec: Vec<i32> = vec![];
     for _ in 0..length {
         vec.push(0);
@@ -51,12 +51,12 @@ pub fn run() {
     while !(repeat >= repeat_max) {
         vec = shuffle(&mut vec).to_vec();
         if is_unique(&vec) {
-            println!("{:?} {}", vec, &failPer);
-            fail += failPer;
-            failPer = 0;
+            println!("{:?} {}", vec, &fail_per);
+            fail += fail_per;
+            fail_per = 0;
             repeat += 1;
         } else {
-            failPer += 1;
+            fail_per += 1;
         }
     }
     Timer::end_timer(&mut timer);

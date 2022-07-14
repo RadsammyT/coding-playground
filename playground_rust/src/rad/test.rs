@@ -1,6 +1,9 @@
 use std::*;
 
 pub fn test() {
+    for _ in 0..=2 {
+        println!("delay of 3.5 seconds between slides!!!");
+    }
     println!("Normal arrays \n");
     let arr: [i32; 5] = [1,2,3,4,5];
     println!("{:?}", arr);
