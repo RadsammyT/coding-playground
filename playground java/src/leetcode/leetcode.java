@@ -55,4 +55,21 @@ public class leetcode {
 
         return out;
     }
+
+    //https://leetcode.com/problems/richest-customer-wealth/
+    public static int maximumWealth(int[][] accounts) {
+        int highest = 0;
+        int sum = 0;
+        for (int i = 0; i < accounts.length; i++) {
+            for (int j : accounts[i]) {
+                sum += j;
+            }
+            if (sum > highest) {
+                highest = sum;
+            }
+            sum = 0;
+        }
+
+        return highest;
+    }
 }
