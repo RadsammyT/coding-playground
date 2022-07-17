@@ -27,7 +27,7 @@ checksum = "349d5a591cd28b49e1d1037471617a32ddcda5731b99419008085f72d5a53836"
 
 [[package]]
 name = "playground_rust"
-version = "0.1.0"
+version = "0.1.0-irreleventSemanticVersioning.69420"
 dependencies = [
  "rand",
  "text_io",

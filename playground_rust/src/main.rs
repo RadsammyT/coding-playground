@@ -13,11 +13,7 @@ mod rad;
 
 
 fn main() {
-
-    // select();
-     static SEX_NUMBER: i32 = 69;
-     println!("{}", SEX_NUMBER);
-
+    select();
 }
 
 fn select() {
@@ -36,8 +32,8 @@ fn select() {
      * you get the point... right?
      */
     let sel: i32 = try_read!().unwrap_or(-1);
-    let mut mainTimer = Timer::new();
-    Timer::start_timer(&mut mainTimer);
+    let mut main_timer = Timer::new();
+    main_timer.start_timer();
     match sel {
         
         1 => {
@@ -69,7 +65,7 @@ fn select() {
             select();
         }
     }
-    Timer::end_timer(&mut mainTimer);
-    println!("{} seconds", Timer::get_elapsed(&mut mainTimer).unwrap());
+    main_timer.end_timer();
+    println!("{} seconds", Timer::get_elapsed(&mut main_timer).unwrap());
 }
 

@@ -42,6 +42,8 @@ pub fn run() {
     let mut repeat: i32  = 0;
     let mut fail: u64 = 0;
     let mut fail_per: u64 = 0;
+    const FAIL_STEP: u64 = 1000;
+    let mut fail_mark: u64 = 0;
     let mut vec: Vec<i32> = vec![];
     for _ in 0..length {
         vec.push(0);
@@ -54,9 +56,14 @@ pub fn run() {
             println!("{:?} {}", vec, &fail_per);
             fail += fail_per;
             fail_per = 0;
+            fail_mark = 0;
             repeat += 1;
         } else {
             fail_per += 1;
+            if fail_per >= fail_mark {
+                eprint!("{} \r", fail_per);
+                fail_mark += FAIL_STEP;
+            }
         }
     }
     Timer::end_timer(&mut timer);
