@@ -76,7 +76,7 @@ public class leetcode {
     public static int mostWordsFound(String[] sentences) {
         short max = 0;
         short current = 1;
-        
+
         for (String inst : sentences) {
             for (int i = 0; i < inst.length(); i++) {
                 if (Character.toString(inst.charAt(i)).equals(" ")) {
@@ -90,7 +90,33 @@ public class leetcode {
             }
             current = 1;
         }
-        
+
         return max;
+    }
+
+    //https://leetcode.com/problems/shuffle-the-array/
+    public static int[] shuffle(int[] nums, int n) {
+        /*
+         * n is ALWAYS nums.length / 2, and nums[] is ALWAYS even
+         * in: [x1,x2,y1,y2]
+         * out: [x1,y1,x2,y2]
+         * two sets of for loops; one setting x and the other y
+         */
+        int[] res = new int[nums.length];
+        int arr = 0; //sort of a pointer
+        for (int i = 0; i < n; i++) {
+            res[arr] = nums[i];
+            arr += 2;
+        }
+        arr = 1;
+        for (int i = 1; i < n; i++) {
+            res[arr] = nums[i+n - 1];
+            arr += 2;
+        }
+        res[(n * 2) - 1] = nums[(n * 2) - 1]; //(n*2)-1 being the last element in the array.
+        // i *could* have done (res/nums).length but naaaaaah
+        return res;
+
+
     }
 }
