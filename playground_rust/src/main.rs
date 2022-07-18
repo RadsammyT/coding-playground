@@ -9,6 +9,9 @@ use std::{*};
 use rad::timer::Timer;
 use text_io::*; // cool beans user input lib
 use rand::*;
+
+
+
 mod rad;
 
 
@@ -59,6 +62,10 @@ fn select() {
             }
             println!("{:?}", vec);
         }
+
+        5 => {
+            rad::string_random::test();
+        }
         
         _ => {
             println!("invalid");
@@ -66,6 +73,6 @@ fn select() {
         }
     }
     main_timer.end_timer();
-    println!("{} seconds", Timer::get_elapsed(&mut main_timer).unwrap());
+    println!("{} seconds", main_timer.get_elapsed().unwrap());
 }
 

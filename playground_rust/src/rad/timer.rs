@@ -56,6 +56,7 @@ impl std::fmt::Debug for Timer {
     }
 }
 
+
 pub fn test(exit: bool) {
     let mut timer = Timer {
         start: None,
