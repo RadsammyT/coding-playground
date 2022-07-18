@@ -28,6 +28,11 @@ public class Select extends Exception {
                 public void run() {
                     ttt.revamp.Game.begin();
                 }
+            },
+            new Runnable() {
+                public void run() {
+
+                }
             }
     };
        
@@ -35,7 +40,8 @@ public class Select extends Exception {
         System.out.println("1: shitshuffler \n" +
                             "2: tic-tac-toe old \n" +
                             "3: tic-tac-toe old gui \n" +
-                            "4: tic-tac-toe revamp \n");
+                            "4: tic-tac-toe revamp \n" + 
+                            "5: test runnable \n");
 
         try {
             arr[rad.InputUtils.readInt("") - 1].run();

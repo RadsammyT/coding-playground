@@ -72,4 +72,25 @@ public class leetcode {
 
         return highest;
     }
+    //https://leetcode.com/problems/maximum-number-of-words-found-in-sentences/
+    public static int mostWordsFound(String[] sentences) {
+        short max = 0;
+        short current = 1;
+        
+        for (String inst : sentences) {
+            for (int i = 0; i < inst.length(); i++) {
+                if (Character.toString(inst.charAt(i)).equals(" ")) {
+                    // System.out.println("CHAR:" + inst.charAt(i) + " INDEX:" + i + " SENTENCE:" + inst);
+                    current++;
+                }
+            }
+            // System.out.println("TOTAL: " + current);
+            if (current >= max) {
+                max = current;
+            }
+            current = 1;
+        }
+        
+        return max;
+    }
 }
