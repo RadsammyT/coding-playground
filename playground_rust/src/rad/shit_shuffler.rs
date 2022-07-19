@@ -31,7 +31,7 @@ fn is_unique(v: &[i32]) -> bool {
 pub fn run() {
 
     let mut timer = Timer::new();
-
+    
     println!("length? (15 or less is recommended)");
     let length: i32 = try_read!().unwrap_or(-1);
     println!("repeat for how many times? (for larger lengths, less is recommended)");

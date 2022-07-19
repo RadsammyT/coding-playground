@@ -1,6 +1,9 @@
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 import java.lang.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 public class Select extends Exception {
     public Select(String err) {
         super(err);
@@ -31,7 +34,13 @@ public class Select extends Exception {
             },
             new Runnable() {
                 public void run() {
-
+                        List<Long> test = new ArrayList<Long>();
+                        if (test.isEmpty()) {
+                            for (int i = 1; i < 100 + 1; i++) {
+                                test.add((long) Math.pow((double) i, (double) i));
+                            }
+                        }
+                        System.out.println(Arrays.toString(test.toArray()));
                 }
             }
     };

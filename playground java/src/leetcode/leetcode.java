@@ -6,7 +6,7 @@ import java.util.*;
 public class leetcode {
     // https://leetcode.com/problems/defanging-an-ip-address/
     public static String defangIPAddr(String address) {
-        System.out.println(address.replaceAll("[.]", "[.]"));
+        // System.out.println(address.replaceAll("[.]", "[.]"));
         return address.replaceAll("[.]", "[.]");
     }
     //https://leetcode.com/problems/two-sum/
@@ -104,12 +104,12 @@ public class leetcode {
          */
         int[] res = new int[nums.length];
         int arr = 0; //sort of a pointer
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) { // x half of the result
             res[arr] = nums[i];
             arr += 2;
         }
         arr = 1;
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) { // y half of the result
             res[arr] = nums[i+n - 1];
             arr += 2;
         }
