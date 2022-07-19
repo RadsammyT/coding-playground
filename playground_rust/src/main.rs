@@ -20,7 +20,7 @@ fn main() {
 }
 
 fn select() {
-    println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb, 102 numbers");
+    println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb, 102 numbers \n5: random slices of string");
     /*
      * because println! counts indentation when calling it across multiple lines
      * example:

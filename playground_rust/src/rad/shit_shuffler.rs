@@ -8,11 +8,9 @@ use super::timer::Timer;
 /// ```
 fn shuffle(v: &mut Vec<i32>) -> Vec<i32>{
     let test = v.len() as i32;
-
     for i in 0..v.len() as i32 {
         v[i as usize] = rand::thread_rng().gen_range(0..test);
     }
-
     return v.to_vec();
 }
 
@@ -20,7 +18,6 @@ fn shuffle(v: &mut Vec<i32>) -> Vec<i32>{
 /// 
 /// 
 fn is_unique(v: &[i32]) -> bool {
-
     for i in 0..v.len() {
         for j in i+1..v.len() {
             if v[i] == v[j] && i != j {
