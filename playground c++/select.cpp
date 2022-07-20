@@ -3,8 +3,7 @@
 #include "rad/pointers.cpp"
 #include "rad/collatz.cpp"
 int main() {
-    int select = input::readI32("1: ShitShuffler \n2: test print lmao \n");
-    
+    int select = input::readI32("1: ShitShuffler \n2: test print lmao \n3: collatz");
 
     switch(select) {
         case 1:
