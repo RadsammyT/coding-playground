@@ -5,14 +5,14 @@
 #include <iostream>
 #pragma once
 namespace input { 
-    int readInt(std::string prompt) {
+    int readI32(std::string prompt) {
         int x;
         std::cout << prompt;
         try {
             std::cin >> x;
         } catch(std::exception e) {
             std::cout << "Invalid input" << std::endl;
-            return readInt(prompt);
+            return readI32(prompt);
         }
         return x;
     }
@@ -27,6 +27,18 @@ namespace input {
             return readString(prompt);
         }
 
+        return x;
+    }
+
+    int readI64(std::string prompt) {
+        int x;
+        std::cout << prompt;
+        try {
+            std::cin >> x;
+        } catch(std::exception e) {
+            std::cout << "Invalid input" << std::endl;
+            return readI64(prompt);
+        }
         return x;
     }
 

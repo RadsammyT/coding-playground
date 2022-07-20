@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#pragma once
 int test(int* p) {
     return *p;
 }
