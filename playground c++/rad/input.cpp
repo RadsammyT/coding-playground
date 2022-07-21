@@ -30,8 +30,8 @@ namespace input {
         return x;
     }
 
-    int readI64(std::string prompt) {
-        int x;
+    long long readI64(std::string prompt) {
+        long long x;
         std::cout << prompt;
         try {
             std::cin >> x;

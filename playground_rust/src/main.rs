@@ -34,7 +34,7 @@ fn select() {
      * 
      * you get the point... right?
      */
-    let sel: i32 = try_read!().unwrap_or(-1);
+    let sel: i32 = read!();
     let mut main_timer = Timer::new();
     main_timer.start_timer();
     match sel {
@@ -64,7 +64,7 @@ fn select() {
         }
 
         5 => {
-            rad::string_random::test();
+            rad::string_random::test(&"This is a test message".to_string());
         }
         
         _ => {
