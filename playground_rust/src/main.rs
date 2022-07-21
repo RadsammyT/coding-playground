@@ -17,10 +17,11 @@ mod rad;
 
 fn main() {
     select();
+    // rad::string_random::test();
 }
 
 fn select() {
-    println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb, 102 numbers \n5: random slices of string");
+    println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb, 102 numbers \n5: random slices of string \n6: closure bullshittery \n");
     /*
      * because println! counts indentation when calling it across multiple lines
      * example:
@@ -64,9 +65,14 @@ fn select() {
         }
 
         5 => {
-            rad::string_random::test(&"This is a test message".to_string());
+            rad::string_random::test();
         }
         
+        6 => {
+            let closure = |a: i32| a * a;
+            println!("square of 43: {}", closure(43));
+        }
+
         _ => {
             println!("invalid");
             select();
