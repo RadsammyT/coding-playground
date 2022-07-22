@@ -55,8 +55,11 @@ mod rad;
 
 
 fn main() {
-    select();
+    // select();
     // rad::string_random::test();
+    print!("Input value: ");
+    let test: i32 = try_read!().unwrap_or(-1);
+    println!("Value: {}", test);
 }
 
 fn select() {
@@ -76,11 +79,13 @@ fn select() {
     let mut sel: i32 = -1;
     let mut is_bad: bool = true;
     let mut main_timer = Timer::new();
-    main_timer.start_timer();
+    
     while is_bad {
         println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb, 102 numbers \n5: random slices of string \n6: closure bullshittery \n");
         print!("Select an entry: ");
-        sel = try_readf!().unwrap_or(-1);
+        // sel = try_read!().unwrap_or(-1);
+        sel = read!();
+        main_timer.start_timer();
         match sel {
             
             1 => {
