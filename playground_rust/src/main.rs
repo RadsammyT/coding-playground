@@ -4,44 +4,6 @@
         USE LINK WHEN STUCK ON SHIT
 */
 
-/*
-text_io has an issue where print! won't work well with read! invocs
-a guy on the git repo for text_io found the issue but wouldn't want to 
-do a PR because the code is "complicated" (relatable).
-so "fuck it" I said, and so I made 2 new macros that flush stdout before reading.
-paste the following macros on text_io/src/lib.rs:
-/// a version of ```read!()``` that flushes ```stdout``` before reading.
-/// # Example
-/// ```
-/// print!("Xn = ");
-/// let xn: f64 = readf!();
-/// ```
-#[macro_export]
-macro_rules! readf {
-	($($arg:tt)*) => {{
-		use std::io::Write;
-		std::io::stdout().flush().unwrap();
-		read!($($arg)*)
-	}};
-}
-
-/// A version of ```try_read!()``` that flushes ```stdout``` before reading.
-/// # Example
-/// ```rust,no_run
-/// print!("Enter a number");
-/// let num: i32 = try_readf!().unwrap();
-/// ```
-/// 
-#[macro_export]
-macro_rules! try_readf {
-	($($arg:tt)*) => {{
-		use std::io::Write;
-		std::io::stdout().flush().unwrap();
-		try_read!($($arg)*)
-	}};
-}
-
-*/
 
 // use std::time::SystemTime;
 use std::{*};
@@ -55,11 +17,8 @@ mod rad;
 
 
 fn main() {
-    // select();
+    select();
     // rad::string_random::test();
-    print!("Input value: ");
-    let test: i32 = try_read!().unwrap_or(-1);
-    println!("Value: {}", test);
 }
 
 fn select() {
@@ -83,8 +42,7 @@ fn select() {
     while is_bad {
         println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb, 102 numbers \n5: random slices of string \n6: closure bullshittery \n");
         print!("Select an entry: ");
-        // sel = try_read!().unwrap_or(-1);
-        sel = read!();
+        sel = try_read!().unwrap_or(-1);
         main_timer.start_timer();
         match sel {
             
