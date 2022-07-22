@@ -6,26 +6,14 @@
 
 // use std::time::SystemTime;
 use std::{*};
-use rad::{timer::Timer, text_io_readf};
+use rad::{timer::Timer};
 use text_io::*;
 use rand::*;
 
 
 
 mod rad;
-/*
-???
-    FIXME:
-    copy pasting the below code into the lib file for text_io
-    and calling the macro from there returns an error
-*/
-// macro_rules! readf {
-// 	($($arg:tt)*) => {{
-// 		use std::io::Write;
-// 		std::io::stdout().flush().unwrap();
-// 		read!($($arg)*)
-// 	}};
-// }
+
 
 fn main() {
     select();
@@ -53,7 +41,7 @@ fn select() {
     while isBad {
         println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb, 102 numbers \n5: random slices of string \n6: closure bullshittery \n");
         print!("Select an entry: ");
-        sel = readf!().unwrap_or(-1);
+        sel = try_readf!().unwrap_or(-1);
         match sel {
             
             1 => {

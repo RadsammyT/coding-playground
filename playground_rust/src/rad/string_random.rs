@@ -10,11 +10,11 @@ pub fn run(mut input: String) -> String {
 }
 
 pub fn test() {
-    println!("input string to randomize a lot, PUT ONE PERIOD TO END THE MESSAGE: ");
-    {let input: String = try_read!("{}.").unwrap_or("ERROR".to_string());
+    println!("input string to randomize a lot, INSERT '<END>' TO END STRING (because text_io is weird and counts prevous newlines used in read!() macro invocations): ");
+    let input: String = try_read!("{}<END>").unwrap_or("ERROR".to_string());
     println!("input: {}", input);
     for _ in 0..=100 {
         println!("{}", run((&input).to_string()));
-    }}
+    }
     
 }
