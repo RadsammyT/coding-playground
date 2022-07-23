@@ -6,19 +6,16 @@
 
 
 // use std::time::SystemTime;
-use std::{*};
+use std::{*, io::Write};
 use rad::{timer::Timer};
 use text_io::*;
 use rand::*;
-
-
 
 mod rad;
 
 
 fn main() {
     select();
-    // rad::string_random::test();
 }
 
 fn select() {
@@ -81,7 +78,11 @@ fn select() {
             
             6 => {
                 let closure = |a: i32| a * a;
+                let otherclosure = |b: i32| -> i32 {
+                    return b + b;
+                };
                 println!("square of 43: {}", closure(43));
+                println!("43 times 2: {}", otherclosure(43));
                 is_bad = false;
             }
 

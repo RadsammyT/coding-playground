@@ -1,6 +1,11 @@
 use std::*;
 
 pub fn test() {
+    let sleep = || -> i32 {
+        thread::sleep(time::Duration::from_secs_f32(3.5));
+        return 0;
+    };
+
     for _ in 0..=2 {
         println!("delay of 3.5 seconds between slides!!!");
     }
@@ -13,7 +18,7 @@ pub fn test() {
     }
     println!("{test}");
 
-    thread::sleep(time::Duration::from_secs_f32(3.5));
+    sleep();
 
     println!("Vector \n");
     let mut vec: Vec<i32> = vec![];
@@ -27,7 +32,7 @@ pub fn test() {
     }
     println!("{}", test);
 
-    thread::sleep(time::Duration::from_secs_f32(3.5));
+    sleep();
 
     println!("pointers \n");
     let pointee: i32 = 69;

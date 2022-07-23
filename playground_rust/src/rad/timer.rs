@@ -17,7 +17,6 @@ impl Timer {
        return Timer {start: None, end: None}
     }
 
-
     pub fn start_timer(&mut self) {
         self.start = Some(SystemTime::now());
     }
@@ -26,7 +25,7 @@ impl Timer {
         if self.start != None {
             self.end = Some(SystemTime::now());
         } else {
-            eprintln!("RAD/TIMER ERROR: TIMER.START IS NONE. {:?}", self);
+            panic!("Invocation of end_timer when start has not been set");
         }
     }
 
