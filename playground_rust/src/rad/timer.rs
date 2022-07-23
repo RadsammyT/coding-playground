@@ -43,6 +43,7 @@ impl Timer {
     /// 
     /// println!("{}", Timer::get_epoch(&mut timer).unwrap());
     /// ```
+    #[allow(dead_code)]
     pub fn get_epoch(&mut self) -> Option<f64> {
         return Some(self.start?.duration_since(std::time::UNIX_EPOCH).unwrap().as_secs_f64());
     }
@@ -55,14 +56,13 @@ impl std::fmt::Debug for Timer {
     }
 }
 
-
+#[allow(dead_code)]
 pub fn test(exit: bool) {
     let mut timer = Timer {
         start: None,
         end: None,
     };
     Timer::start_timer(&mut timer);
-    Timer::end_timer(&mut timer);
     println!("{}", Timer::get_epoch(&mut timer).unwrap());
 
     if exit {

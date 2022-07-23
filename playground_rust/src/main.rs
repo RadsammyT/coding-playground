@@ -6,10 +6,10 @@
 
 
 // use std::time::SystemTime;
-use std::{*, io::Write};
-use rad::{timer::Timer};
+use std::*;
+use rad::timer::Timer;
 use text_io::*;
-use rand::*;
+
 
 mod rad;
 
@@ -32,7 +32,7 @@ fn select() {
      * 
      * you get the point... right?
      */
-    let mut sel: i32 = -1;
+    let mut sel: i32;
     let mut is_bad: bool = true;
     let mut main_timer = Timer::new();
     
@@ -72,17 +72,19 @@ fn select() {
             }
 
             5 => {
-                rad::string_random::test();
+                let input: String = try_read!("\n{}\n").unwrap();
+
+                rad::string_random::test(input.as_str());
                 is_bad = false;
             }
             
             6 => {
                 let closure = |a: i32| a * a;
-                let otherclosure = |b: i32| -> i32 {
+                let other_closure = |b: i32| -> i32 {
                     return b + b;
                 };
                 println!("square of 43: {}", closure(43));
-                println!("43 times 2: {}", otherclosure(43));
+                println!("43 times 2: {}", other_closure(43));
                 is_bad = false;
             }
 
