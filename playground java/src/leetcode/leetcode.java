@@ -2,13 +2,13 @@ package leetcode;
 
 import java.util.*;
 
-
 public class leetcode {
     // https://leetcode.com/problems/defanging-an-ip-address/
     public static String defangIPAddr(String address) {
         // System.out.println(address.replaceAll("[.]", "[.]"));
         return address.replaceAll("[.]", "[.]");
     }
+
     //https://leetcode.com/problems/two-sum/
     public static int[] twoSum(int[] nums, int target) {
         for (int i = 0; i < nums.length; i++) {
@@ -18,8 +18,9 @@ public class leetcode {
                 }
             }
         }
-        return new int[] {-1, -1};
+        return new int[] { -1, -1 };
     }
+
     //https://leetcode.com/problems/build-array-from-permutation/
     public static int[] BuildArrayFromPermutation(int[] nums) {
         int[] out = new int[nums.length];
@@ -30,6 +31,7 @@ public class leetcode {
         // System.out.println(Arrays.toString(out) + "\n");
         return out;
     }
+
     //https://leetcode.com/problems/final-value-of-variable-after-performing-operations/
     public static int finalValueAfterOperations(String[] ops) {
         int x = 0;
@@ -44,6 +46,7 @@ public class leetcode {
 
         return x;
     }
+
     //https://leetcode.com/problems/running-sum-of-1d-array/
     public static int[] runningSum(int[] nums) {
         int sum = 0;
@@ -72,6 +75,7 @@ public class leetcode {
 
         return highest;
     }
+
     //https://leetcode.com/problems/maximum-number-of-words-found-in-sentences/
     public static int mostWordsFound(String[] sentences) {
         short max = 0;
@@ -110,13 +114,43 @@ public class leetcode {
         }
         arr = 1;
         for (int i = 1; i < n; i++) { // y half of the result
-            res[arr] = nums[i+n - 1];
+            res[arr] = nums[i + n - 1];
             arr += 2;
         }
         res[(n * 2) - 1] = nums[(n * 2) - 1]; //(n*2)-1 being the last element in the array.
         // i *could* have done (res/nums).length but naaaaaah
         return res;
 
+    }
+    //TODO: Complete me!
+    //https://leetcode.com/problems/add-two-numbers/
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        /*
+         * You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+         * You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+         */
+        List<Integer> res1 = new ArrayList<Integer>();
+        List<Integer> res2 = new ArrayList<Integer>();
 
+
+        return l2;
+    }
+}
+
+//prerequisite class for some of the problems used in this file
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode() {
+    }
+
+    ListNode(int val) {
+        this.val = val;
+    }
+
+    ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
     }
 }

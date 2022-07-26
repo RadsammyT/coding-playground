@@ -14,6 +14,7 @@ use text_io::*;
 mod rad;
 
 
+
 fn main() {
     select();
 }
@@ -37,7 +38,7 @@ fn select() {
     let mut main_timer = Timer::new();
     
     while is_bad {
-        println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb, 102 numbers \n5: random slices of string \n6: closure bullshittery \n");
+        println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb, 102 numbers \n5: random slices of string \n6: closure bullshittery \n7: Union test");
         print!("Select an entry: ");
         sel = try_read!().unwrap_or(-1);
         main_timer.start_timer();
@@ -56,15 +57,19 @@ fn select() {
                 what the fuck
             */
             3 => { // cursed
-                rad::collatz::run({println!("input"); try_read!().unwrap()},
-                {println!("print steps? (true/false)"); try_read!().unwrap()});
+                rad::collatz::run({print!("input: "); try_read!().unwrap()},
+                {println!("print steps? (true/false): "); try_read!().unwrap()});
                 is_bad = false;
             }
             4 => {
                 let mut vec: Vec<i128> = vec![];
                 vec.push(0);
                 vec.push(1);
-                for i in 0..100 {
+                let size = {
+                    print!("How many numbers?: "); 
+                    try_read!().unwrap_or(50) - 2
+                };
+                for i in 0..size {
                     vec.push(vec[i] + vec[i+1]);
                 }
                 println!("{:?}", vec);
@@ -85,6 +90,20 @@ fn select() {
                 };
                 println!("square of 43: {}", closure(43));
                 println!("43 times 2: {}", other_closure(43));
+                is_bad = false;
+            }
+
+            7 => {
+                union Test {
+                    v1: u32,
+                    v2: u16
+                }
+                let mut test = Test {v1: 2000000000};
+                test.v2 = u16::MAX;
+                unsafe {
+                    println!("Union: v1 as u32 (UNION SIZE), v2 as u16. \nv1 = 2000000000, v2 = u16::MAX");
+                    println!("{:#32b} = {} \n{:#16b} = {}", test.v1, test.v1, test.v2, test.v2);
+                }
                 is_bad = false;
             }
 
