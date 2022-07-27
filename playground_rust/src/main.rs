@@ -6,13 +6,12 @@
 
 
 // use std::time::SystemTime;
-use std::*;
+use std::{*, io::{Write, Read}};
 use rad::timer::Timer;
 use text_io::*;
 
 
 mod rad;
-
 
 
 fn main() {
@@ -132,5 +131,16 @@ fn select() {
     }
     main_timer.end_timer();
     println!("{} seconds", main_timer.get_elapsed().unwrap());
+    user_halt();
+}
+
+fn user_halt() {
+    if std::env::consts::OS == "windows" {
+        let _ = std::process::Command::new("cmd.exe").arg("/c").arg("pause").status();
+    } else {
+        print!("press enter/return to continue... ");
+        let _ = try_read!("\n{}\n").unwrap_or(-1);
+    }
+
 }
 

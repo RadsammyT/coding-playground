@@ -61,7 +61,7 @@ public class Select extends Exception {
                             "3: tic-tac-toe old gui \n" +
                             "4: tic-tac-toe revamp \n" + 
                             "5: test runnable \n" +
-                "6: shitshuffler: multithreading edition");
+                            "6: shitshuffler: multithreading edition");
 
         try {
             arr[rad.InputUtils.readInt("") - 1].run();
