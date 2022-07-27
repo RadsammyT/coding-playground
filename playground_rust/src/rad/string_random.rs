@@ -11,5 +11,4 @@ pub fn test(input: &str) {
     for _ in 0..=100 {
         println!("{}", run((&input).to_string()));
     }
-    
 }

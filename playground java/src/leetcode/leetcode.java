@@ -122,19 +122,6 @@ public class leetcode {
         return res;
 
     }
-    //TODO: Complete me!
-    //https://leetcode.com/problems/add-two-numbers/
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        /*
-         * You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
-         * You may assume the two numbers do not contain any leading zero, except the number 0 itself.
-         */
-        List<Integer> res1 = new ArrayList<Integer>();
-        List<Integer> res2 = new ArrayList<Integer>();
-
-
-        return l2;
-    }
 }
 
 //prerequisite class for some of the problems used in this file

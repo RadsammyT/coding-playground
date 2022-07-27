@@ -67,3 +67,18 @@ pub fn run() {
     println!("{} total fails, {} seconds", fail, Timer::get_elapsed(&mut timer).unwrap());
 
 }
+
+pub fn run_singular(length: i32) -> Vec<i32> {
+    let mut vec: Vec<i32> = vec![];
+    let mut fail = 0;
+    for _ in 0..length {
+        vec.push(0);
+    }
+
+    while !is_unique(&vec) {
+        vec = shuffle(&mut vec).to_vec();
+        fail += 1;
+    }
+    vec.push(fail);
+    return vec;
+}

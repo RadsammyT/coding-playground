@@ -43,8 +43,8 @@ public class ShitShuffler {
 	static int failedRollMarker = 5000;
 	static int failedRollStep = failedRollMarker;
 	static int failedRollSum = 0;
-	
-	static boolean markerSwitch = false; 
+
+	static boolean markerSwitch = false;
 	static Random rand = new Random();
 
 	/**
@@ -83,16 +83,16 @@ public class ShitShuffler {
 			System.out.println(Arrays.toString(bag) + " : FR > " + (failedRolls) + " : SR > " + (succeededRolls + 1)
 					+ " : TIME > " + time.getElapseDouble());
 			// BAG : FR > 0 : SR > 1 : TIME > 0.0
-			System.out.println((int)(failedRolls / ((double) time.getElapse() / 1000)) + " failed rolls per second");
+			System.out.println((int) (failedRolls / ((double) time.getElapse() / 1000)) + " failed rolls per second");
 
-			failedRollSum += failedRolls;			
+			failedRollSum += failedRolls;
 
 			failedRolls = 0;
 			failedRollMarker = 1000000;
 			bag = new int[length];
 			succeededRolls++;
 		}
-		
+
 		// print the average of failedRollsSum
 		System.out.println("Average failed rolls: " + (failedRollSum / succeededRolls));
 	}
@@ -129,7 +129,24 @@ public class ShitShuffler {
 		while (!arrayIsUnique()) {
 			randomizeBag();
 		}
+
 		return bag;
+	}
+	
+	public static String run(int length, boolean showFail, Random rand) {
+		bag = new int[length];
+		failedRolls = 0;
+
+		while (!arrayIsUnique()) {
+			rand.setSeed(System.nanoTime());
+			if(showFail) failedRolls++;
+			randomizeBag();
+		}
+
+		if (showFail) {
+			return Arrays.toString(bag) + " " + failedRolls;
+		}
+		return Arrays.toString(bag);
 	}
 
 	public static Runnable run() {
@@ -264,5 +281,6 @@ public class ShitShuffler {
 
 	//let see if copilot can optimize arrayIsUnique()
 
-
 }
+
+

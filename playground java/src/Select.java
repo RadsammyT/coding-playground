@@ -42,6 +42,16 @@ public class Select extends Exception {
                         }
                         System.out.println(Arrays.toString(test.toArray()));
                 }
+            },
+            
+            new Runnable() {
+                public void run() {
+                        int numOfThreads = 10;
+                        for (int i = 0; i < numOfThreads; i++) {
+                            Thread obj = new Thread(new rad.ShitShufflerThread());
+                            obj.start();
+                        }
+                }    
             }
     };
        
@@ -50,7 +60,8 @@ public class Select extends Exception {
                             "2: tic-tac-toe old \n" +
                             "3: tic-tac-toe old gui \n" +
                             "4: tic-tac-toe revamp \n" + 
-                            "5: test runnable \n");
+                            "5: test runnable \n" +
+                "6: shitshuffler: multithreading edition");
 
         try {
             arr[rad.InputUtils.readInt("") - 1].run();
