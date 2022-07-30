@@ -30,8 +30,8 @@ namespace input {
         return x;
     }
 
-    long long readI64(std::string prompt) {
-        long long x;
+    long long int readI64(std::string prompt) {
+        long long int x;
         std::cout << prompt;
         try {
             std::cin >> x;
@@ -39,6 +39,7 @@ namespace input {
             std::cout << "Invalid input" << std::endl;
             return readI64(prompt);
         }
+
         return x;
     }
 

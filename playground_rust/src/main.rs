@@ -37,7 +37,7 @@ fn select() {
     let mut main_timer = Timer::new();
     
     while is_bad {
-        println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb, 102 numbers \n5: random slices of string \n6: closure bullshittery \n7: Union test \n8: shitshuffler, multithreading edition");
+        println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: Union test \n8: shitshuffler, multithreading edition");
         print!("Select an entry: ");
         sel = try_read!().unwrap_or(-1);
         main_timer.start_timer();
@@ -107,10 +107,12 @@ fn select() {
             }
 
             8 => {
+                let length = {print!("length?: "); try_read!().unwrap_or(15)};
+                let thread_num = {print!("repeat how many times? (# of threads): "); try_read!().unwrap_or(10)};
                 let mut threads = vec![];
-                for i in 0..10 {
-                    threads.push(thread::spawn(|| {
-                        println!("{:?}", rad::shit_shuffler::run_singular(15));
+                for i in 0..thread_num {
+                    threads.push(thread::spawn(move || {
+                        println!("{:?}", rad::shit_shuffler::run_singular(length));
                     }));
                 }
 
@@ -118,6 +120,10 @@ fn select() {
                     let _res = i.join();
                 }
                 is_bad = false;
+            }
+
+            9 => {
+                
             }
 
             _ => {

@@ -84,14 +84,8 @@ namespace ShitShuffler {
     }
 
     int runNoParam() {
-        int length = 0;
-        int max = 0;
-        while (length < 1) {
-            length = input::readI32("Length?:");
-        }
-        while (max < 1) {
-            max = input::readI64("Max?:");
-        }
+        auto length = input::readI32("Length?:");
+        auto max = input::readI64("Max?:");
         ShitShuffler::run(length, max);
         return 0;
     }
