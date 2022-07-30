@@ -31,6 +31,7 @@ fn is_unique(v: &[i32]) -> bool {
 pub fn run() {
 
     let mut timer = Timer::new();
+    const FAIL_STEP: u64 =  1000;
     
     println!("length? (15 or less is recommended)");
     let length: i32 = try_read!().unwrap_or(-1);
@@ -39,7 +40,6 @@ pub fn run() {
     let mut repeat: i32  = 0;
     let mut fail: u64 = 0;
     let mut fail_per: u64 = 0;
-    const FAIL_STEP: u64 = 1000;
     let mut fail_mark: u64 = 0;
     let mut vec: Vec<i32> = vec![];
     for _ in 0..length {

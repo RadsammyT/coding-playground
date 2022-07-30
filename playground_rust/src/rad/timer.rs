@@ -33,7 +33,9 @@ impl Timer {
         return Some(self.end?.duration_since(self.start?).unwrap().as_secs_f64())
     }
     
-    ///Gets the epoch time from ```timer.start```.
+    ///Gets the epoch time from either `timer.start` or `timer.end`.
+    /// set `time` argument to true to get EPOCH from `timer.start`
+    /// set to false to get EPOCH from `timer.false`
     /// # Example
     /// 
     /// 
@@ -41,11 +43,15 @@ impl Timer {
     /// let mut timer = Timer::new();
     /// Timer::start_timer(&mut timer);
     /// 
-    /// println!("{}", Timer::get_epoch(&mut timer).unwrap());
+    /// println!("{}", Timer::get_epoch(&mut timer, true).unwrap());
     /// ```
     #[allow(dead_code)]
-    pub fn get_epoch(&mut self) -> Option<f64> {
-        return Some(self.start?.duration_since(std::time::UNIX_EPOCH).unwrap().as_secs_f64());
+    pub fn get_epoch(&mut self, time: bool) -> Option<f64> {
+        if time {
+            return Some(self.start?.duration_since(std::time::UNIX_EPOCH).unwrap().as_secs_f64());
+        } else {
+            return Some(self.end?.duration_since(std::time::UNIX_EPOCH).unwrap().as_secs_f64());
+        }
     }
 
 }
@@ -63,7 +69,7 @@ pub fn test(exit: bool) {
         end: None,
     };
     Timer::start_timer(&mut timer);
-    println!("{}", Timer::get_epoch(&mut timer).unwrap());
+    println!("{}", Timer::get_epoch(&mut timer, true).unwrap());
 
     if exit {
         println!("exiting");

@@ -7,8 +7,8 @@ pub fn run(mut input: String) -> String {
     return input.get_mut(min..rand::thread_rng().gen_range(min..=len)).unwrap().to_string();
 }
 
-pub fn test(input: &str) {
-    for _ in 0..=100 {
+pub fn test(input: &str, range: i32) {
+    for _ in 0..=range {
         println!("{}", run((&input).to_string()));
     }
 }

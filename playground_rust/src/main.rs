@@ -37,7 +37,7 @@ fn select() {
     let mut main_timer = Timer::new();
     
     while is_bad {
-        println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: Union test \n8: shitshuffler, multithreading edition");
+        println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: Union test \n8: shitshuffler, multithreading edition \n9: timer epoch");
         print!("Select an entry: ");
         sel = try_read!().unwrap_or(-1);
         main_timer.start_timer();
@@ -76,9 +76,12 @@ fn select() {
             }
 
             5 => {
-                let input: String = try_read!("\n{}\n").unwrap();
+                let input: String = {print!("input: "); 
+                                    try_read!("\n{}\n").unwrap()};
+                let range: i32 = {print!("range: ");
+                                try_read!().unwrap_or(100)};
 
-                rad::string_random::test(input.as_str());
+                rad::string_random::test(input.as_str(), range);
                 is_bad = false;
             }
             
@@ -123,7 +126,13 @@ fn select() {
             }
 
             9 => {
-                
+                let mut timer = Timer::new();
+                timer.start_timer();
+                println!("{:?}", timer.get_epoch(true));
+
+                timer.end_timer();
+
+                is_bad = false;
             }
 
             _ => {

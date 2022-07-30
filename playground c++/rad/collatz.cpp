@@ -53,7 +53,7 @@ namespace collatz {
     void runInSwitch() {
         int *out = runNoParam();
         int result[] = {*out, *(out + 1), *(out + 2)};
-        for(int i: result){
+        for(int i: result) {
             printf("%d ", i);
         }
         printf("\n");
