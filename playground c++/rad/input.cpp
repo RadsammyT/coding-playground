@@ -5,6 +5,12 @@
 #include <iostream>
 #pragma once
 namespace input { 
+    /**
+     * @brief Returns an int based on user input
+     * 
+     * @param prompt 
+     * @return int 
+     */
     int readI32(std::string prompt) {
         int x;
         std::cout << prompt;
@@ -16,7 +22,12 @@ namespace input {
         }
         return x;
     }
-
+    /**
+     * @brief Returns a string based on user input until newline
+     * 
+     * @param prompt 
+     * @return std::string 
+     */
     std::string readString(std::string prompt) {
         std::string x;
         std::cout << prompt;
@@ -29,7 +40,12 @@ namespace input {
 
         return x;
     }
-
+    /**
+     * @brief returns a long long int based on user input
+     * 
+     * @param prompt 
+     * @return long long int 
+     */
     long long int readI64(std::string prompt) {
         long long int x;
         std::cout << prompt;
@@ -42,7 +58,11 @@ namespace input {
 
         return x;
     }
-
+    /**
+     * @brief Halts the running program on invocation until user pushes enter/return
+     * 
+     * @param message 
+     */
     void userHalt(std::string message = "") {
         std::cout << message;
         std::cin.ignore();

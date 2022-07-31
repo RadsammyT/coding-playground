@@ -1,4 +1,4 @@
-use std::*;
+use std::{*, collections::VecDeque};
 
 pub fn test() {
     let sleep = || -> i32 {
@@ -42,6 +42,17 @@ pub fn test() {
     println!("pointee addr: {:p}", &pointee);
     println!("pointer addr: {:p}", pointer);
     println!("null addr: {:p}", null);
+
+    sleep();
+    
+    println!("VecDeque \n \n");
+
+    let mut vecdeq: VecDeque<i128> = VecDeque::from([2]);
+
+    for i in 1..=6 {
+        vecdeq.push_back((*vecdeq.get(i - 1).unwrap()).pow(2));
+        println!("{:?}", vecdeq);
+    }
 
 
 

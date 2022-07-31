@@ -20,7 +20,7 @@ void fibb() {
 }
 
 int main() { 
-    int select = input::readI32("1: ShitShuffler \n2: test print lmao \n3: collatz \n4: fibbonachi\n");
+    int select = input::readI32("1: ShitShuffler \n2: test print lmao \n3: collatz \n4: fibbonachi \n5: pointers testing\n");
 
     switch(select) {
         case 1:
@@ -34,6 +34,9 @@ int main() {
             break;
         case 4:
             fibb();
+            break;
+        case 5:
+            pointers::test2();
             break;
         default:
             printf("Invalid selection, not in switch list");

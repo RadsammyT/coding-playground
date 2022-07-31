@@ -128,7 +128,7 @@ fn select() {
             9 => {
                 let mut timer = Timer::new();
                 timer.start_timer();
-                println!("{:?}", timer.get_epoch(true));
+                println!("{:?}", timer.get_epoch(true).unwrap());
 
                 timer.end_timer();
 

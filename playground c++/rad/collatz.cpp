@@ -47,7 +47,7 @@ namespace collatz {
         return run(input, true);
     }
     /**
-     * @brief because using runNoParam() along with initializing a var would throw an error
+     * @brief because using runNoParam() along with initializing a var in a switch-case block would throw an error
      * 
      */
     void runInSwitch() {
