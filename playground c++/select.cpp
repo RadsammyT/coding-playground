@@ -2,6 +2,7 @@
 #include "rad/input.cpp"
 #include "rad/pointers.cpp"
 #include "rad/collatz.cpp"
+#include "rad/test.cpp"
 #include <vector>
 
 void fibb() {
@@ -20,14 +21,14 @@ void fibb() {
 }
 
 int main() { 
-    int select = input::readI32("1: ShitShuffler \n2: test print lmao \n3: collatz \n4: fibbonachi \n5: pointers testing\n");
+    int select = input::readI32("1: ShitShuffler \n2: test print lmao \n3: collatz \n4: fibbonachi \n5: pointers testing \n6: floats \n");
 
     switch(select) {
         case 1:
             ShitShuffler::runNoParam();
             break;
         case 2:
-            printf("test moment");
+            printf("test moment \n");
             break;
         case 3:
             collatz::runInSwitch();
@@ -38,8 +39,12 @@ int main() {
         case 5:
             pointers::test2();
             break;
+        case 6:
+            test::floats();
+            break;
         default:
-            printf("Invalid selection, not in switch list");
+            printf("Invalid selection, not in switch list \n");
             break;
     }
+    input::userHalt("Press enter to continue...");
 }

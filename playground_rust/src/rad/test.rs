@@ -45,7 +45,7 @@ pub fn test() {
 
     sleep();
     
-    println!("VecDeque \n \n");
+    println!("VecDeque \n");
 
     let mut vecdeq: VecDeque<i128> = VecDeque::from([2]);
 

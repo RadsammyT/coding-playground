@@ -59,6 +59,59 @@ namespace input {
         return x;
     }
     /**
+     * @brief readFXX, where XX = byte size
+     * 
+     * @param prompt 
+     * @return float 
+     */
+    float readF4(std::string prompt) {
+        float x;
+        std::cout << prompt;
+        try {
+            std::cin >> x;
+        } catch(std::exception e) {
+            std::cout << "Invalid input" << std::endl;
+            return readF4(prompt);
+        }
+        return x;
+    }
+
+    /**
+     * @brief readFXX, where XX = byte size
+     * 
+     * @param prompt 
+     * @return double 
+     */
+    double readF8(std::string prompt) {
+        double x;
+        std::cout << prompt;
+        try {
+            std::cin >> x;
+        } catch(std::exception e) {
+            std::cout << "Invalid input" << std::endl;
+            return readF8(prompt);
+        }
+        return x;
+    }
+    /**
+     * @brief readFXX, where XX = byte size
+     * 
+     * @param prompt 
+     * @return long double 
+     */
+    long double readF12(std::string prompt) {
+        long double x;
+        std::cout << prompt;
+        try {
+            std::cin >> x;
+        } catch(std::exception e) {
+            std::cout << "Invalid input" << std::endl;
+            return readF12(prompt);
+        }
+        return x;
+    }
+    
+    /**
      * @brief Halts the running program on invocation until user pushes enter/return
      * 
      * @param message 

@@ -1,6 +1,13 @@
 use text_io::*;
 use rand::*;
 use super::timer::Timer;
+
+pub struct Returned {
+    pub ret_1: Vec<i32>,
+    pub ret_2: Vec<i32>,
+    pub ret_3: String,
+}
+
 /// All elements of the vector are set to a random number from 0 to the length of the vector (Exclusive)
 /// # Example
 /// ```
@@ -68,7 +75,7 @@ pub fn run() {
 
 }
 
-pub fn run_singular(length: i32) -> Vec<i32> {
+pub fn run_singular(length: i32) -> Returned {
     let mut vec: Vec<i32> = vec![];
     let mut fail = 0;
     for _ in 0..length {
@@ -79,6 +86,23 @@ pub fn run_singular(length: i32) -> Vec<i32> {
         vec = shuffle(&mut vec).to_vec();
         fail += 1;
     }
-    vec.push(fail);
-    return vec;
+
+    let mut vec2: Vec<i32> = vec.clone();
+    vec2.push(fail);
+    // vec.push(fail);
+    // return vec;
+    let ret: Returned =  Returned {
+            ret_1: vec,
+            ret_2: vec2,
+            ret_3: "TODO".to_string(), 
+            
+            // {
+            //     let mut test = format!("{:?}", *vec);
+            //     test.push_str(&fail.to_string());
+            //     test
+            // },
+        };
+    
+    ret
+    
 }

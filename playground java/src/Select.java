@@ -47,8 +47,8 @@ public class Select extends Exception {
             new Runnable() {
                 public void run() {
                         int numOfThreads = 10;
-                        for (int i = 0; i < numOfThreads; i++) {
-                            Thread obj = new Thread(new rad.ShitShufflerThread());
+                        for (int i = 1; i < numOfThreads + 1; i++) {
+                            Thread obj = new Thread(new rad.ShitShufflerThread(System.nanoTime() + (i + 1)));
                             obj.start();
                         }
                 }    

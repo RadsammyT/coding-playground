@@ -6,7 +6,7 @@
 
 
 // use std::time::SystemTime;
-use std::{*, io::{Write, Read}};
+use std::*;
 use rad::timer::Timer;
 use text_io::*;
 
@@ -96,11 +96,11 @@ fn select() {
             }
 
             7 => {
-                union Test {
+                union Uni {
                     v1: u32,
                     v2: u16
                 }
-                let mut test = Test {v1: 2000000000};
+                let mut test = Uni {v1: 2000000000};
                 test.v2 = u16::MAX;
                 unsafe {
                     println!("Union: v1 as u32 (UNION SIZE), v2 as u16. \nv1 = 2000000000, v2 = u16::MAX");
@@ -113,9 +113,9 @@ fn select() {
                 let length = {print!("length?: "); try_read!().unwrap_or(15)};
                 let thread_num = {print!("repeat how many times? (# of threads): "); try_read!().unwrap_or(10)};
                 let mut threads = vec![];
-                for i in 0..thread_num {
+                for _ in 0..thread_num {
                     threads.push(thread::spawn(move || {
-                        println!("{:?}", rad::shit_shuffler::run_singular(length));
+                        println!("{:?}", rad::shit_shuffler::run_singular(length).ret_1);
                     }));
                 }
 
