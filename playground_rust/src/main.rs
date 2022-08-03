@@ -1,12 +1,12 @@
 /*
     NOTE TO SELF:
         https://cheat.sh/rust/
-        USE LINK WHEN STUCK ON SHIT
+        USE& LINK WHEN STUCK ON SHIT
 */
 
 
 // use std::time::SystemTime;
-use std::*;
+use std::{*, fs::File, io::Read};
 use rad::timer::Timer;
 use text_io::*;
 
@@ -37,7 +37,7 @@ fn select() {
     let mut main_timer = Timer::new();
     
     while is_bad {
-        println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: Union test \n8: shitshuffler, multithreading edition \n9: timer epoch");
+        println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: Union test \n8: shitshuffler, multithreading edition \n9: timer epoch \n10: file reading (change path in main.rs, fn select())");
         print!("Select an entry: ");
         sel = try_read!().unwrap_or(-1);
         main_timer.start_timer();
@@ -125,7 +125,7 @@ fn select() {
                 for _ in 0..thread_num {
                     threads.push(thread::spawn(move || {
                         let temp = rad::shit_shuffler::run_singular(length);
-                        println!("{:?}, {}",temp.ret_1, temp.ret_3 );
+                        println!("{:?}, {}",temp.ret_1, temp.ret_2 );
                     }));
                 }
 
@@ -144,6 +144,23 @@ fn select() {
                 println!("{:?}", timer.get_epoch(true).unwrap());
 
                 timer.end_timer();
+
+                is_bad = false;
+            }
+
+            10 => {
+                let mut file = match File::open("E:/CODING WORKSPACE/coding-playground/test.txt") {
+                    Ok(s) => s,
+                    Err(e) => panic!("{}", e),
+                };
+                let mut read = String::new();
+
+                let _res = match file.read_to_string(&mut read) {
+                    Ok(r) => r,
+                    Err(e) => panic!("{}", e),
+                };
+
+                println!("{}", read);
 
                 is_bad = false;
             }
