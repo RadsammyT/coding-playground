@@ -20,7 +20,7 @@ fn main() {
 
 fn select() {
     /*
-    * because println! counts indentation when calling it across multiple lines
+     * because println! counts indentation when calling it across multiple lines
      * example:
      * fn main() {
      *      println!("test
@@ -56,8 +56,15 @@ fn select() {
                 what the fuck
             */
             3 => { // cursed
-                rad::collatz::run({print!("input: "); try_read!().unwrap()},
-                {println!("print steps? (true/false): "); try_read!().unwrap()});
+                let inp: i128 = {print!("input: "); try_read!().unwrap()};
+                let inp2: bool = {println!("print steps? (true/false): "); try_read!().unwrap()};
+                let mut time = Timer::new();
+                time.start_timer();
+                let res = rad::collatz::run(inp,
+                inp2);
+                time.end_timer();
+
+                println!("{:?}, {}", res, time.get_elapsed().unwrap());
                 is_bad = false;
             }
             4 => {
@@ -110,18 +117,24 @@ fn select() {
             }
 
             8 => {
+                let mut timer = Timer::new();
                 let length = {print!("length?: "); try_read!().unwrap_or(15)};
                 let thread_num = {print!("repeat how many times? (# of threads): "); try_read!().unwrap_or(10)};
                 let mut threads = vec![];
+                timer.start_timer();
                 for _ in 0..thread_num {
                     threads.push(thread::spawn(move || {
-                        println!("{:?}", rad::shit_shuffler::run_singular(length).ret_1);
+                        let temp = rad::shit_shuffler::run_singular(length);
+                        println!("{:?}, {}",temp.ret_1, temp.ret_3 );
                     }));
                 }
 
                 for i in threads {
                     let _res = i.join();
                 }
+                timer.stop_timer();
+
+                println!("shitshuffler time: {}", timer.get_elapsed().unwrap());
                 is_bad = false;
             }
 
@@ -145,7 +158,7 @@ fn select() {
         }
     }
     main_timer.end_timer();
-    println!("{} seconds", main_timer.get_elapsed().unwrap());
+    println!("\n{} seconds overall", main_timer.get_elapsed().unwrap());
     user_halt();
 }
 

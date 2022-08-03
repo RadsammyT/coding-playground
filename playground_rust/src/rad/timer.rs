@@ -2,8 +2,8 @@ use std::time::SystemTime;
 use std;
 
 pub struct Timer {
-    pub start: Option<SystemTime>,
-    pub end: Option<SystemTime>,
+    start: Option<SystemTime>,
+    end: Option<SystemTime>,
 }
 
 impl Timer {
@@ -14,7 +14,7 @@ impl Timer {
     /// let mut timer = Timer::new();
     /// ```
     pub fn new() -> Timer {
-       return Timer {start: None, end: None}
+        return Timer {start: None, end: None}
     }
 
     pub fn start_timer(&mut self) {
@@ -27,6 +27,14 @@ impl Timer {
         } else {
             panic!("Invocation of end_timer when start has not been set");
         }
+    }
+
+    /// ```end_timer``` but one word is switched.
+    /// I thought it might be a little easier on some people (myself included),
+    /// so I added this method as a convenience
+    /// 
+    pub fn stop_timer(&mut self) {
+        self.end_timer();
     }
 
     pub fn get_elapsed(&mut self) -> Option<f64> {

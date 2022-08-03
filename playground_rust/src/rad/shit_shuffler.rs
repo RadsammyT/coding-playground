@@ -5,7 +5,7 @@ use super::timer::Timer;
 pub struct Returned {
     pub ret_1: Vec<i32>,
     pub ret_2: Vec<i32>,
-    pub ret_3: String,
+    pub ret_3: u64,
 }
 
 /// All elements of the vector are set to a random number from 0 to the length of the vector (Exclusive)
@@ -94,13 +94,9 @@ pub fn run_singular(length: i32) -> Returned {
     let ret: Returned =  Returned {
             ret_1: vec,
             ret_2: vec2,
-            ret_3: "TODO".to_string(), 
-            
-            // {
-            //     let mut test = format!("{:?}", *vec);
-            //     test.push_str(&fail.to_string());
-            //     test
-            // },
+            ret_3:  {
+                fail.try_into().unwrap()
+            },
         };
     
     ret

@@ -8,7 +8,7 @@ pub fn run(mut input: String) -> String {
 }
 
 pub fn test(input: &str, range: i32) {
-    for _ in 0..=range {
-        println!("{}", run((&input).to_string()));
+    for i in 0..=range {
+        println!("({}): |{}|", i, run((&input).to_string()));
     }
 }
