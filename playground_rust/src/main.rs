@@ -150,7 +150,7 @@ fn select() {
             }
 
             10 => {
-                let mut file = match File::open("E:/CODING WORKSPACE/coding-playground/test.txt") {
+                let mut file = match File::open("E:/CODING WORKSPACE/coding-playground/test.txt") { // change this path for your machine
                     Ok(s) => s,
                     Err(e) => panic!("{}", e),
                 };

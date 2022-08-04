@@ -5,7 +5,11 @@ const number = n => {
   if (n === 0) return zero;
   return Array.from({length: n}, () => one).join(' + ');
 }
-
+/** 
+ * 
+ * This is a test
+ * 
+*/
 function test() {
     let test = 9;
     for (let i = 0; i < test; i++) {
