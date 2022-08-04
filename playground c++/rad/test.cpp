@@ -26,7 +26,10 @@ namespace test {
         auto x = input::readF12("F12: ");
         auto y = input::readF8("F8: ");
         auto z = input::readF4("F4: ");
-        printf("%.15f \n%.15lf \n%.15Lf \n", x, y, z);
+        printf("%Lf \n", x);
+        printf("%f \n", y);
+        printf("%f \n", z);
+
         return 0;
     }
 }

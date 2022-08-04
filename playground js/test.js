@@ -1,4 +1,1 @@
-const button = document.querySelector('button');
-button.onclick = function () {
-    alert("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-}
+console.log("test");

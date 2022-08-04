@@ -144,6 +144,7 @@ fn select() {
                 println!("{:?}", timer.get_epoch(true).unwrap());
 
                 timer.end_timer();
+                println!("{}", timer.get_elapsed().unwrap());
 
                 is_bad = false;
             }
