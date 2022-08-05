@@ -6,7 +6,7 @@
 
 
 // use std::time::SystemTime;
-use std::{*, fs::File, io::Read};
+use std::{*, fs::File, io::{Read, Write}};
 use rad::timer::Timer;
 use text_io::*;
 
@@ -85,9 +85,10 @@ fn select() {
             5 => {
                 let input: String = {print!("input: "); 
                                     try_read!("\n{}\n").unwrap()};
+                std::io::stdout().flush().unwrap();
                 let range: i32 = {print!("range: ");
                                 try_read!().unwrap_or(100)};
-
+                std::io::stdout().flush().unwrap();
                 rad::string_random::test(input.as_str(), range);
                 is_bad = false;
             }
@@ -117,25 +118,33 @@ fn select() {
             }
 
             8 => {
-                let mut timer = Timer::new();
-                let length = {print!("length?: "); try_read!().unwrap_or(15)};
-                let thread_num = {print!("repeat how many times? (# of threads): "); try_read!().unwrap_or(10)};
-                let mut threads = vec![];
-                timer.start_timer();
-                for _ in 0..thread_num {
-                    threads.push(thread::spawn(move || {
-                        let temp = rad::shit_shuffler::run_singular(length);
-                        println!("{:?}, {}",temp.ret_1, temp.ret_2 );
-                    }));
-                }
 
-                for i in threads {
-                    let _res = i.join();
-                }
-                timer.stop_timer();
+                let warn: bool;
+                println!("\n\n\nthis will be very CPU intensive depending on the number of threads you deploy. \ncontinue anyway? true/false \n(default false if input goes wrong)");
+                warn = try_read!().unwrap_or(false);
 
-                println!("shitshuffler time: {}", timer.get_elapsed().unwrap());
-                is_bad = false;
+                if warn {
+                    let mut timer = Timer::new();
+                    let length = {print!("length?: "); try_read!().unwrap_or(15)};
+                    let thread_num = {print!("repeat how many times? (# of threads): "); try_read!().unwrap_or(10)};
+                    println!("TX = thread number");
+                    let mut threads = vec![];
+                    timer.start_timer();
+                    for i in 0..thread_num {
+                        threads.push(thread::spawn(move || {
+                            let temp = rad::shit_shuffler::run_singular(length);
+                            println!("T{}) {:?}, {}", i + 1, temp.ret_1, temp.ret_2 );
+                        }));
+                    }
+
+                    for i in threads {
+                        let _res = i.join();
+                    }
+                    timer.stop_timer();
+
+                    println!("shitshuffler time: {}", timer.get_elapsed().unwrap());
+                    is_bad = false;
+                }
             }
 
             9 => {
@@ -182,11 +191,10 @@ fn select() {
 
 fn user_halt() {
     if std::env::consts::OS == "windows" {
-        let _ = std::process::Command::new("cmd.exe").arg("/c").arg("pause").status();
+        let _ = std::process::Command::new("cmd.exe").arg("/c").arg("pause").status().expect("Something is very fucking wrong");
     } else {
-        print!("press enter/return to continue... ");
-        let _ = try_read!("\n{}\n").unwrap_or(-1);
+        print!("type anything and press enter to continue... \ni didn't implement user_halt() for other platforms well so i hope this works for you");
+        let _ = try_read!().unwrap_or(-1);
     }
-
 }
 

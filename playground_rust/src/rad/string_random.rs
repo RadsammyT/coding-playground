@@ -1,3 +1,5 @@
+use std::io::Write;
+
 use rand::*;
 use text_io::*;
 

@@ -34,6 +34,9 @@ fn is_unique(v: &[i32]) -> bool {
     return true;
 }
 
+/**
+ * test
+ */
 pub fn run() {
 
     let mut timer = Timer::new();
