@@ -19,4 +19,12 @@ namespace pointers {
 
         return 0;
     }
+
+    int arrayPointer(int* zerothIndex, int length) {
+        for (int i = 0; i < length; i++ ) {
+            printf("%d \n", *(zerothIndex + i));
+        }
+
+        return 0;
+    }
 }
