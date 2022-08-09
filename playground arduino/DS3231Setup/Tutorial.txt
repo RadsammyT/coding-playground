@@ -1,0 +1,8 @@
+0: On line 28 of DS3231Setup.ino (writeOnAddress(3 , 3)):
+    Change the left value of the day of week.
+    1 is sunday, 2 is monday, and so on.
+
+1: prepare your arduino by uploading DS3231Setup.ino to your arduino
+    (This will allow the arduino to communicate with your PC)
+2: Run SendTime.bat, this will send the time to the arduino
+3: Check if the time is correct by writing "B," (no quotes) to the arduinos serial monitor. It should print out the clocks synced time.
