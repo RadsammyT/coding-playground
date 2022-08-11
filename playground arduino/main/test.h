@@ -175,9 +175,9 @@ namespace lcd_clock {
             lcd.print(0);
         }
         lcd.print(rtc.getSecond());
-        if(rtc.getHour(h12Flag, pmFlag) >= 12)
+        if(rtc.getHour(h12Flag, pmFlag) >= 12 && rtc.getHour(h12Flag, pmFlag) != 24) // 
             lcd.print("p");
-        if(rtc.getHour(h12Flag, pmFlag) < 12 || rtc.getHour(h12Flag, pmFlag) == 24)
+        else if(rtc.getHour(h12Flag, pmFlag) < 12 || rtc.getHour(h12Flag, pmFlag) == 24)
             lcd.print("a");
         lcd.print("    ");
     }

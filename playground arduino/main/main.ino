@@ -9,16 +9,13 @@
 #pragma once
 bool setTimer = false;
 void setup() {
-    if(setTimer)
-        setDS3231Time::setup();
-    else
+    
         lcd_clock::setup();
 }
 
 
 void loop() {
-    if(!setTimer)
-        lcd_clock::loop();
+    lcd_clock::loop();
 }
 
 

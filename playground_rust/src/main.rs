@@ -191,7 +191,7 @@ fn select() {
 
 fn user_halt() {
     if std::env::consts::OS == "windows" {
-        let _ = std::process::Command::new("cmd.exe").arg("/c").arg("pause").status().expect("Something is very fucking wrong");
+        let _ = std::process::Command::new("cmd.exe").arg("/c").arg("pause").status().expect("Something is very fucking wrong. \nOS should be windows and \nthe 'pause' command should be in the command list");
     } else {
         print!("type anything and press enter to continue... \ni didn't implement user_halt() for other platforms well so i hope this works for you");
         let _ = try_read!().unwrap_or(-1);
