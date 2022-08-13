@@ -42,8 +42,8 @@ impl Timer {
     }
     
     ///Gets the epoch time from either `timer.start` or `timer.end`.
-    /// set `time` argument to true to get EPOCH from `timer.start`
-    /// set to false to get EPOCH from `timer.false`
+    /// * set `time` argument to true to get EPOCH from `timer.start`
+    /// * set to false to get EPOCH from `timer.end`
     /// # Example
     /// 
     /// 

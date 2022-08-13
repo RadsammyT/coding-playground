@@ -9,8 +9,7 @@
 #pragma once
 bool setTimer = false;
 void setup() {
-    
-        lcd_clock::setup();
+    lcd_clock::setup();
 }
 
 

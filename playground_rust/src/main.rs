@@ -37,7 +37,7 @@ fn select() {
     let mut main_timer = Timer::new();
     
     while is_bad {
-        println!("1: shitshuffler \n2: test show \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: Union test \n8: shitshuffler, multithreading edition \n9: timer epoch \n10: file reading (change path in main.rs, fn select())");
+        println!("1: shitshuffler \n2: test select \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: shitshuffler, multithreading edition \n8: timer epoch \n9: file reading (change path in main.rs, fn select())");
         print!("Select an entry: ");
         sel = try_read!().unwrap_or(-1);
         main_timer.start_timer();
@@ -48,7 +48,7 @@ fn select() {
                 is_bad = false;
             }
             2 => {
-                rad::test::test();
+                rad::test::select();
                 is_bad = false;
             }
             /*
@@ -103,21 +103,9 @@ fn select() {
                 is_bad = false;
             }
 
-            7 => {
-                union Uni {
-                    v1: u32,
-                    v2: u16
-                }
-                let mut test = Uni {v1: 2000000000};
-                test.v2 = u16::MAX;
-                unsafe {
-                    println!("Union: v1 as u32 (UNION SIZE), v2 as u16. \nv1 = 2000000000, v2 = u16::MAX");
-                    println!("{:#32b} = {} \n{:#16b} = {}", test.v1, test.v1, test.v2, test.v2);
-                }
-                is_bad = false;
-            }
 
-            8 => {
+
+            7 => {
 
                 let warn: bool;
                 println!("\n\n\nthis will be very CPU intensive depending on the number of threads you deploy. \ncontinue anyway? true/false \n(default false if input goes wrong)");
@@ -147,7 +135,7 @@ fn select() {
                 }
             }
 
-            9 => {
+            8 => {
                 let mut timer = Timer::new();
                 timer.start_timer();
                 println!("{:?}", timer.get_epoch(true).unwrap());
@@ -158,7 +146,7 @@ fn select() {
                 is_bad = false;
             }
 
-            10 => {
+            9 => {
                 let mut file = match File::open("E:/CODING WORKSPACE/coding-playground/test.txt") { // change this path for your machine
                     Ok(s) => s,
                     Err(e) => panic!("{}", e),
