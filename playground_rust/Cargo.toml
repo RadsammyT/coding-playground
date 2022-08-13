@@ -9,3 +9,5 @@ edition = "2021"
 # random
 text_io = "0.1.10"
 rand = "0.8.5"
+num2words = "0.4.0"
+console = "0.15.1"

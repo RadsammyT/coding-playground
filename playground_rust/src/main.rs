@@ -9,6 +9,7 @@
 use std::{*, fs::File, io::{Read, Write}};
 use rad::timer::Timer;
 use text_io::*;
+use console::*;
 
 
 mod rad;
@@ -35,19 +36,21 @@ fn select() {
     let mut sel: i32;
     let mut is_bad: bool = true;
     let mut main_timer = Timer::new();
-    
+    let term = console::Term::stdout();
     while is_bad {
-        println!("1: shitshuffler \n2: test select \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: shitshuffler, multithreading edition \n8: timer epoch \n9: file reading (change path in main.rs, fn select())");
+        println!("{} \n1: shitshuffler \n2: test select \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: shitshuffler, multithreading edition \n8: timer epoch \n9: file reading (change path in main.rs, fn select())", style("welcome").underlined().fg(Color::Blue));
         print!("Select an entry: ");
         sel = try_read!().unwrap_or(-1);
         main_timer.start_timer();
         match sel {
             
             1 => {
+                
                 rad::shit_shuffler::run();
                 is_bad = false;
             }
             2 => {
+                term.clear_screen().expect("uh oh");
                 rad::test::select();
                 is_bad = false;
             }
@@ -108,7 +111,7 @@ fn select() {
             7 => {
 
                 let warn: bool;
-                println!("\n\n\nthis will be very CPU intensive depending on the number of threads you deploy. \ncontinue anyway? true/false \n(default false if input goes wrong)");
+                println!("\n\n\n{} \nThis uses a lot of your CPU depending on the number of threads deployed. \n{} (true/false)", style("WARNING:").bold().red(), style("Continue?").underlined().yellow());
                 warn = try_read!().unwrap_or(false);
 
                 if warn {
@@ -164,12 +167,16 @@ fn select() {
             }
 
             _ => {
+                term.clear_screen().expect("uh oh");
+                
                 println!("invalid");
                 is_bad = true;
             }
         }
         if !(is_bad) {
             break;
+        } else {
+            term.clear_screen().expect("Uh oh");
         }
     }
     main_timer.end_timer();

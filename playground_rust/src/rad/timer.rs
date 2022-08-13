@@ -1,6 +1,5 @@
 use std::time::SystemTime;
 use std;
-
 pub struct Timer {
     start: Option<SystemTime>,
     end: Option<SystemTime>,

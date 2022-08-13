@@ -1,14 +1,14 @@
-use std::{*, collections::VecDeque};
+use std::{*, collections::{VecDeque, HashMap}};
 
 use text_io::try_read;
-
+use num2words::{self, Num2Words};
 
 
 pub fn select() {
     let mut sel: i32;
     let mut is_bad: bool = true;
 
-    println!("--TEST SELECTION-- \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n");
+    println!("--TEST SELECTION-- \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib)\n");
     while is_bad {
         print!("select a test entry: ");
         sel = try_read!().unwrap_or(-1);
@@ -90,7 +90,23 @@ pub fn select() {
             }
 
             6 => {
+                let mut test_map: HashMap<i32, String> = HashMap::new();
+                for i in 0..=10 {
+                    test_map.insert(i, Num2Words::new(i as i64).currency(num2words::Currency::GBP).to_words().unwrap());
+                    // not casting i as an i64 will throw an error
+                    // and why it occurs is so dumb i have to cast it
+                    /*
+                    the trait bound `num2words::number::Number: From<i32>` is not satisfied
+                    the following other types implement trait `Into<T>`:
+                    f64
+                    i64
+                    required because of the requirements on the impl of `Into<num2words::number::Number>` for `i32`
+                    */
+                    // just lib author things i guess
+                }
+                dbg!(test_map);
 
+                is_bad = false;
             }
 
             _ => {
