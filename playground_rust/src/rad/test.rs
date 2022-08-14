@@ -111,6 +111,15 @@ pub fn select() {
             }
 
             7 => {
+                let term = console::Term::stdout();
+                println!("{}\n{}\n{}\n{}\n{}\n{}\n{}\n",
+                style("COOL TERMINAL LIBRARY RED").red(),
+                style("COOL TERMINAL LIBRARY YELLOW").yellow(),
+                style("COOL TERMINAL LIBRARY GREEN").green(),
+                style("COOL TERMINAL LIBRARY MEGENTA").magenta(),
+                style("COOL TERMINAL LIBRARY BLINK, UNDERLINE, BOLD, ITALTIC").blink().underlined().bold().italic(),
+                style("COOL TERMINAL LIBRARY BRIGHT").bright(),
+                style("COOL TERMINAL LIBRARY DIM").dim() );
 
                 is_bad = false;
             }
