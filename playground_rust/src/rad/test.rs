@@ -9,7 +9,7 @@ pub fn select() {
     let mut sel: i32;
     let mut is_bad: bool = true;
 
-    println!("{} \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib)\n", style("  TEST SELECTION  ").underlined().yellow());
+    println!("{} \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib) \n7: console style", style("  TEST SELECTION  ").underlined().yellow());
     while is_bad {
         print!("select a test entry: ");
         sel = try_read!().unwrap_or(-1);

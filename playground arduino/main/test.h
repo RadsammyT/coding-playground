@@ -127,6 +127,20 @@ Wiring :
 
 */
 namespace lcd_clock {
+    #define DS3231_I2C_ADDRESS 0x68
+
+    byte decToBcd(byte val)
+    {
+      return ( (val / 10 * 16) + (val % 10) );
+    }
+
+    void writeOnAddress(byte value, int address)
+    {
+        Wire.beginTransmission(DS3231_I2C_ADDRESS);
+        Wire.write(address);
+        Wire.write(decToBcd(value));
+        Wire.endTransmission();
+    }
     //PWM pins to RS, E, D4, D5, D6, D7.
     LiquidCrystal lcd(7, 8, 9, 10, 11, 12); // numbers are PWM pins
     int tpin = 0;
@@ -137,7 +151,7 @@ namespace lcd_clock {
     bool h12Flag = true;
     bool pmFlag = true;
     // setting the clock with compiler dates will reset DOW to 0.
-    const char* dow[] = {"Sun","Mon", "Tues", "Wed", "Thurs", "Fri", "Sat" };
+    const char* dow[] = {"Sun","Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun" };
     void setup() {
         // set up the LCD's number of columns and rows:
         lcd.begin(16, 2);
@@ -152,7 +166,13 @@ namespace lcd_clock {
         analogWrite(2, 1);
         lcd.setCursor(0, 0);
         // top line, year, month, day
+        
         lcd.print(dow[rtc.getDoW()]);
+        lcd.print("|");
+        lcd.print(rtc.getDoW());
+        if(rtc.getDoW() >= 7) {
+            writeOnAddress(0, 3); // sets DOW to sunday if a full week goes by
+        }
         lcd.print(" - ");
         lcd.print(rtc.getYear());
         lcd.print("/");
@@ -161,7 +181,7 @@ namespace lcd_clock {
         lcd.print(rtc.getDate());
         // set the cursor to column 0, line 1
         lcd.setCursor(0, 1);
-        if (rtc.getHour(h12Flag, pmFlag) > 12)
+        if (rtc.getHour(h12Flag, pmFlag) > 12 && rtc.getHour(h12Flag, pmFlag) != 12)
             lcd.print(rtc.getHour(h12Flag, pmFlag) - 12);
         else
             lcd.print(rtc.getHour(h12Flag, pmFlag));
