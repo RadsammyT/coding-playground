@@ -1,5 +1,6 @@
 use std::{*, collections::{VecDeque, HashMap}};
 
+use console::style;
 use text_io::try_read;
 use num2words::{self, Num2Words};
 
@@ -8,7 +9,7 @@ pub fn select() {
     let mut sel: i32;
     let mut is_bad: bool = true;
 
-    println!("--TEST SELECTION-- \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib)\n");
+    println!("{} \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib)\n", style("  TEST SELECTION  ").underlined().yellow());
     while is_bad {
         print!("select a test entry: ");
         sel = try_read!().unwrap_or(-1);
@@ -105,6 +106,11 @@ pub fn select() {
                     // just lib author things i guess
                 }
                 dbg!(test_map);
+
+                is_bad = false;
+            }
+
+            7 => {
 
                 is_bad = false;
             }

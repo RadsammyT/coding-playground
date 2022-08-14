@@ -38,12 +38,14 @@ fn select() {
     let mut main_timer = Timer::new();
     let term = console::Term::stdout();
     while is_bad {
-        println!("{} \n1: shitshuffler \n2: test select \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: shitshuffler, multithreading edition \n8: timer epoch \n9: file reading (change path in main.rs, fn select())", style("welcome").underlined().fg(Color::Blue));
+        println!("{} \n1: shitshuffler \n2: test select \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: shitshuffler, multithreading edition \n8: timer epoch \n9: file reading (change path in main.rs, fn select()) \n{}", style("welcome").underlined().fg(Color::Blue), style("0 TO EXIT").bg(Color::Red).blink());
         print!("Select an entry: ");
         sel = try_read!().unwrap_or(-1);
         main_timer.start_timer();
         match sel {
-            
+            0 => {
+                is_bad = false;
+            }
             1 => {
                 
                 rad::shit_shuffler::run();
