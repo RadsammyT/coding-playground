@@ -21,10 +21,13 @@ impl Timer {
     }
 
     pub fn end_timer(&mut self) {
-        if self.start != None {
-            self.end = Some(SystemTime::now());
-        } else {
-            panic!("Invocation of end_timer when start has not been set");
+        match self.start {
+            Some(x) => {
+                self.end = Some(SystemTime::now());
+            },
+            None => {
+                panic!("Invocation of end_timer when start has not been set");
+            }
         }
     }
 

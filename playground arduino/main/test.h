@@ -168,8 +168,6 @@ namespace lcd_clock {
         // top line, year, month, day
         
         lcd.print(dow[rtc.getDoW()]);
-        lcd.print("|");
-        lcd.print(rtc.getDoW());
         if(rtc.getDoW() >= 7) {
             writeOnAddress(0, 3); // sets DOW to sunday if a full week goes by
         }
@@ -199,7 +197,8 @@ namespace lcd_clock {
             lcd.print("p");
         else if(rtc.getHour(h12Flag, pmFlag) < 12 || rtc.getHour(h12Flag, pmFlag) == 24)
             lcd.print("a");
-        lcd.print("    ");
+        lcd.print(" | ");
+        lcd.print(rtc.getDoW());
     }
 }
 

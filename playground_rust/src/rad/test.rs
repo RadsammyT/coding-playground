@@ -9,7 +9,7 @@ pub fn select() {
     let mut sel: i32;
     let mut is_bad: bool = true;
 
-    println!("{} \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib) \n7: console style", style("  TEST SELECTION  ").underlined().yellow());
+    println!("{} \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib) \n7: console style \n8: Environment Constants + Arguments", style("  TEST SELECTION  ").underlined().yellow());
     while is_bad {
         print!("select a test entry: ");
         sel = try_read!().unwrap_or(-1);
@@ -120,6 +120,25 @@ pub fn select() {
                 style("COOL TERMINAL LIBRARY BLINK, UNDERLINE, BOLD, ITALTIC").blink().underlined().bold().italic(),
                 style("COOL TERMINAL LIBRARY BRIGHT").bright(),
                 style("COOL TERMINAL LIBRARY DIM").dim() );
+
+                is_bad = false;
+            }
+
+            8 => {
+                print!("Architecture: {} \n", std::env::consts::ARCH);
+                print!("DLL Ext: {} \n", std::env::consts::DLL_EXTENSION);
+                print!("DLL Pre: {} \n", std::env::consts::DLL_PREFIX);
+                print!("DLL Suf: {} \n", std::env::consts::DLL_SUFFIX);
+                print!("EXE Ext: {} \n", std::env::consts::EXE_EXTENSION);
+                print!("EXE Suf: {} \n", std::env::consts::EXE_SUFFIX);
+                print!("OS Family: {} \n", std::env::consts::FAMILY);
+                print!("OS: {} \n\n", std::env::consts::OS);
+
+                println!("arguments passed: ");
+                for i in std::env::args() {
+                    println!("{}", i);
+                }
+
 
                 is_bad = false;
             }
