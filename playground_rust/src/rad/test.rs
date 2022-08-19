@@ -3,6 +3,8 @@ use std::{*, collections::{VecDeque, HashMap}};
 use console::style;
 use text_io::try_read;
 use num2words::{self, Num2Words};
+use open;
+
 
 
 pub fn select() {
@@ -14,6 +16,14 @@ pub fn select() {
         print!("select a test entry: ");
         sel = try_read!().unwrap_or(-1);
         match sel {
+            0 => {
+                match open::that("https://www.youtube.com/watch?v=GGHE7IR_vyM") {
+                    Ok(_) => {},
+                    Err(x) => panic!("{} | ????????????", x),
+                }
+
+                is_bad = false;
+            }
             1 => {
                 println!("Normal arrays \n");
                 let arr: [i32; 5] = [1,2,3,4,5];
@@ -111,7 +121,7 @@ pub fn select() {
             }
 
             7 => {
-                let term = console::Term::stdout();
+                let _ = console::Term::stdout();
                 println!("{}\n{}\n{}\n{}\n{}\n{}\n{}\n",
                 style("COOL TERMINAL LIBRARY RED").red(),
                 style("COOL TERMINAL LIBRARY YELLOW").yellow(),
@@ -138,7 +148,6 @@ pub fn select() {
                 for i in std::env::args() {
                     println!("{}", i);
                 }
-
 
                 is_bad = false;
             }

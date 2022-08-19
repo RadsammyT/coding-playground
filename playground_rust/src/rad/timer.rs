@@ -22,7 +22,7 @@ impl Timer {
 
     pub fn end_timer(&mut self) {
         match self.start {
-            Some(x) => {
+            Some(_) => {
                 self.end = Some(SystemTime::now());
             },
             None => {
