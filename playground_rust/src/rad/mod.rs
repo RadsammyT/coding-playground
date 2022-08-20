@@ -6,3 +6,4 @@ pub mod input;
 pub mod shit_shuffler;
 pub mod collatz;
 pub mod string_random;
+pub mod egui;

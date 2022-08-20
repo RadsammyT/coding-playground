@@ -201,6 +201,7 @@ namespace lcd_clock {
         lcd.print(rtc.getDoW());
         lcd.print(" "); // when hour changes # of digits, day of week index will "burn in", duping a digit
     }
+
 }
 
 

@@ -25,7 +25,7 @@ void setup() {
   Serial.begin(9600);
   Wire.begin();
 
-  writeOnAddress(3, 3);// set day of week manually (1=Sunday, 7=Saturday)
+  writeOnAddress(5, 3);// set day of week manually (1=Sunday, 7=Saturday)
 }
 
 void loop() {

@@ -5,13 +5,15 @@ use text_io::try_read;
 use num2words::{self, Num2Words};
 use open;
 
+use crate::rad;
+
 
 
 pub fn select() {
     let mut sel: i32;
     let mut is_bad: bool = true;
 
-    println!("{} \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib) \n7: console style \n8: Environment Constants + Arguments", style("  TEST SELECTION  ").underlined().yellow());
+    println!("{} \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib) \n7: console style \n8: Environment Constants + Arguments \n9: ShitShuffler, egui edition", style("  TEST SELECTION  ").underlined().yellow());
     while is_bad {
         print!("select a test entry: ");
         sel = try_read!().unwrap_or(-1);
@@ -148,6 +150,12 @@ pub fn select() {
                 for i in std::env::args() {
                     println!("{}", i);
                 }
+
+                is_bad = false;
+            }
+
+            9 => {
+                rad::egui::main();
 
                 is_bad = false;
             }

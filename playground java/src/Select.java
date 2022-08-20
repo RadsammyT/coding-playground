@@ -45,10 +45,17 @@ public class Select extends Exception {
             },
             
             new Runnable() {
-                public void run() {
-                        int numOfThreads = 10;
+                    public void run() {
+                        int length = rad.InputUtils.readInt("length?: ");
+                        int numOfThreads = rad.InputUtils.readInt("threads?: ");
                         for (int i = 1; i < numOfThreads + 1; i++) {
-                            Thread obj = new Thread(new rad.ShitShufflerThread(System.nanoTime() + (i + 1)));
+                            try {
+                                Thread.sleep(10, 10);
+                            } catch (InterruptedException e) {
+                                // Auto-generated catch block
+                                // e.printStackTrace();
+                            }
+                            Thread obj = new Thread(new rad.ShitShufflerThread(System.nanoTime() + (i + 1), length));
                             obj.start();
                         }
                 }    

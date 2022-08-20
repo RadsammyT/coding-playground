@@ -5,8 +5,10 @@ import java.util.Random;
 public class ShitShufflerThread implements Runnable {
 
     long seed = 0;
-	public ShitShufflerThread(long nanoTime) {
+    int length = 0;
+	public ShitShufflerThread(long nanoTime, int length) {
         this.seed = nanoTime;
+        this.length = length;
 	}
 
 
@@ -15,7 +17,7 @@ public class ShitShufflerThread implements Runnable {
         try {
             Random rand = new Random(this.seed);
             System.out.println(Thread.currentThread().getId() + " running");
-            System.out.println(rad.ShitShuffler.run(15, true, rand));
+            System.out.println(rad.ShitShuffler.run(this.length, true, rand));
         } catch (Exception e) {
             System.out.println("THREAD: " + Thread.currentThread().getId() + "\nERR: " + e.getLocalizedMessage());
         }
