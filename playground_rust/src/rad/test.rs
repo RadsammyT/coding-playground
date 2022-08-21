@@ -155,8 +155,8 @@ pub fn select() {
             }
 
             9 => {
+                println!("Opening window...");
                 rad::egui::main();
-
                 is_bad = false;
             }
 

@@ -2,6 +2,7 @@ use text_io::*;
 use rand::*;
 use super::timer::Timer;
 
+// essentially my solution for returning multiple values
 pub struct Returned {
     pub ret_1: Vec<i32>,
     pub ret_2: u64,

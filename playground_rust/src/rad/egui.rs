@@ -4,13 +4,37 @@
 use std::thread;
 
 use eframe::egui;
+use egui::Vec2;
 
 use super::shit_shuffler::Returned;
 
 pub fn main() {
-    let options = eframe::NativeOptions::default();
+    let options = eframe::NativeOptions {
+        always_on_top: false,
+        maximized: false,
+        decorated: true,
+        drag_and_drop_support: true,
+        icon_data: None,
+        initial_window_pos: None,
+         initial_window_size: Option::from(Vec2::new(210 as f32, 100 as f32)),
+        min_window_size: None,
+        max_window_size: None,
+        resizable: false,
+        transparent: true,
+        vsync: true,
+        multisampling: 0,
+        depth_buffer: 0,
+        stencil_buffer: 0,
+        fullscreen: false,
+        hardware_acceleration: eframe::HardwareAcceleration::Preferred,
+        renderer: eframe::Renderer::Glow,
+        follow_system_theme: false,
+        default_theme: eframe::Theme::Dark,
+        run_and_return: true,
+
+    };
     eframe::run_native(
-        "My egui App",
+        "shitshuffler",
         options,
         Box::new(|_cc| Box::new(MyApp::default())),
     );
