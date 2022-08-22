@@ -113,9 +113,10 @@ fn select() {
 
             7 => {
 
-                let warn: bool;
-                println!("\n\n\n{} \nThis uses a lot of your CPU depending on the number of threads deployed. \n{} (true/false)", style("WARNING:").bold().red(), style("Continue?").underlined().yellow());
-                warn = try_read!().unwrap_or(false);
+                let warn: bool = {
+                    println!("\n\n\n{} \nThis uses a lot of your CPU depending on the number of threads deployed. \n{} (true/false)", style("WARNING:").bold().red(), style("Continue?").underlined().yellow());
+                    try_read!().unwrap_or(false) 
+                };
 
                 if warn {
                     let mut timer = Timer::new();

@@ -1,3 +1,5 @@
+use std::{collections, vec};
+
 use text_io::*;
 use rand::*;
 use super::timer::Timer;
@@ -7,11 +9,12 @@ pub struct Returned {
     pub ret_1: Vec<i32>,
     pub ret_2: u64,
 }
-
 /// All elements of the vector are set to a random number from 0 to the length of the vector (Exclusive)
 /// # Example
 /// ```
+/// let vec: Vec<i32> = vec![0; 5];
 /// vec = shuffle(&mut vec).to_vec();
+/// println!("{:?}", vec);
 /// ```
 fn shuffle(v: &mut Vec<i32>) -> Vec<i32>{
     let test = v.len() as i32;

@@ -36,16 +36,16 @@ pub fn main() {
     eframe::run_native(
         "shitshuffler",
         options,
-        Box::new(|_cc| Box::new(MyApp::default())),
+        Box::new(|_cc| Box::new(ShitShuffler::default())),
     );
 }
 
-struct MyApp {
+struct ShitShuffler {
     vector: Returned,
     length: u32,
 }
 
-impl Default for MyApp {
+impl Default for ShitShuffler {
     fn default() -> Self {
         Self {
             vector: Returned {ret_1: [0].to_vec(), ret_2: 0,},
@@ -54,7 +54,7 @@ impl Default for MyApp {
     }
 }
 
-impl eframe::App for MyApp {
+impl eframe::App for ShitShuffler {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             // ui.heading("My egui Application");
@@ -68,7 +68,7 @@ impl eframe::App for MyApp {
             //     self.age += 1;
             // }
             // ui.label(format!("Hello '{}', age {}", self.name, self.age));
-            ui.heading("shitshuffler?");
+            ui.heading("shitshuffler");
             ui.horizontal(|ui| {
                 ui.label("length: ");
                 ui.add(egui::Slider::new(&mut self.length, 1..=20));
@@ -85,7 +85,8 @@ impl eframe::App for MyApp {
                     self.vector = super::shit_shuffler::run_singular(self.length.try_into().unwrap());
                 }
             });
-            ui.label(format!("{:?}, {}", self.vector.ret_1, self.vector.ret_2));
+            // ui.label(format!("{:?}, {}", self.vector.ret_1, self.vector.ret_2));
+            ui.small(format!("{:?}, {}", self.vector.ret_1, self.vector.ret_2));
         });
     }
 }
