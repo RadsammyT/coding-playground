@@ -1,5 +1,7 @@
 #include <LiquidCrystal.h>
 #include "setDS3231Time.h"
+#include <DS3231.h>
+#include <DS1307RTC.h>
 #pragma once
 
 
@@ -128,7 +130,8 @@ Wiring :
 */
 namespace lcd_clock {
     #define DS3231_I2C_ADDRESS 0x68
-
+    #define CONTRAST_PIN 2
+    #define CONTRAST_VAL 1
     byte decToBcd(byte val)
     {
       return ( (val / 10 * 16) + (val % 10) );
@@ -144,7 +147,6 @@ namespace lcd_clock {
     //PWM pins to RS, E, D4, D5, D6, D7.
     LiquidCrystal lcd(7, 8, 9, 10, 11, 12); // numbers are PWM pins
     int tpin = 0;
-    const double CONTRAST = 3.5;
     DS3231 rtc;
     RTClib lib;
     bool century = false;
@@ -156,20 +158,21 @@ namespace lcd_clock {
         // set up the LCD's number of columns and rows:
         lcd.begin(16, 2);
         // Print a message to the LCD.
-        pinMode(2, OUTPUT);
+        pinMode(CONTRAST_PIN, OUTPUT);
         Wire.begin();
         Serial.begin(57600);
         }
 
     void loop() {
     // This is OK
-        analogWrite(2, 1);
-        lcd.setCursor(0, 0);
-        // top line, year, month, day
-        
-        lcd.print(dow[rtc.getDoW()]);
-        if(rtc.getDoW() >= 7) {
-            writeOnAddress(0, 3); // sets DOW to sunday if a full week goes by
+    analogWrite(CONTRAST_PIN, CONTRAST_VAL);
+    lcd.setCursor(0, 0);
+    // top line, year, month, day
+
+    lcd.print(dow[rtc.getDoW()]);
+    if (rtc.getDoW() >= 7)
+    {
+        writeOnAddress(0, 3); // sets DOW to sunday if a full week goes by
         }
         lcd.print(" - ");
         lcd.print(rtc.getYear());

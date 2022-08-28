@@ -4,7 +4,7 @@ project(test VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
-add_executable(test main.cpp)
+add_executable(playground c++ select.cpp)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

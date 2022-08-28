@@ -14,7 +14,7 @@ namespace test {
         // t.setT(43);
         // printf("%d\n", t.getT());
         for(int i = 0; i < 130 + 1; i++) {
-            if(strerror(i) != "Unknown Error") {
+            if(strcmp(strerror(i), "Unknown Error") == 0) {
                 printf("%d:  %s \n", i, strerror(i));
                 
             }

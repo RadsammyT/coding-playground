@@ -159,7 +159,7 @@ pub fn select() {
                 rad::egui::main();
                 is_bad = false;
             }
-
+            
             _ => {
                 is_bad = true;
             }
