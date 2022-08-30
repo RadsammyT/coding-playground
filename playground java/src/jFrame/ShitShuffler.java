@@ -15,10 +15,11 @@ public class ShitShuffler {
         JFrame f = new JFrame();
         JLabel out = new JLabel("{...}");
         f.setLayout(null);
-        f.setSize(250, 300);
+        f.setSize(250, 150);
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setResizable(false);
+        f.setTitle("test");
 
         input.setBounds(0, 0, 100, 40);
 
@@ -36,7 +37,7 @@ public class ShitShuffler {
         });
         submit.setText("submit");
 
-        out.setBounds(0, 70, 150, 40);
+        out.setBounds(0, 70, 250, 40);
         out.setVisible(true);
         f.add(submit);
         f.add(input);

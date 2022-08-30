@@ -6,9 +6,9 @@ use std::thread;
 use eframe::egui;
 use egui::Vec2;
 
-use super::shit_shuffler::Returned;
+use super::super::shit_shuffler::Returned; // :)
 
-pub fn main() {
+pub fn init() {
     let options = eframe::NativeOptions {
         always_on_top: false,
         maximized: false,
@@ -82,7 +82,7 @@ impl eframe::App for ShitShuffler {
                     // }).join().unwrap();
                     // it doesnt.. kinda. i wanted this to be the solution so that the app doesnt hang when rolling
                     
-                    self.vector = super::shit_shuffler::run_singular(self.length.try_into().unwrap());
+                    self.vector = super::super::shit_shuffler::run_singular(self.length.try_into().unwrap());
                 }
             });
             // ui.label(format!("{:?}, {}", self.vector.ret_1, self.vector.ret_2));

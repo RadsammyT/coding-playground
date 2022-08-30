@@ -2,7 +2,7 @@
 
 pub mod timer;
 pub mod test;
-pub mod input;
+pub mod printp;
 pub mod shit_shuffler;
 pub mod collatz;
 pub mod string_random;

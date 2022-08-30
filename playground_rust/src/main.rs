@@ -40,7 +40,9 @@ fn select() {
     term.clear_screen().expect("uh oh, terminal should be clear on start");
 
     while is_bad {
-        println!("{} \n1: shitshuffler \n2: test select \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: shitshuffler, multithreading edition \n8: timer epoch \n9: file reading (change path in main.rs, fn select()) \n{}", style("welcome").underlined().fg(Color::Blue), style("0 TO EXIT").bg(Color::Red).blink());
+        // println!("{} \n1: shitshuffler \n2: test select \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: shitshuffler, multithreading edition \n8: timer epoch \n9: file reading (change path in main.rs, fn select()) \n{}", style("welcome").underlined().fg(Color::Blue), style("0 TO EXIT").bg(Color::Red).blink());
+        println!("{} \n1: test selection \n2: shitshuffler \n3: collatz \n4: quick fibb \n5: random slices, string\n{} ", style("welcome").underlined().fg(Color::Blue), style("0 TO EXIT").bg(Color::Red).blink());
+
         print!("Select an entry: ");
         sel = try_read!().unwrap_or(-1);
         main_timer.start_timer();
@@ -48,128 +50,56 @@ fn select() {
             0 => {
                 is_bad = false;
             }
+            
             1 => {
-                
-                rad::shit_shuffler::run();
-                is_bad = false;
-            }
-            2 => {
-                term.clear_screen().expect("uh oh, terminal should be clear when selecting entry 2.");
                 rad::test::select();
                 is_bad = false;
             }
-            /*
-                func({println!("input"); read!()})
-                what the fuck
-            */
-            3 => { // cursed
-                let inp: i128 = {print!("input: "); try_read!().unwrap()};
-                let inp2: bool = {println!("print steps? (true/false): "); try_read!().unwrap()};
-                let mut time = Timer::new();
-                time.start_timer();
-                let res = rad::collatz::run(inp,
-                inp2);
-                time.end_timer();
 
-                println!("{:?}, {}", res, time.get_elapsed().unwrap());
-                is_bad = false;
-            }
-            4 => {
-                let mut vec: Vec<i128> = vec![];
-                vec.push(0);
-                vec.push(1);
-                let size = {
-                    print!("How many numbers?: "); 
-                    try_read!().unwrap_or(50) - 2
-                };
-                for i in 0..size {
-                    vec.push(vec[i] + vec[i+1]);
-                }
-                println!("{:?}", vec);
-                is_bad = false;
-            }
+            2 => {
+                let mut shit_shuf_select: i32;
+                let mut shit_is_bad = true;
+                println!("1: shitshuffler, no multithreading \n2: shitshuffler w/ multithreading \n3: shitshuffler in egui");
+                loop {
+                    print!("select shitshuffler entry: ");
+                    shit_shuf_select = try_read!().unwrap_or(1);
+                    match shit_shuf_select {
+                        1 => {
+                            rad::shit_shuffler::run();
 
-            5 => {
-                let input: String = {print!("input: "); 
-                                    try_read!("\n{}\n").unwrap()};
-                std::io::stdout().flush().unwrap();
-                let range: i32 = {print!("range: ");
-                                try_read!().unwrap_or(100)};
-                std::io::stdout().flush().unwrap();
-                rad::string_random::test(input.as_str(), range);
-                is_bad = false;
-            }
-            
-            6 => {
-                let closure = |a: i32| a * a;
-                let other_closure = |b: i32| -> i32 {
-                    return b + b;
-                };
-                println!("square of 43: {}", closure(43));
-                println!("43 times 2: {}", other_closure(43));
-                is_bad = false;
-            }
+                            shit_is_bad = false;
+                        }
 
+                        2 => {
+                            let length = {print!("length?: "); try_read!().unwrap_or(15)};
+                            let threads = {print!("repeat how many times? (# of threads): "); try_read!().unwrap_or(10)};
+                            println!("TX = thread number");
 
+                            rad::shit_shuffler::run_multithread(length, threads);
 
-            7 => {
+                            shit_is_bad = false;
+                        }
 
-                let warn: bool = {
-                    println!("\n\n\n{} \nThis uses a lot of your CPU depending on the number of threads deployed. \n{} (true/false)", style("WARNING:").bold().red(), style("Continue?").underlined().yellow());
-                    try_read!().unwrap_or(false) 
-                };
+                        3 => {
+                            rad::egui::shit_shuffler::init();
 
-                if warn {
-                    let mut timer = Timer::new();
-                    let length = {print!("length?: "); try_read!().unwrap_or(15)};
-                    let thread_num = {print!("repeat how many times? (# of threads): "); try_read!().unwrap_or(10)};
-                    println!("TX = thread number");
-                    let mut threads = vec![];
-                    timer.start_timer();
-                    for i in 0..thread_num {
-                        threads.push(thread::spawn(move || {
-                            let temp = rad::shit_shuffler::run_singular(length);
-                            println!("T{}) {:?}, {}", i + 1, temp.ret_1, temp.ret_2 );
-                        }));
+                            shit_is_bad = false;
+                        }
+
+                        _ => {
+
+                        }
+
                     }
 
-                    for i in threads {
-                        let _res = i.join();
+                    if !shit_is_bad {
+                        break;
                     }
-                    timer.stop_timer();
-
-                    println!("shitshuffler time: {}", timer.get_elapsed().unwrap());
-                    is_bad = false;
                 }
-            }
-
-            8 => {
-                let mut timer = Timer::new();
-                timer.start_timer();
-                println!("{:?}", timer.get_epoch(true).unwrap());
-
-                timer.end_timer();
-                println!("{}", timer.get_elapsed().unwrap());
 
                 is_bad = false;
             }
 
-            9 => {
-                let mut file = match File::open("E:/CODING WORKSPACE/coding-playground/test.txt") { // change this path for your machine
-                    Ok(s) => s,
-                    Err(e) => panic!("{}", e),
-                };
-                let mut read = String::new();
-
-                let _res = match file.read_to_string(&mut read) {
-                    Ok(r) => r,
-                    Err(e) => panic!("{}", e),
-                };
-
-                println!("{}", read);
-
-                is_bad = false;
-            }
 
             _ => {
                 term.clear_screen().expect("uh oh, terminal should be clear when selecting an invalid entry");

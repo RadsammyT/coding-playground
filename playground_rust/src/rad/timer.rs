@@ -72,7 +72,6 @@ impl std::fmt::Debug for Timer {
     }
 }
 
-
 #[allow(dead_code)]
 pub fn test(exit: bool) {
     let mut timer = Timer {
@@ -88,4 +87,3 @@ pub fn test(exit: bool) {
     }
     
 }
-

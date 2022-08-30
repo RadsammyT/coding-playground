@@ -1,11 +1,11 @@
-use std::{*, collections::{VecDeque, HashMap}};
+use std::{*, collections::{VecDeque, HashMap}, fs::File};
 
 use console::style;
 use text_io::try_read;
 use num2words::{self, Num2Words};
 use open;
 
-use crate::rad;
+use crate::rad::{self, timer::Timer};
 
 
 
@@ -13,7 +13,7 @@ pub fn select() {
     let mut sel: i32;
     let mut is_bad: bool = true;
 
-    println!("{} \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib) \n7: console style \n8: Environment Constants + Arguments \n9: ShitShuffler, egui edition", style("  TEST SELECTION  ").underlined().yellow());
+    println!("{} \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib) \n7: console style \n8: Environment Constants + Arguments \n8: closures \n9: timer epoch \n10: file reading (change path in /rad/test.rs) \n11: print one char at a time", style("  TEST SELECTION  ").underlined().yellow());
     while is_bad {
         print!("select a test entry: ");
         sel = try_read!().unwrap_or(-1);
@@ -155,11 +155,37 @@ pub fn select() {
             }
 
             9 => {
-                println!("Opening window...");
-                rad::egui::main();
+                let mut timer = Timer::new();
+                timer.start_timer();
+                println!("{:?}", timer.get_epoch(true).unwrap());
+
+                timer.end_timer();
+                println!("{}", timer.get_elapsed().unwrap());
+
                 is_bad = false;
             }
             
+            10 => {
+                let mut file = match File::open("E:/CODING WORKSPACE/coding-playground/test.txt") { // change this path for your machine
+                    Ok(s) => s,
+                    Err(e) => panic!("{}", e),
+                };
+                let mut read = String::new();
+
+                let _res = match io::Read::read_to_string(&mut file, &mut read) {
+                    Ok(r) => r,
+                    Err(e) => panic!("{}", e),
+                };
+
+                println!("{}", read);
+
+                is_bad = false;
+            }
+            11 => {
+                rad::printp::printp("this is a big big test message WOOHOOO", time::Duration::from_millis(100));
+
+                is_bad = false;
+            }
             _ => {
                 is_bad = true;
             }

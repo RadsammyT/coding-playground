@@ -12,8 +12,30 @@ public class Select extends Exception {
     public static Runnable run() throws Select {
         Runnable[] arr = {
             new Runnable() {
+                    public void run() {
+                        int length = rad.InputUtils.readInt("length?: ");
+                        int numOfThreads = rad.InputUtils.readInt("threads?: ");
+                        for (int i = 1; i < numOfThreads + 1; i++) {
+                            try {
+                                Thread.sleep(10, 10);
+                            } catch (InterruptedException e) {
+                                // Auto-generated catch block
+                                // e.printStackTrace();
+                            }
+                            Thread obj = new Thread(new rad.ShitShufflerThread(System.nanoTime() + (i + 1), length));
+                            obj.start();
+                        }
+                }    
+                },
+            
+            new Runnable() {
                 public void run() {
                     rad.ShitShuffler.run();
+                }
+            },
+            new Runnable() {
+                public void run() {
+                    jFrame.ShitShuffler.init();
                 }
             },
             new Runnable() {
@@ -44,31 +66,18 @@ public class Select extends Exception {
                 }
             },
             
-            new Runnable() {
-                    public void run() {
-                        int length = rad.InputUtils.readInt("length?: ");
-                        int numOfThreads = rad.InputUtils.readInt("threads?: ");
-                        for (int i = 1; i < numOfThreads + 1; i++) {
-                            try {
-                                Thread.sleep(10, 10);
-                            } catch (InterruptedException e) {
-                                // Auto-generated catch block
-                                // e.printStackTrace();
-                            }
-                            Thread obj = new Thread(new rad.ShitShufflerThread(System.nanoTime() + (i + 1), length));
-                            obj.start();
-                        }
-                }    
-            }
+            
+
     };
        
         
-        System.out.println("1: shitshuffler \n" +
-                            "2: tic-tac-toe old \n" +
-                            "3: tic-tac-toe old gui \n" +
-                            "4: tic-tac-toe revamp \n" + 
-                            "5: test runnable \n" +
-                            "6: shitshuffler: multithreading edition");
+        System.out.println("1: shitshuffler: multithreading edition \n" +
+                            "2: shitshuffler \n" +
+                            "3: shitshuffler: jFrame edition \n" +
+                            "4: tic-tac-toe old \n" +
+                            "5: tic-tac-toe old gui \n" +
+                            "6: tic-tac-toe revamp \n" + 
+                            "7: test runnable");
 
         try {
             arr[rad.InputUtils.readInt("") - 1].run();

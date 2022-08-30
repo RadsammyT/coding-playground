@@ -1,4 +1,4 @@
-use std::{collections, vec};
+use std::{collections, vec, thread};
 
 use text_io::*;
 use rand::*;
@@ -58,7 +58,7 @@ pub fn run() {
     for _ in 0..length {
         vec.push(0);
     }
-    Timer::start_timer(&mut timer);
+    timer.start_timer();
     
     while !(repeat >= repeat_max) {
         vec = shuffle(&mut vec).to_vec();
@@ -106,4 +106,24 @@ pub fn run_singular(length: i32) -> Returned {
     
     return ret;
     
+}
+
+pub fn run_multithread(length: i32, threads: i32) {
+    let mut timer = Timer::new();
+    let mut vec = vec![];
+    timer.start_timer();
+    for i in 0..threads {
+        vec.push(thread::spawn(move || {
+            let temp = run_singular(length);
+            println!("T{}) {:?}, {}", i + 1, temp.ret_1, temp.ret_2 );
+        }));
+    }
+
+    for i in vec {
+        let _res = i.join();
+    }
+    timer.stop_timer();
+
+    println!("shitshuffler time: {}", timer.get_elapsed().unwrap());
+
 }
