@@ -188,7 +188,7 @@ pub fn select() {
             }
 
             12 => {
-                rad::egui::test::init();
+                rad::egui::egui_test::init();
 
                 is_bad = false;
             }

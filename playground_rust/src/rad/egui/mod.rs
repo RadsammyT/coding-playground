@@ -1,2 +1,2 @@
 pub mod shit_shuffler;
-pub mod test;
+pub mod egui_test;

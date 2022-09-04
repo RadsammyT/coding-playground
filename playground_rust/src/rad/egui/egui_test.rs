@@ -5,7 +5,7 @@ use eframe::egui;
 struct Test {  
     ui_state: i16, // i COULD use an enum for this but NAAAAAH
     ui_list: [i16; 3],
-    state_1_text: String,
+    state_0_text: String,
 }
 
 pub fn init() {
@@ -15,10 +15,10 @@ pub fn init() {
 
 impl Default for Test {
     fn default() -> Self {
-        Self{
+        Self {
             ui_state: 0,
             ui_list: [0, 1, 2],
-            state_1_text: "".to_string(),
+            state_0_text: "".to_string(),
         }
     }
 }
@@ -28,15 +28,27 @@ impl eframe::App for Test {
     
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            
+            // ui state navigation.
             if self.ui_state == 0 {
-                if ui.button("next").clicked() {
-                    self.ui_state += 1;
-                }
+                ui.horizontal(|ui| {
+                    if ui.button("prev").clicked() {
+                        // self.ui_state -= 1;
+                    }
+                    if ui.button("next").clicked() {
+                        self.ui_state += 1;
+                    }
+                    ui.label(format!("{}/{}", self.ui_state + 1, self.ui_list.len()));
+                });
             } else if self.ui_state == (self.ui_list.len() - 1).try_into().unwrap() {
-                if ui.button("prev").clicked() {
-                    self.ui_state -= 1;
-                }
+                ui.horizontal(|ui| {
+                    if ui.button("prev").clicked() {
+                        self.ui_state -= 1;
+                    }
+                    if ui.button("next").clicked() {
+                        // self.ui_state += 1;
+                    }
+                    ui.label(format!("{}/{}", self.ui_state + 1, self.ui_list.len()));
+                });
             } else {
                 ui.horizontal(|ui| {
                     if ui.button("prev").clicked() {
@@ -45,13 +57,14 @@ impl eframe::App for Test {
                     if ui.button("next").clicked() {
                         self.ui_state += 1;
                     }
+                    ui.label(format!("{}/{}", self.ui_state + 1, self.ui_list.len()));
                 });
             }
 
             match self.ui_state {
                 0 => {
                     
-                    let mut _test = ui.code_editor(&mut self.state_1_text);
+                    let mut _test = ui.code_editor(&mut self.state_0_text);
                 }
 
                 1 => {
@@ -62,7 +75,7 @@ impl eframe::App for Test {
                     ui.label("state 2");
                 }
                 _ => {
-                    ui.label(format!("uh oh, state is {}", self.ui_state));
+                    ui.label(format!("uh oh, state is {} when the following states are {:?}", self.ui_state, self.ui_list));
                 }
             }
         });

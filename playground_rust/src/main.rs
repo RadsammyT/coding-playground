@@ -60,6 +60,7 @@ fn select() {
                 let mut shit_shuf_select: i32;
                 let mut shit_is_bad = true;
                 println!("1: shitshuffler, no multithreading \n2: shitshuffler w/ multithreading \n3: shitshuffler in egui");
+                println!("{}", style("Its recommended to run shitshuffler with optimizations on. \nyou can do so by adding a --release tag to cargo run/build.").yellow());
                 loop {
                     print!("select shitshuffler entry: ");
                     shit_shuf_select = try_read!().unwrap_or(1);
