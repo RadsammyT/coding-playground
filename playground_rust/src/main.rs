@@ -6,11 +6,10 @@
 
 
 // use std::time::SystemTime;
-use std::{*, fs::File, io::{Read, Write}};
+use std::*;
 use rad::timer::Timer;
 use text_io::*;
 use console::*;
-use rad::egui::test;
 
 mod rad;
 
@@ -119,9 +118,9 @@ fn select() {
                 let mut vec: Vec<i128> = Vec::from([0,1]);
                 let len = {
                     print!("how many numbers?: ");
-                    try_read!().unwrap_or(10);
+                    try_read!().unwrap_or(10)
                 };
-                for i in 0..10 {
+                for i in 0..len {
                     vec.push(vec.get(i).unwrap() + vec.get(i+1).unwrap());
                 }
 

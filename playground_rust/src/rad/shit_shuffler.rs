@@ -1,4 +1,4 @@
-use std::{collections, vec, thread};
+use std::{vec, thread};
 
 use text_io::*;
 use rand::*;

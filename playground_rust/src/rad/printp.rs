@@ -1,4 +1,4 @@
-use std::{time::{self, Duration}, io::{stdout, Write}};
+use std::{time::{Duration}, io::{stdout, Write}};
 pub fn printp(input: &'static str, delay: Duration) {
     input.chars().for_each(|c| {
         print!("{c}");

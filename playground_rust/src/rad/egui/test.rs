@@ -1,9 +1,8 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
 use eframe::egui;
-use egui::Vec2;
 
-struct test {  
+struct Test {  
     ui_state: i16, // i COULD use an enum for this but NAAAAAH
     ui_list: [i16; 3],
     state_1_text: String,
@@ -11,10 +10,10 @@ struct test {
 
 pub fn init() {
     let options = eframe::NativeOptions::default();
-    eframe::run_native("test", options, Box::new(|_cc| Box::new(test::default())));
+    eframe::run_native("test", options, Box::new(|_cc| Box::new(Test::default())));
 }
 
-impl Default for test {
+impl Default for Test {
     fn default() -> Self {
         Self{
             ui_state: 0,
@@ -25,9 +24,9 @@ impl Default for test {
 }
 
 
-impl eframe::App for test {
+impl eframe::App for Test {
     
-    fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             
             if self.ui_state == 0 {
@@ -52,7 +51,7 @@ impl eframe::App for test {
             match self.ui_state {
                 0 => {
                     
-                    let mut test = ui.code_editor(&mut self.state_1_text);
+                    let mut _test = ui.code_editor(&mut self.state_1_text);
                 }
 
                 1 => {
