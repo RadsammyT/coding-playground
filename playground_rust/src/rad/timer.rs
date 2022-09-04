@@ -5,6 +5,14 @@ pub struct Timer {
     end: Option<SystemTime>,
 }
 
+impl Default for Timer {
+    fn default() -> Self {
+        Self {
+            start: None, end: None,
+        }
+    }
+}
+
 impl Timer {
     ///returns a timer struct with both SystemTimes set to None
     /// 

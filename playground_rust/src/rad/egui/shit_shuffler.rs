@@ -80,7 +80,7 @@ impl eframe::App for ShitShuffler {
                     // self.vector = thread::spawn(move || {
                     //     return super::shit_shuffler::run_singular(len.try_into().unwrap());
                     // }).join().unwrap();
-                    // it doesnt.. kinda. i wanted this to be the solution so that the app doesnt hang when rolling
+                    // it doesnt.. kinda. i wanted this to be the solution so that the app doesnt hang when rolling but OH WELL
                     
                     self.vector = super::super::shit_shuffler::run_singular(self.length.try_into().unwrap());
                 }

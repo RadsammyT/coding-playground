@@ -10,13 +10,14 @@ use std::{*, fs::File, io::{Read, Write}};
 use rad::timer::Timer;
 use text_io::*;
 use console::*;
-
+use rad::egui::test;
 
 mod rad;
 
 
 fn main() {
     select();
+    // test::init();
 }
 
 fn select() {
@@ -96,6 +97,47 @@ fn select() {
                         break;
                     }
                 }
+
+                is_bad = false;
+            }
+
+            3 => {
+
+                println!("{:?}", rad::collatz::run({
+                    print!("input for collatz?: ");
+                    try_read!().unwrap_or(4)
+                }, {
+                    print!("print steps? true/false: ");
+                    try_read!().unwrap_or(false)
+                }));
+
+                is_bad = false;
+            }
+
+
+            4=> {
+                let mut vec: Vec<i128> = Vec::from([0,1]);
+                let len = {
+                    print!("how many numbers?: ");
+                    try_read!().unwrap_or(10);
+                };
+                for i in 0..10 {
+                    vec.push(vec.get(i).unwrap() + vec.get(i+1).unwrap());
+                }
+
+                println!("{:?}", vec);
+                
+                is_bad = false;
+            }
+
+            5 => {
+                rad::string_random::test({
+                    print!("input: ");
+                    try_read!("\n{}\n").unwrap()
+                }, {
+                    print!("how many?: ");
+                    try_read!().unwrap_or(5)
+                });
 
                 is_bad = false;
             }

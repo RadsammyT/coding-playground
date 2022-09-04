@@ -13,7 +13,7 @@ pub fn select() {
     let mut sel: i32;
     let mut is_bad: bool = true;
 
-    println!("{} \n1: normal arrays \n2: vectors \n3: pointers \n4: vecdeques \n5: unions \n6: hashmaps (with num2words lib) \n7: console style \n8: Environment Constants + Arguments \n8: closures \n9: timer epoch \n10: file reading (change path in /rad/test.rs) \n11: print one char at a time", style("  TEST SELECTION  ").underlined().yellow());
+    println!("{} \n1: normal arrays  2: vectors \n3: pointers 4: vecdeques \n5: unions 6: hashmaps (with num2words lib) \n7: console style 8: Environment Constants + Arguments \n9: timer epoch 10: file reading (change path in /rad/test.rs) \n11: print one char at a time 12: test egui", style("  TEST SELECTION  ").underlined().yellow());
     while is_bad {
         print!("select a test entry: ");
         sel = try_read!().unwrap_or(-1);
@@ -183,6 +183,12 @@ pub fn select() {
             }
             11 => {
                 rad::printp::printp("this is a big big test message WOOHOOO", time::Duration::from_millis(100));
+
+                is_bad = false;
+            }
+
+            12 => {
+                rad::egui::test::init();
 
                 is_bad = false;
             }
