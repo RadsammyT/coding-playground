@@ -28,38 +28,24 @@ impl eframe::App for Test {
     
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            // ui state navigation.
-            if self.ui_state == 0 {
-                ui.horizontal(|ui| {
-                    if ui.button("prev").clicked() {
-                        // self.ui_state -= 1;
-                    }
-                    if ui.button("next").clicked() {
-                        self.ui_state += 1;
-                    }
-                    ui.label(format!("{}/{}", self.ui_state + 1, self.ui_list.len()));
-                });
-            } else if self.ui_state == (self.ui_list.len() - 1).try_into().unwrap() {
-                ui.horizontal(|ui| {
-                    if ui.button("prev").clicked() {
+
+            ui.horizontal(|ui| { // much better
+                if ui.button("prev").clicked() {
+                    if !(self.ui_state == 0) {
+                        // println!("prev");
                         self.ui_state -= 1;
                     }
-                    if ui.button("next").clicked() {
-                        // self.ui_state += 1;
-                    }
-                    ui.label(format!("{}/{}", self.ui_state + 1, self.ui_list.len()));
-                });
-            } else {
-                ui.horizontal(|ui| {
-                    if ui.button("prev").clicked() {
-                        self.ui_state -= 1;
-                    }
-                    if ui.button("next").clicked() {
+                }
+
+                if ui.button("next").clicked() {
+                    if !(self.ui_state == (self.ui_list.len() - 1).try_into().unwrap()) {
+                        // println!("next");
                         self.ui_state += 1;
                     }
-                    ui.label(format!("{}/{}", self.ui_state + 1, self.ui_list.len()));
-                });
-            }
+                }
+
+                ui.label(format!("{}/{}", self.ui_state + 1, self.ui_list.len()));
+            });
 
             match self.ui_state {
                 0 => {
