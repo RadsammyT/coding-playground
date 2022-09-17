@@ -41,5 +41,16 @@ namespace test {
         return 0;
     }
 
+    int memAlloc() {
+        auto test = malloc(sizeof(int) * 10);
+
+        if(test == NULL) {
+            printf("Error: test int is NULL. not enough ram? \n");
+            exit(1);
+        }
+        printf("test int allocated @ %p w/ val of  \n", test);
+        return 0;
+    }
+
 }
 

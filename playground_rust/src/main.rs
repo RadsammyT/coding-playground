@@ -57,14 +57,20 @@ fn select() {
             }
 
             2 => {
+                term.clear_screen().expect("uh oh");
                 let mut shit_shuf_select: i32;
                 let mut shit_is_bad = true;
-                println!("1: shitshuffler, no multithreading \n2: shitshuffler w/ multithreading \n3: shitshuffler in egui");
+                println!("1: shitshuffler, no multithreading \n2: shitshuffler w/ multithreading \n3: shitshuffler in egui \n{}", style("0 TO EXIT").bg(Color::Red).blink());
                 println!("{}", style("Its recommended to run shitshuffler with optimizations on. \nyou can do so by adding a --release tag to cargo run/build.").yellow());
                 loop {
                     print!("select shitshuffler entry: ");
                     shit_shuf_select = try_read!().unwrap_or(1);
                     match shit_shuf_select {
+
+                        0 => {
+                            shit_is_bad = false;
+                        }
+
                         1 => {
                             rad::shit_shuffler::run();
 

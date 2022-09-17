@@ -12,7 +12,8 @@ use crate::rad::{self, timer::Timer};
 pub fn select() {
     let mut sel: i32;
     let mut is_bad: bool = true;
-
+    let term = console::Term::stdout();
+    term.clear_screen().expect("bruh");
     println!("{} \n1: normal arrays  2: vectors \n3: pointers 4: vecdeques \n5: unions 6: hashmaps (with num2words lib) \n7: console style 8: Environment Constants + Arguments \n9: timer epoch 10: file reading (change path in /rad/test.rs) \n11: print one char at a time 12: test egui", style("  TEST SELECTION  ").underlined().yellow());
     while is_bad {
         print!("select a test entry: ");
@@ -23,7 +24,6 @@ pub fn select() {
                     Ok(_) => {},
                     Err(x) => panic!("{} | ????????????", x),
                 }
-
                 is_bad = false;
             }
             1 => {

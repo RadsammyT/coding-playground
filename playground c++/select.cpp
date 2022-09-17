@@ -45,6 +45,9 @@ int main() {
         case 7:
             test::arrayPointers();
             break;
+        case 8:
+            test::memAlloc();
+            break;
         default:
             printf("Invalid selection, not in switch list \n");
             break;

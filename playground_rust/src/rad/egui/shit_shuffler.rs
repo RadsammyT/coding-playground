@@ -16,7 +16,7 @@ pub fn init() {
         drag_and_drop_support: true,
         icon_data: None,
         initial_window_pos: None,
-         initial_window_size: Option::from(Vec2::new(210 as f32, 100 as f32)),
+        initial_window_size: Option::from(Vec2::new(210 as f32, 100 as f32)),
         min_window_size: None,
         max_window_size: None,
         resizable: false,

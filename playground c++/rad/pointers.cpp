@@ -27,4 +27,10 @@ namespace pointers {
 
         return 0;
     }
+
+    int printp(auto* p) {
+        printf("%p: %d", p, *p);
+
+        return 0;
+    }
 }
