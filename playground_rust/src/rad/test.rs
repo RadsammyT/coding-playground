@@ -182,7 +182,7 @@ pub fn select() {
                 is_bad = false;
             }
             11 => {
-                rad::printp::printp("this is a big big test message WOOHOOO", time::Duration::from_millis(100));
+                rad::printp::printp("this is a big big test message WOOHOOO\nAlso this is another message in a new line\n", time::Duration::from_millis(100));
 
                 is_bad = false;
             }

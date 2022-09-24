@@ -5,5 +5,5 @@ pub fn printp(input: &'static str, delay: Duration) {
         stdout().flush().unwrap();
         std::thread::sleep(delay);
     });
-    println!();
+    // println!();
 }

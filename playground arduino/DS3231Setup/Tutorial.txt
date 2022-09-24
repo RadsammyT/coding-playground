@@ -1,6 +1,6 @@
 0: On line 28 of DS3231Setup.ino (writeOnAddress(val , 3 (address))):
     Change the left value of the day of week.
-    1 is sunday, 2 is monday, and so on.
+    0 is sunday, 1 is monday, and so on.
 
 1: prepare your arduino by uploading DS3231Setup.ino to your arduino
     (This will allow the arduino to communicate with your PC)

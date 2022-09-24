@@ -139,7 +139,7 @@ pub fn run_multithread(length: i32, threads: i32) {
     for i in 0..threads {
         vec.push(thread::spawn(move || {
             let temp = run_singular(length);
-            println!("T{}) {:?}, {}", i + 1, temp.ret_1, temp.ret_2 );
+            println!("T{:?}) {:?}, {}",thread::current().id(), temp.ret_1, temp.ret_2 );
         }));
     }
 
