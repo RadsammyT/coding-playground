@@ -123,13 +123,21 @@ public class ShitShuffler {
 	 * @param length the length of the array to return
 	 * @return the shuffled array
 	 */
-	public static int[] run(int length) {
-		bag = new int[length];
+	public static int[] run(int length, boolean includeFails) {
+		long fails = 0;
+		if(includeFails)
+			bag = new int[length + 1];
+		else 
+			bag = new int[length];
+
 		// lengthStatic = length;
 		while (!arrayIsUnique()) {
+			fails++;
 			randomizeBag();
 		}
-
+		if(includeFails)
+			bag[length] = (int) fails;
+		
 		return bag;
 	}
 	
@@ -282,5 +290,4 @@ public class ShitShuffler {
 	//let see if copilot can optimize arrayIsUnique()
 
 }
-
 

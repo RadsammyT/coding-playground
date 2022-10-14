@@ -3,13 +3,13 @@
 use std::{thread::{JoinHandle, self}, convert::TryInto};
 
 use eframe::egui;
-use egui::widgets;
 
 
 
 struct Test {  
     ui_state: i32, // enums are useless since we cant track which page is which, also adding a new page might not be easy to implement with enums
     ui_list: Vec<String>,
+    menu_bar: MenuBar,
     state_0: State0,
     state_1: State1
 }
@@ -43,6 +43,20 @@ impl Default for State1 {
     }
 }
 
+struct MenuBar {
+    boolean: bool,
+    number: i32,
+}
+
+impl Default for MenuBar {
+    fn default() -> Self {
+        Self {
+            boolean: false,
+            number: 0,
+        }
+    }
+}
+
 
 pub fn init() {
     let options = eframe::NativeOptions::default();
@@ -58,6 +72,7 @@ impl Default for Test {
                         "something".to_string()].to_vec(),
             state_0: State0::default(),
             state_1: State1::default(),
+            menu_bar: MenuBar::default(),
             // state_0: State0 { 
                 // text: "".to_string()
             // }
@@ -73,6 +88,7 @@ impl eframe::App for Test {
 
                 egui::menu::bar(ui, |ui| {
                     
+
                     if ui.button("prev").clicked() {
                         if !(self.ui_state == 0) {
                             // println!("prev");
@@ -108,6 +124,15 @@ impl eframe::App for Test {
                             */ 
     
                     );
+
+                    ui.hyperlink_to("my git", "https://github.com/RadsammyT/coding-playground");
+                    ui.menu_button("Test", |ui| {
+                        ui.add(egui::widgets::DragValue::new(&mut self.menu_bar.number));
+                        ui.checkbox(&mut self.menu_bar.boolean, "Test");
+                        if ui.button("CLOSE").clicked() {
+                            ui.close_menu();
+                        }
+                    });
                 });
                 
             ui.separator();
@@ -158,7 +183,6 @@ impl eframe::App for Test {
                 }
 
                 2 => {
-                    ui.hyperlink_to("my git", "https://github.com/RadsammyT/coding-playground");
                 }
                 _ => {
                     ui.label(format!("uh oh, state is {} when the following states are {:?}", self.ui_state, self.ui_list));

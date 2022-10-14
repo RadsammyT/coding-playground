@@ -7,17 +7,20 @@ use open;
 
 use crate::rad::{self, timer::Timer};
 
+use super::timer;
 
 
-pub fn select() {
+
+pub fn select(timer: &mut Timer) {
     let mut sel: i32;
     let mut is_bad: bool = true;
     let term = console::Term::stdout();
     term.clear_screen().expect("bruh");
-    println!("{} \n1: normal arrays  2: vectors \n3: pointers 4: vecdeques \n5: unions 6: hashmaps (with num2words lib) \n7: console style 8: Environment Constants + Arguments \n9: timer epoch 10: file reading (change path in /rad/test.rs) \n11: print one char at a time 12: test egui", style("  TEST SELECTION  ").underlined().yellow());
+    println!("{} \n1: normal arrays  2: vectors \n3: pointers 4: vecdeques \n5: unions 6: hashmaps (with num2words lib) \n7: console style 8: Environment Constants + Arguments \n9: timer epoch 10: file reading (change path in /rad/test.rs) \n11: print one char at a time 12: test egui \n13:2d grid, tictactoe?", style("  TEST SELECTION  ").underlined().yellow());
     while is_bad {
         print!("select a test entry: ");
         sel = try_read!().unwrap_or(-1);
+        timer.start_timer();
         match sel {
             0 => {
                 match open::that("https://www.youtube.com/watch?v=GGHE7IR_vyM") {
@@ -189,6 +192,12 @@ pub fn select() {
 
             12 => {
                 rad::egui::egui_test::init();
+
+                is_bad = false;
+            }
+
+            13 => {
+                rad::tictactoe::test_1();
 
                 is_bad = false;
             }

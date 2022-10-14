@@ -52,7 +52,8 @@ fn select() {
             }
             
             1 => {
-                rad::test::select();
+                main_timer.start_timer();
+                rad::test::select(&mut main_timer);
                 is_bad = false;
             }
 
@@ -73,7 +74,6 @@ fn select() {
 
                         1 => {
                             rad::shit_shuffler::run();
-
                             shit_is_bad = false;
                         }
 
