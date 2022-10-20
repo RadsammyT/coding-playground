@@ -197,7 +197,7 @@ pub fn select(timer: &mut Timer) {
             }
 
             13 => {
-                rad::tictactoe::test_1();
+                rad::tictactoe::game();
 
                 is_bad = false;
             }

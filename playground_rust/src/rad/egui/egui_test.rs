@@ -7,9 +7,9 @@ use eframe::egui;
 
 
 struct Test {  
-    ui_state: i32, // enums are useless since we cant track which page is which, also adding a new page might not be easy to implement with enums
+    ui_state: i32, // enums are useless since we cant track which page is in what order, also adding a new page might not be easy to implement with enums
     ui_list: Vec<String>,
-    menu_bar: MenuBar,
+    menu_bar: MenuBar, // added separate stucts for the pages cuz its more clean
     state_0: State0,
     state_1: State1
 }
@@ -86,7 +86,7 @@ impl eframe::App for Test {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
 
-                egui::menu::bar(ui, |ui| {
+                egui::menu::bar(ui, |ui| { // top bar
                     
 
                     if ui.button("prev").clicked() {
@@ -133,7 +133,7 @@ impl eframe::App for Test {
                             ui.close_menu();
                         }
                     });
-                });
+                }); // end of top bar
                 
             ui.separator();
             match self.ui_state {
@@ -155,11 +155,11 @@ impl eframe::App for Test {
                         ui.label("length: ");
                         ui.add(egui::Slider::new(&mut self.state_1.length, 1..=20));
                     });
-
+                    
                     match &mut self.state_1.thread {
                         Some(_) => {
                             if self.state_1.thread.as_ref().unwrap().is_finished() {
-                                self.state_1.output = format!("{:?}", self.state_1.thread.as_ref().unwrap()); // cant join the thread without it erroring
+                                self.state_1.output = format!("{:?}", self.state_1.thread.as_ref().unwrap()); //<-- cant join the thread without it erroring here
                             }
                             if ui.button("Retry").clicked() {
                                 self.state_1.thread = None;
