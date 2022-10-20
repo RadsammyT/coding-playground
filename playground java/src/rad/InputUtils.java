@@ -63,11 +63,16 @@ public class InputUtils {
 		}
 	}
 
-/**
-	 
+
+	/**
+	 * <p>
 	 * Boolean.parseBoolean(input) will return false for any non-boolean input.
+	 * <p>
 	 * This is literally their implementation, I shit you not:
+	 * <p>
 	 * "true".equalsIgnoreCase(input);
+	 * 
+	 * <p>
 	 * end implementation. holy fucking shit.
 	 * 
 	 */
