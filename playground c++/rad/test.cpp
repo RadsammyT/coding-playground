@@ -48,7 +48,7 @@ namespace test {
             printf("Error: test int is NULL. not enough ram? \n");
             exit(1);
         }
-        printf("test int allocated @ %p w/ val of  \n", test);
+        printf("test int allocated @ %p w/ val of %d \n", &test, test);
         return 0;
     }
 

@@ -1,7 +1,7 @@
-use std::{vec, io::Error};
+// u *may* puke.
 
-use eframe::glow::STENCIL_BACK_PASS_DEPTH_PASS;
-use egui::Vec2;
+use std::{vec, io::Error, convert};
+
 use text_io::try_read;
 use rustils;
 struct Grid {
@@ -72,13 +72,13 @@ pub fn test_1() {
     grid.print_grid();
 } 
 
-
 pub fn game() {
     let mut grid = Grid::new(3);
+    let mut turn: String;
     
     print!("X to go first? (yes/no)"); who_goes_first();
-    let mut input: [i32; 2] = player_input(&mut grid);
-    grid.set(input[0], input[1], 69);
+    
+    
 }
 
 fn player_input(grid: &mut Grid) -> [i32; 2]{

@@ -14,7 +14,17 @@ struct Test {
     state_1: State1
 }
 
-
+/*
+    in hindsight:
+    i could have set up state structs in one single enum like this:
+    enum State {
+        One {
+            text: String,
+        }
+        ... and so on
+    }
+    that way I could somewhat put all of them in one enumerator instead of just plain spread out
+*/
 
 struct State0 {
     text: String,
@@ -152,14 +162,18 @@ impl eframe::App for Test {
                     ui.code("can't seem to get this to work in the some(_) arm in the match statement of the thread, setting the output to the joined thread in the process: \ncannot move out of a shared reference \nmove occurs because value has type `JoinHandle<String>`, which does not implement the `Copy` traitrustcE05 \n\nif you know how to fix this plz do a PR!");
                     ui.add_space(30.0);
                     ui.horizontal(|ui| {
-                        ui.label("length: ");
-                        ui.add(egui::Slider::new(&mut self.state_1.length, 1..=20));
+                        ui.label("length: ")
+                            .on_hover_text_at_pointer("if you are NOT running this on --release, then set to lower lengths, generally <= 10");
+                        ui.add(egui::Slider::new(&mut self.state_1.length, 1..=20))
+                            .on_hover_text_at_pointer("if you are NOT running this on --release, then set to lower lengths, generally <= 10");
+                            
                     });
                     
                     match &mut self.state_1.thread {
                         Some(_) => {
                             if self.state_1.thread.as_ref().unwrap().is_finished() {
                                 self.state_1.output = format!("{:?}", self.state_1.thread.as_ref().unwrap()); //<-- cant join the thread without it erroring here
+                                // dont plan on fixing this because it will cause me a headache and a half
                             }
                             if ui.button("Retry").clicked() {
                                 self.state_1.thread = None;

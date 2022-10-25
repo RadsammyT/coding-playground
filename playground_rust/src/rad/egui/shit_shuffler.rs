@@ -4,7 +4,7 @@
 use std::thread;
 
 use eframe::egui;
-use egui::Vec2;
+use egui::{Vec2, RichText};
 
 use super::super::shit_shuffler::Returned; // :)
 
@@ -70,7 +70,10 @@ impl eframe::App for ShitShuffler {
             // ui.label(format!("Hello '{}', age {}", self.name, self.age));
             ui.heading("shitshuffler");
             ui.horizontal(|ui| {
-                ui.label("length: ");
+                ui.label("length: ")
+                    .on_hover_ui(|ui| {
+                        ui.label(RichText::new("if you are NOT running this on --release, \nthen set to lower lengths, generally <= 10").size(12.0));
+                    });
                 ui.add(egui::Slider::new(&mut self.length, 1..=20));
             });
             

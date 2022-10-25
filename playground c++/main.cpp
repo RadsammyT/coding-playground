@@ -6,17 +6,17 @@
 using namespace std;
 
 const int A = 1234;
+const int *testConst = &A;
 int main() {
-	int allah = 124;
-	int* test = &allah;
+	int allah = A;
+	// int* test = &A;
 	
-	int* arr[] = {(int*) &test};
-	printf("const @ %p as %d\n", &test, test);
+	int* arr[] = {(int*) &testConst};
+	printf("const @ %p as %d\n", &testConst, testConst);
 	for (int i = -10; i < 10; i++) {
 		printf("%p (%d) \n", arr[i], i);
 	}
 
-	pointers::printp(test);
 	return 0;
 }
 

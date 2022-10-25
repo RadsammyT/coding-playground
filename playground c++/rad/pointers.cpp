@@ -28,9 +28,23 @@ namespace pointers {
         return 0;
     }
 
-    int printp(auto* p) {
-        printf("%p: %d", p, *p);
+    int printp(int* p, bool readVal) {
+        if(readVal) {
+            printf("%p: %d \n", p, *p);
+        } else {
+            printf("%p \n", p);
+        }
 
         return 0;
+    }
+    
+
+    int ptrArrayOOB() {
+        int placeholder = 69;
+        int *arr[] = {&placeholder};
+        for (int i = -5; i < 5; i++) {
+            pointers::printp(arr[i], false);
+        }
+            return 0;
     }
 }
