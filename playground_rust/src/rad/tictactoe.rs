@@ -188,6 +188,7 @@ fn checkRow(grid: &mut Grid, row: i32) -> i32 {
     }
     // TODO: do the same above but for xEx and oEx
     // then check row for winner
+    // refer to playground java/src/ttt/revamp/game.java
 
     0 // dummy return so rust doesnt throw a tantrum
 }
