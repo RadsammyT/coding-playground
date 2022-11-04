@@ -1,6 +1,6 @@
 // u *may* puke.
-
-use std::{vec, io::Error, convert};
+// also holding this off because im lazy
+use std::{vec, io::Error, convert, ops::Add};
 
 use text_io::try_read;
 use rustils;
@@ -20,11 +20,37 @@ impl Grid {
         return test;
     }
 
-    fn print_grid(&mut self) {
-        
-        for i in &self.arr {
-            println!("{:?}", i);
-        }
+    fn print_grid(&mut self, substitute_for_shapes: bool) {
+        // if substituting for shapes:
+        //  0 = empty/"E" (or "()" if im daring)
+        //  1 = X
+        //  2 = O
+        self.arr.iter().for_each(|x| {
+            x.iter().for_each(|y| {
+                match y {
+                    
+                    0 => {
+                        if substitute_for_shapes { print!("E "); }
+                        else { print!("{y} "); }
+                    }
+                    
+                    1 => {
+                        if substitute_for_shapes { print!("X "); }
+                        else { print!("{y} "); }
+                    }
+                    
+                    2 => {
+                        if substitute_for_shapes { print!("O "); }
+                        else { print!("{y} "); }
+                    }
+
+                    _ => {
+                        panic!("val not 0, 1, or 2");
+                    }
+                }
+            });
+            println!();
+        });
     }
 
     /// This must be called when a grid is created
@@ -59,7 +85,7 @@ impl Default for Grid {
 pub fn test_1() {
     let mut grid: Grid = Grid::new(3);
 
-    grid.print_grid();
+    grid.print_grid(false);
     println!("{}", who_goes_first());
 
     let select = player_input(&mut grid);
@@ -69,7 +95,7 @@ pub fn test_1() {
 
     grid.get(0, 0);
 
-    grid.print_grid();
+    grid.print_grid(false);
 } 
 
 pub fn game() {
@@ -78,7 +104,9 @@ pub fn game() {
     
     print!("X to go first? (yes/no)"); who_goes_first();
     
-    
+    grid.print_grid(true);
+
+
 }
 
 fn player_input(grid: &mut Grid) -> [i32; 2]{
@@ -143,4 +171,23 @@ fn who_goes_first() -> bool {
 
     }
     output
+}
+// here comes the most shittiest check-winner code youll ever see
+// 0 = no winner, 1 = X wins, 2 = O wins.
+
+fn checkRow(grid: &mut Grid, row: i32) -> i32 {
+
+    let mut res: String = String::new();
+    let mut xEx: String = String::new();
+    let mut oEx: String = String::new();
+
+    for i in 0..grid.size {
+        res.push_str(rustils::parse::string::ToStr::to_str(
+            grid.get(i, row).to_owned().to_string()
+        ));
+    }
+    // TODO: do the same above but for xEx and oEx
+    // then check row for winner
+
+    0 // dummy return so rust doesnt throw a tantrum
 }

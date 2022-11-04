@@ -151,3 +151,7 @@ pub fn run_multithread(length: i32, threads: i32) {
     println!("shitshuffler time: {}", timer.get_elapsed().unwrap());
 
 }
+
+async fn test() {
+    
+}

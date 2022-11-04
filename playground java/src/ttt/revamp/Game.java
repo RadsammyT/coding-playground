@@ -152,8 +152,8 @@ public class Game {
     // reverse notes: true = top left to bottom right, false = bottom left to top right
     public static String checkDiag(Grid grid, boolean reverse) {
         String res = "";
-        String oEx = "";
-        String xEx = "";
+        String oEx = ""; 
+        String xEx = ""; // oEx / xEx are there so that we can check the result against these two later
         for (int i = 0; i < grid.getSize(); i++) {
             oEx += "O";
             xEx += "X";
