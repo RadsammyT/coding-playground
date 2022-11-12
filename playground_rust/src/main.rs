@@ -35,7 +35,7 @@ fn select() {
      */
     let mut sel: i32;
     let mut is_bad: bool = true;
-    let mut main_timer = Timer::new();
+    let mut main_timer = Timer::default();
     let term = console::Term::stdout();
     term.clear_screen().expect("uh oh, terminal should be clear on start");
 
@@ -60,7 +60,7 @@ fn select() {
             2 => {
                 term.clear_screen().expect("uh oh");
                 let mut shit_shuf_select: i32;
-                let mut shit_is_bad = true;
+                let mut shuf_is_bad = true;
                 println!("1: shitshuffler, no multithreading \n2: shitshuffler w/ multithreading \n3: shitshuffler in egui \n{}", style("0 TO EXIT").bg(Color::Red).blink());
                 println!("{}", style("Its recommended to run shitshuffler with optimizations on. \nyou can do so by adding a --release tag to cargo run/build.").yellow());
                 loop {
@@ -69,12 +69,12 @@ fn select() {
                     match shit_shuf_select {
 
                         0 => {
-                            shit_is_bad = false;
+                            shuf_is_bad = false;
                         }
 
                         1 => {
                             rad::shit_shuffler::run();
-                            shit_is_bad = false;
+                            shuf_is_bad = false;
                         }
 
                         2 => {
@@ -84,13 +84,13 @@ fn select() {
 
                             rad::shit_shuffler::run_multithread(length, threads);
 
-                            shit_is_bad = false;
+                            shuf_is_bad = false;
                         }
 
                         3 => {
                             rad::egui::shit_shuffler::init();
 
-                            shit_is_bad = false;
+                            shuf_is_bad = false;
                         }
 
                         _ => {
@@ -99,7 +99,7 @@ fn select() {
 
                     }
 
-                    if !shit_is_bad {
+                    if !shuf_is_bad {
                         break;
                     }
                 }

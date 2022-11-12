@@ -6,6 +6,12 @@ pub struct Timer {
 }
 
 impl Default for Timer {
+    ///returns a timer struct with both SystemTimes set to None
+    /// 
+    /// # Example
+    /// ```
+    /// let mut timer = Timer::new();
+    /// ```
     fn default() -> Self {
         Self {
             start: None, end: None,
@@ -14,12 +20,15 @@ impl Default for Timer {
 }
 
 impl Timer {
-    ///returns a timer struct with both SystemTimes set to None
+
+    /// 
+    /// returns a timer struct with both SystemTimes set to None
     /// 
     /// # Example
     /// ```
     /// let mut timer = Timer::new();
     /// ```
+    /// Alternatively, you can use Timer::default()
     pub fn new() -> Timer {
         return Timer {start: None, end: None}
     }

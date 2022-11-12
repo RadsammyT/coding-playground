@@ -1,9 +1,11 @@
-// u *may* puke.
 // also holding this off because im lazy
-use std::{vec, io::Error, convert, ops::Add};
-
+// u *may* puke.
+use std::{vec};
 use text_io::try_read;
 use rustils;
+
+const DEBUG_SWITCH: bool = false;
+
 struct Grid {
     arr: Vec<Vec<i32>>, 
     size: i32,
@@ -63,11 +65,19 @@ impl Grid {
     /// cant set values with this though
     /// 
     fn get(&mut self, x: i32, y: i32) -> i32 {
-        self.arr[x as usize][y as usize]
+        self.arr[y as usize][x as usize]
     }
 
     fn set(&mut self, x: i32, y: i32, val: i32) {
-        self.arr[x as usize][y as usize] = val;
+        self.arr[y as usize][x as usize] = val;
+    }
+
+    fn set_double(&mut self, coord: [i32; 2], val: i32) {
+        self.arr[coord[1] as usize][coord[0] as usize] = val;
+    }
+
+    fn get_double(&mut self, coord: [i32; 2]) -> i32{
+        self.arr[coord[1] as usize][coord[0] as usize]
     }
 
 }
@@ -82,34 +92,75 @@ impl Default for Grid {
 }
 
 
-pub fn test_1() {
-    let mut grid: Grid = Grid::new(3);
+// pub fn test_1() {
+//     let mut grid: Grid = Grid::new(3);
 
-    grid.print_grid(false);
-    println!("{}", who_goes_first());
+//     grid.print_grid(false);
+//     println!("{}", who_goes_first());
 
-    let select = player_input(&mut grid);
-    println!("grid arr selected: {:?}, set to {:?}", select, grid.arr[select[0] as usize][select[1] as usize]);
-    grid.set(select[0] , select[1] , 69); // because haha funni
-    println!("grid arr now changed: {:?}, now set to {:?}", select, grid.arr[select[0] as usize][select[1] as usize]);
+//     let select = player_input(&mut grid, 1);
+//     println!("grid arr selected: {:?}, set to {:?}", select, grid.arr[select[0] as usize][select[1] as usize]);
+//     grid.set(select[0] , select[1] , 69); // because haha funni
+//     println!("grid arr now changed: {:?}, now set to {:?}", select, grid.arr[select[0] as usize][select[1] as usize]);
 
-    grid.get(0, 0);
+//     grid.get(0, 0);
 
-    grid.print_grid(false);
-} 
+//     grid.print_grid(false);
+// } 
 
 pub fn game() {
+    dbg!(DEBUG_SWITCH);
+
     let mut grid = Grid::new(3);
-    let mut turn: String;
-    
-    print!("X to go first? (yes/no)"); who_goes_first();
-    
+    let mut turn: i32;
+    let mut select: [i32; 2];
+    print!("X to go first? (yes/no): "); 
+    if who_goes_first() {
+        turn = 1;
+    } else {
+        turn = 2;
+    }
     grid.print_grid(true);
+    
+    loop {
+        println!("TURN: {:?}", turn);
+        select = player_input(&mut grid, turn);
+        grid.set_double(select, turn);
+        grid.print_grid(true);
+        if check_winner(&mut grid) != 0 {
+            break;
+        }
+
+        change_turn(&mut turn);
+    }
+    
+    match check_winner(&mut grid) {
+        0 => {
+            panic!("nothing won?");
+        }
+
+        1 => {
+            println!("X wins");
+        }
+
+        2 => {
+            println!("O wins");
+        }
+
+        3 => {
+            println!("Tie");
+        }
+
+        _ => {
+            panic!("Invalid winner");
+        }
+    }
+
 
 
 }
 
-fn player_input(grid: &mut Grid) -> [i32; 2]{
+fn player_input(grid: &mut Grid, turn: i32) -> [i32; 2]{
     let mut bad: bool = false;
     let mut res = [0,0];
     let mut inp_loop = |grid: &&mut Grid| -> i32 {
@@ -133,10 +184,10 @@ fn player_input(grid: &mut Grid) -> [i32; 2]{
                 if ret >= grid.size {
                     println!("bad number, out of bounds. input is {} (0-based btw) when max size is {} (1-based)", ret, grid.size);
                     // NOTE: DO NOT ADD 1 TO EITHER RET OR GRID SIZE OR ELSE USER WILL BE CONFUSED.
-                    bad = true;
+                    // bad = true;
                 } else if ret < 0 {
                     println!("bad number, {} is negative.", ret);
-                    bad = true;
+                    // bad = true;
                 } else {
                     println!("good input: got {}", rustils::parse::int::string_to_i32(x.to_owned()));
                     break ret;
@@ -145,8 +196,18 @@ fn player_input(grid: &mut Grid) -> [i32; 2]{
 
         }
     };
-    res[0] = inp_loop(&grid);
-    res[1] = inp_loop(&grid);
+    loop {
+        print!("X coordinate: ");
+        res[0] = inp_loop(&grid);
+        print!("Y coordinate: ");
+        res[1] = inp_loop(&grid);
+        if grid.get_double(res) != 0 {
+            println!("Cell is taken! {} at {:?}", grid.get_double(res), res);
+        } else {
+            break;
+        }
+    }
+    grid.set(res[0], res[1], turn);
     return res;
     
 }
@@ -172,23 +233,151 @@ fn who_goes_first() -> bool {
     }
     output
 }
+
+fn change_turn(turn: &mut i32) {
+    match turn {
+        1 => {
+            *turn = 2;
+        }
+
+        2 => {
+            *turn = 1;
+        }
+        _ => {
+            eprintln!("uh oh, {}", turn);
+            panic!()
+        }
+    }
+}
+
 // here comes the most shittiest check-winner code youll ever see
-// 0 = no winner, 1 = X wins, 2 = O wins.
+// i32 return/cell guide:
+// 0 = no winner/empty, 1 = X wins, 2 = O wins.
 
-fn checkRow(grid: &mut Grid, row: i32) -> i32 {
-
+fn check_row(grid: &mut Grid, row: i32) -> i32 {
     let mut res: String = String::new();
-    let mut xEx: String = String::new();
-    let mut oEx: String = String::new();
+    let mut x_ex: String = String::new();
+    let mut o_ex: String = String::new();
 
     for i in 0..grid.size {
         res.push_str(rustils::parse::string::ToStr::to_str(
             grid.get(i, row).to_owned().to_string()
         ));
+        x_ex.push_str("1");
+        o_ex.push_str("2");
     }
-    // TODO: do the same above but for xEx and oEx
-    // then check row for winner
-    // refer to playground java/src/ttt/revamp/game.java
+    
+    
+    if DEBUG_SWITCH { 
+        println!("checkRow: {} compared to {} or {}", res, x_ex, o_ex);
+     } 
+    if res.eq(&x_ex) {
+        return 1;
+    } else if res.eq(&o_ex) {
+        return 2;
+    } else { 
+        return 0;
+    }
+}
+fn check_col(on: &mut Grid, col: i32) -> i32 { // funni
+    let mut res: String = String::new();
+    let mut x_ex: String = String::new();
+    let mut o_ex: String = String::new();
 
-    0 // dummy return so rust doesnt throw a tantrum
+    for i in 0..on.size {
+        res.push_str(rustils::parse::string::ToStr::to_str(
+            on.get(col, i).to_owned().to_string()
+        ));
+        x_ex.push_str("1");
+        o_ex.push_str("2");
+    }
+    if DEBUG_SWITCH {
+        println!("checkCol: {} compared to {} or {}", res, x_ex, o_ex);
+    }
+    if res.eq(&x_ex) {
+        return 1;
+    } else if res.eq(&o_ex) {
+        return 2;
+    } else { 
+        return 0;
+    }
+}
+///if reverse is true, diag is top left to bottom right.
+/// 
+///if reverse is false, diag is top right to bottom left.
+fn check_diag(grid: &mut Grid, reverse: bool) -> i32 {
+    let mut res: String = String::new();
+    let mut x_ex: String = String::new();
+    let mut o_ex: String = String::new();
+
+    for i in 0..grid.size {
+        x_ex.push_str("1");
+        o_ex.push_str("2");
+        if reverse {
+            res.push_str(rustils::parse::string::ToStr::to_str(
+                grid.get(i, i).to_owned().to_string()
+            ));
+        } else {
+            res.push_str(rustils::parse::string::ToStr::to_str(
+                grid.get(grid.size - i - 1, i).to_owned().to_string()
+            ));
+        }
+    }
+        if DEBUG_SWITCH {
+            println!("checkDiag: {} compared to {} or {} as {}", res, x_ex, o_ex, reverse);
+        }
+
+        if res.eq(&x_ex) {
+            return 1;
+        } else if res.eq(&o_ex) {
+            return 2;
+        } else { 
+            return 0;
+        }
+
+    0
+}
+
+fn check_winner(grid: &mut Grid) -> i32 {
+    
+    for i in 0..grid.size {
+        
+        if DEBUG_SWITCH {
+            println!("checking for {}", i);
+        }
+        
+        match check_row(grid, i) {
+            1 => return 1,
+            2 => return 2,
+            _ => {},
+        }
+
+        match check_col(grid, i) {
+            1 => return 1,
+            2 => return 2,
+            _ => {},
+        }
+
+        match check_diag(grid, true) {
+            1 => return 1,
+            2 => return 2,
+            _ => {},
+        }
+
+        match check_diag(grid, false) {
+            1 => return 1,
+            2 => return 2,
+            _ => {},
+        }
+
+        
+    }
+    for i in 0..grid.size {
+        for j in 0..grid.size {
+            if grid.get(j, i) == 0 {
+                return 0;
+            }
+        }
+    }
+    return 3;
 }
