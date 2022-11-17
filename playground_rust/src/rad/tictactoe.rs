@@ -1,9 +1,11 @@
-// also holding this off because im lazy
 // u *may* puke.
-use std::{vec};
+use std::vec;
 use text_io::try_read;
 use rustils;
+use console;
 
+//used for check_col/row/diag
+// and maybe some other things
 const DEBUG_SWITCH: bool = false;
 
 struct Grid {
@@ -109,6 +111,8 @@ impl Default for Grid {
 // } 
 
 pub fn game() {
+    let term = console::Term::stdout();
+    term.clear_screen().expect("uh oh");
     dbg!(DEBUG_SWITCH);
 
     let mut grid = Grid::new(3);
@@ -123,7 +127,14 @@ pub fn game() {
     grid.print_grid(true);
     
     loop {
-        println!("TURN: {:?}", turn);
+        println!("TURN: {:?}", {
+            if turn == 1 {
+                "X"
+            } else {
+                "O"
+            }
+            
+        });
         select = player_input(&mut grid, turn);
         grid.set_double(select, turn);
         grid.print_grid(true);
@@ -132,6 +143,8 @@ pub fn game() {
         }
 
         change_turn(&mut turn);
+        term.clear_screen().expect("uh oh");
+        
     }
     
     match check_winner(&mut grid) {
@@ -155,9 +168,6 @@ pub fn game() {
             panic!("Invalid winner");
         }
     }
-
-
-
 }
 
 fn player_input(grid: &mut Grid, turn: i32) -> [i32; 2]{
@@ -334,8 +344,6 @@ fn check_diag(grid: &mut Grid, reverse: bool) -> i32 {
         } else { 
             return 0;
         }
-
-    0
 }
 
 fn check_winner(grid: &mut Grid) -> i32 {

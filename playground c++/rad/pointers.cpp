@@ -43,8 +43,11 @@ namespace pointers {
         int placeholder = 69;
         int *arr[] = {&placeholder};
         for (int i = -5; i < 5; i++) {
-            pointers::printp(arr[i], false);
+            // pointers::printp(arr[i], false);
+            printf("(%d) %p: %d \n", i, &arr[i], arr[i]);
         }
-            return 0;
+
+        arr[1] = &placeholder;
+        return 0;
     }
 }

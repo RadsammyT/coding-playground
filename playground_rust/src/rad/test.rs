@@ -145,6 +145,9 @@ pub fn select(timer: &mut Timer) {
                 print!("EXE Suf: {} \n", std::env::consts::EXE_SUFFIX);
                 print!("OS Family: {} \n", std::env::consts::FAMILY);
                 print!("OS: {} \n\n", std::env::consts::OS);
+                std::env::vars_os().into_iter().for_each(|(x,y)| {
+                    println!("{:?}: {:?}", x, y);
+                });
 
                 println!("arguments passed: ");
                 for i in std::env::args() {

@@ -48,6 +48,9 @@ int main() {
         case 8:
             test::memAlloc();
             break;
+        case 9:
+            pointers::ptrArrayOOB();
+            break;
         default:
             printf("Invalid selection, not in switch list \n");
             break;
