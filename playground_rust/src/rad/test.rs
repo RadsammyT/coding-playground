@@ -171,7 +171,7 @@ pub fn select(timer: &mut Timer) {
             10 => {
                 let mut file = match File::open("E:/CODING WORKSPACE/coding-playground/test.txt") { // change this path for your machine
                     Ok(s) => s,
-                    Err(e) => panic!("{}", e),
+                    Err(e) => panic!("{} | Is the file path correct for your machine? Check ->", e),
                 };
                 let mut read = String::new();
 
