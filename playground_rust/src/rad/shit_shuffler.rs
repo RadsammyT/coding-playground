@@ -27,7 +27,7 @@ impl Default for Returned {
 /// vec = shuffle(&mut vec).to_vec();
 /// println!("{:?}", vec);
 /// ```
-fn shuffle(v: &mut Vec<i32>) -> Vec<i32>{
+fn shuffle(v: &mut Vec<i32>) -> Vec<i32> {
     let test = v.len() as i32;
     for i in 0..v.len() as i32 {
         v[i as usize] = rand::thread_rng().gen_range(0..test);
@@ -136,7 +136,7 @@ pub fn run_multithread(length: i32, threads: i32) {
     let mut timer = Timer::new();
     let mut vec = vec![];
     timer.start_timer();
-    for i in 0..threads {
+    for _ in 0..threads {
         vec.push(thread::spawn(move || {
             let temp = run_singular(length);
             println!("T{:?}) {:?}, {}",thread::current().id(), temp.ret_1, temp.ret_2 );
@@ -152,6 +152,3 @@ pub fn run_multithread(length: i32, threads: i32) {
 
 }
 
-async fn test() {
-    
-}

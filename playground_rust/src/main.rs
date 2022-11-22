@@ -6,7 +6,6 @@
 
 
 // use std::time::SystemTime;
-use std::*;
 use rad::timer::Timer;
 use text_io::*;
 use console::*;
@@ -165,6 +164,25 @@ fn select() {
     main_timer.end_timer();
     println!("\n{} seconds overall", main_timer.get_elapsed().unwrap());
     user_halt();
+    is_bad = true;
+    print!("go again? (1 for yes /0 for no): ");
+    while is_bad {
+        sel = try_read!().unwrap_or(-1);
+        match sel {
+            0 => {
+                break;
+            }
+            
+            1 => {
+                select();
+            }
+
+            _ => {
+                is_bad = true;
+            }
+        }
+    }    
+
 }
 
 fn user_halt() {

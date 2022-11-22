@@ -5,7 +5,6 @@ use text_io::try_read;
 use num2words::{self, Num2Words};
 use open;
 use crate::rad::{self, timer::Timer};
-use super::timer;
 
 pub fn select(timer: &mut Timer) {
     let mut sel: i32;
@@ -76,7 +75,7 @@ pub fn select(timer: &mut Timer) {
 
                 let mut vecdeq: VecDeque<i128> = VecDeque::from([2]);
 
-                for i in 1..=6 {
+                for _ in 1..=6 {
                     vecdeq.push_back(-1);
                     vecdeq.push_front(1);
                     println!("{:?}", vecdeq);
