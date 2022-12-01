@@ -3,6 +3,7 @@
 use std::{thread::{JoinHandle, self}, convert::TryInto};
 
 use eframe::egui;
+use egui::{FontDefinitions, FontFamily};
 
 
 
@@ -11,7 +12,8 @@ struct Test {
     ui_list: Vec<String>,
     menu_bar: MenuBar, // added separate stucts for the pages cuz its more clean
     state_0: State0,
-    state_1: State1
+    state_1: State1,
+    font: FontDefinitions,
 }
 
 /*
@@ -83,6 +85,7 @@ impl Default for Test {
             state_0: State0::default(),
             state_1: State1::default(),
             menu_bar: MenuBar::default(),
+            font: FontDefinitions::default(),
             // state_0: State0 { 
                 // text: "".to_string()
             // }
@@ -94,8 +97,10 @@ impl Default for Test {
 impl eframe::App for Test {
     
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        egui::CentralPanel::default().show(ctx, |ui| {
+        self.font.families.get_mut(&FontFamily::Proportional).unwrap()
+    .insert(0, "c:/Windows/Fonts/pzim3x5.ttf".to_owned());
 
+        egui::CentralPanel::default().show(ctx, |ui| {
                 egui::menu::bar(ui, |ui| { // top bar
                     
 

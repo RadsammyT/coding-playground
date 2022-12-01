@@ -1,6 +1,7 @@
 use std::{*, collections::{VecDeque, HashMap}, fs::File};
 
 use console::style;
+use rustils::parse::string::ToStr;
 use text_io::try_read;
 use num2words::{self, Num2Words};
 use open;
@@ -168,6 +169,11 @@ pub fn select(timer: &mut Timer) {
             }
             
             10 => {
+                // let inp = try_read!().unwrap_or({
+                //     println!("Error! Defaulting to hardcoded path...");
+                //     "E:/CODING WORKSPACE/coding-playground/test.txt".to_string()
+                // }).to_str();
+                // let  test = File::try_from(inp);
                 let mut file = match File::open("E:/CODING WORKSPACE/coding-playground/test.txt") { // change this path for your machine
                     Ok(s) => s,
                     Err(e) => panic!("{} | Is the file path correct for your machine? Check ->", e),

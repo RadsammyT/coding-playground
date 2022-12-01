@@ -5,8 +5,11 @@
 */
 
 
+use std::{thread, ffi::OsStr};
+
 // use std::time::SystemTime;
 use rad::timer::Timer;
+use rustils::parse::string::ToStr;
 use text_io::*;
 use console::*;
 
@@ -16,6 +19,11 @@ mod rad;
 fn main() {
     select();
     // test::init();
+    println!("relaunch program, because idfk how to clear/switch rusts hardcoded stdin buffer");
+    user_halt();
+    
+
+
 }
 
 fn select() {
@@ -163,25 +171,8 @@ fn select() {
     }
     main_timer.end_timer();
     println!("\n{} seconds overall", main_timer.get_elapsed().unwrap());
-    user_halt();
-    is_bad = true;
-    print!("go again? (1 for yes /0 for no): ");
-    while is_bad {
-        sel = try_read!().unwrap_or(-1);
-        match sel {
-            0 => {
-                break;
-            }
-            
-            1 => {
-                select();
-            }
 
-            _ => {
-                is_bad = true;
-            }
-        }
-    }    
+    
 
 }
 
@@ -189,8 +180,16 @@ fn user_halt() {
     if std::env::consts::OS == "windows" {
         let _ = std::process::Command::new("cmd.exe").arg("/c").arg("pause").status().expect("Something is very fucking wrong. \nOS should be windows and \nthe 'pause' command should be in the command list");
     } else {
-        print!("type anything and press enter to continue... \ni didn't implement user_halt() for other platforms well so i hope this works for you");
-        let _ = try_read!().unwrap_or(-1);
+        print!("type anything and press enter to continue... \ni didn't implement user_halt() for other platforms so i hope this works for you");
+        let mut str = String::new();
+        match std::io::stdin().read_line(&mut str) {
+            Ok(v) => {
+                print!("usize: {}\n",v);
+            }
+            Err(e) => {
+                panic!("fuck | {}", e);
+            }
+        }
     }
 }
 

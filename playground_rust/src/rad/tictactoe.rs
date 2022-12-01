@@ -4,8 +4,8 @@ use text_io::try_read;
 use rustils;
 use console;
 
-//used for check_col/row/diag
-// and maybe some other things
+/// used for check_col/row/diag
+/// and maybe some other things
 const DEBUG_SWITCH: bool = false;
 
 struct Grid {
@@ -262,7 +262,7 @@ fn change_turn(turn: &mut i32) {
 
 // here comes the most shittiest check-winner code youll ever see
 // i32 return/cell guide:
-// 0 = no winner/empty, 1 = X wins, 2 = O wins.
+// 0 = no winner/empty, 1 = X wins, 2 = O wins, 3 = tie.
 
 fn check_row(grid: &mut Grid, row: i32) -> i32 {
     let mut res: String = String::new();
