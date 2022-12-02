@@ -14,10 +14,11 @@ use text_io::*;
 use console::*;
 
 mod rad;
-
+mod aoc2022;
 
 fn main() {
-    select();
+    // select();
+    aoc2022::d1::p2("E:/CODING WORKSPACE/coding-playground/playground_rust/src/aoc2022/inputs/d1_p1_full.txt".to_string());
     // test::init();
     println!("relaunch program, because idfk how to clear/switch rusts hardcoded stdin buffer");
     user_halt();
