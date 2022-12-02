@@ -40,7 +40,7 @@ pub fn parse_to_vec(file: String) -> Vec<Vec<i32>> {
                 num_buffer.push(i);
             }
     } 
-
+    // todo: explain why the fuck this works
     // println!("{:?}", elf_list);
     let mut finish_list: Vec<Vec<i32>> = vec![vec![]];
     let mut finish_buffer: Vec<i32> = vec![];
@@ -61,5 +61,41 @@ pub fn parse_to_vec(file: String) -> Vec<Vec<i32>> {
     println!("{:?}", finish_list);
 
     return finish_list;
+
+}
+
+pub fn parse_to_vec_d2(file: String) -> Vec<Vec<char>> {
+    let parsed = fs::read_to_string(file).unwrap();
+
+    let mut string_round: String = String::new();
+    let mut round_buffer: Vec<char> = vec![];
+    let mut round_list: Vec<Vec<char>> = vec![vec![]];
+    
+    
+    for i in parsed.chars() {
+        /*
+            "wait, theres carr returns? why?"
+            windows (my OS) has two escape characters that act as a new line.
+            CR, aka \r, returns the cursor to the first column.
+            LF, aka \n, pushes the cursor down by one row.
+            either of these symbols can be written in my code to indicate a new line, but I decided on \r as the marker for a new line.
+        */
+        if "\r".char_indices().next().unwrap().1 == i {
+            round_list.push(round_buffer.to_owned());
+            round_buffer.clear();
+        } else if " ".char_indices().next().unwrap().1 == i {
+        } else {
+            if i != "\n".char_indices().next().unwrap().1 {
+                round_buffer.push(i);
+                
+            }
+        }
+
+
+    }
+
+    println!("{:?}", round_list);
+    round_list.remove(0); // because its empty
+    return round_list;
 
 }
