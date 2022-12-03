@@ -11,56 +11,56 @@ pub fn p1(fp: String) {
 
 
     for i in input {
-        let op = i.get(0).unwrap_or_else(move || {
+        let op = *i.get(0).unwrap_or_else(move || {
             println!("ERROR! OPPONENT CHAR IS NOT AVAILABLE!");
             panic!("SEE ABOVE!");
         });
 
-        let pl = i.get(1).unwrap_or_else(move || {
+        let pl = *i.get(1).unwrap_or_else(move || {
             println!("ERROR! PLAYER CHAR IS NOT AVAILABLE!");
             panic!("SEE ABOVE!");
         });
 
         // hot single ifs in your area
 
-        if op == &char("A") { // rock
-            if pl == &char("X") { //rock
+        if op == 'A' { // rock
+            if pl == 'X' { //rock
                 total += 4; // 3 for tie, 1 for rock.
             }
             
-            if pl == &char("Y") {
+            if pl == 'Y' {
                 total += 8; // 6 for win. 2 for paper.
             }
 
-            if pl == &char("Z") {
-                total += 3; // 0 for lose, 3 for scissors.
+            if pl == 'Z' {
+                total += 3; // 0 for lose, 3 for scissors.z
             }
         }
 
-        if op == &char("B") { // paper
-            if pl == &char("X") { // rock
+        if op == 'B' { // paper
+            if pl == 'X' { // rock
                 total += 1; // 0 for lose, 1 for rock.
             }
             
-            if pl == &char("Y") {
+            if pl == 'Y' {
                 total += 5; // 3 for tie, 2 for paper. 
             }
 
-            if pl == &char("Z") {
+            if pl == 'Z' {
                 total += 9; // 6 for win, 3 for scissors. 
             }
         }
 
-        if op == &char("C") { // scissors
-            if pl == &char("X") { // rock
+        if op == 'C' { // scissors
+            if pl == 'X' { // rock
                 total += 7; // 6 for win, 1 for rock. 
             }
             
-            if pl == &char("Y") {
+            if pl == 'Y' {
                 total += 2; // 0 for lose, 2 for paper. 
             }
 
-            if pl == &char("Z") {
+            if pl == 'Z' {
                 total += 6; // 3 for tie, 3 for scissors
             }
         }
@@ -81,54 +81,54 @@ pub fn p2(fp: String) {
 
 
     for i in input {
-        let op = i.get(0).unwrap_or_else(move || {
+        let op = *i.get(0).unwrap_or_else(move || {
             println!("ERROR! OPPONENT CHAR IS NOT AVAILABLE!");
             panic!("SEE ABOVE!");
         });
 
-        let pl = i.get(1).unwrap_or_else(move || {
+        let pl = *i.get(1).unwrap_or_else(move || {
             println!("ERROR! PLAYER CHAR IS NOT AVAILABLE!");
             panic!("SEE ABOVE!");
         });
 
-        if op == &char("A") { // rock
-            if pl == &char("X") { // scissors
+        if op == 'A' { // rock
+            if pl == 'X' { // scissors
                 total += 3; // 0 for lose, 3 for scissors
             }
             
-            if pl == &char("Y") { // rock
+            if pl == 'Y' { // rock
                 total += 4; // 3 for tie, 1 for rock..
             }
 
-            if pl == &char("Z") { // paper
+            if pl == 'Z' { // paper
                 total += 8; //6 for win, 2 for paper.
             }
         }
 
-        if op == &char("B") { // paper
-            if pl == &char("X") { // rock
+        if op == 'B' { // paper
+            if pl == 'X' { // rock
                 total += 1; // 0 for lose, 1 for rock.
             }
             
-            if pl == &char("Y") { // paper
+            if pl == 'Y' { // paper
                 total += 5; // 3 for tie, 2 for paper. 
             }
 
-            if pl == &char("Z") { // scissors
+            if pl == 'Z' { // scissors
                 total += 9; // 6 for win, 3 for scissors. 
             }
         }
 
-        if op == &char("C") { // scissors
-            if pl == &char("X") { // paper
+        if op == 'C' { // scissors
+            if pl == 'X' { // paper
                 total += 2; // 0 for lose, 2 for paper. 
             }
             
-            if pl == &char("Y") { // scissors
+            if pl == 'Y' { // scissors
                 total += 6; // 3 for tie, 3 for scissors
             }
 
-            if pl == &char("Z") { // rock
+            if pl == 'Z' { // rock
                 total += 7; // 6 for win, 1 for rock.
             }
         }
