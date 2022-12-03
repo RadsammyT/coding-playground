@@ -138,3 +138,21 @@ pub fn parse_to_vec_d3(file: String) -> Vec<Vec<String>> {
 
     return sack_halves;
 }
+
+pub fn parse_to_vec_d3_p2(file: String) -> Vec<Vec<String>> {
+    let parsed = fs::read_to_string(file).unwrap();
+    // let mut sack_halves_buffer: Vec<String> = vec![];
+    let mut sack_group: Vec<Vec<String>> = vec![];
+    let mut sack_buffer: Vec<String> = vec![];
+    for i in parsed.lines() {
+        sack_buffer.push(i.to_string());
+        if sack_buffer.len() == 3 {
+            sack_group.push(sack_buffer.to_owned());
+            sack_buffer.clear();
+        }
+    }
+
+    println!("{:?}", sack_group);
+
+    return sack_group;
+}
