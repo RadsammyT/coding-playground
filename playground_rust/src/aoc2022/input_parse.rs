@@ -40,19 +40,27 @@ pub fn parse_to_vec(file: String) -> Vec<Vec<i32>> {
                 num_buffer.push(i);
             }
     } 
-    // todo: explain why the fuck this works
-    // println!("{:?}", elf_list);
+
+    /*
+        so, lets break down why we need to do the above again, kinda...
+
+        the above code is bugged, and would put empty lines and separate 
+        numbers in their own vector like so:
+        -   [[], [100], [200], [300], [], [400], [500], []]
+        but instead of fixing the vector above i decided to say fuck it and 
+        took the bugged output and fix it in the following lines below.
+        
+        the only reason why this works is because of the empty vectors 
+        SEPARATING the individual elf calories.
+    */
+
     let mut finish_list: Vec<Vec<i32>> = vec![vec![]];
     let mut finish_buffer: Vec<i32> = vec![];
     let mut first_skip = false;
     for i in elf_list {
         if i.get(0) == None {
-            if !first_skip {
-                first_skip = true;
-            } else {
                 finish_list.push(finish_buffer.to_owned());
                 finish_buffer.clear();
-            }
         } else {
             finish_buffer.push(*i.get(0).unwrap());
         }
@@ -98,4 +106,35 @@ pub fn parse_to_vec_d2(file: String) -> Vec<Vec<char>> {
     round_list.remove(0); // because its empty
     return round_list;
 
+}
+
+pub fn parse_to_vec_d3(file: String) -> Vec<Vec<String>> {
+    /*
+        heres what im seeing:
+            assume input being:
+            vJrwpWtwJgWrhcsFMMfFFhFp
+            jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+            PmmdzqPrVvPwwTWBwg
+            wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+            ttgJtRGJQctTZtZT
+            CrZsJsPPZsGzwwsLwLmpwMDw
+
+        get each halve of the line to its own vector, then push that vec into the outter vec.
+        all input lines have even amount of characters.
+    */
+
+    let parsed = fs::read_to_string(file).unwrap();
+    // let mut sack_halves_buffer: Vec<String> = vec![];
+    let mut sack_halves: Vec<Vec<String>> = vec![vec![]];
+
+    for i in parsed.lines() {
+        let (a,b) = i.split_at(i.len() / 2); //split works
+        let res = vec![a.to_string(), b.to_string()];
+        sack_halves.push(res);
+    }
+
+    sack_halves.remove(0);
+    println!("{:?}", sack_halves);
+
+    return sack_halves;
 }

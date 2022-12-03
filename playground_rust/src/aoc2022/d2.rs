@@ -91,8 +91,6 @@ pub fn p2(fp: String) {
             panic!("SEE ABOVE!");
         });
 
-        // hot single ifs in your area
-
         if op == &char("A") { // rock
             if pl == &char("X") { // scissors
                 total += 3; // 0 for lose, 3 for scissors
