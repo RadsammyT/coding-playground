@@ -17,8 +17,7 @@ mod rad;
 mod aoc2022;
 
 fn main() {
-    // select();
-    aoc2022::d4::p2("E:/CODING WORKSPACE/coding-playground/playground_rust/src/aoc2022/inputs/d4_full.txt".to_string());
+    select();
     println!("relaunch program, because idfk how to clear/switch rusts hardcoded stdin buffer");
     user_halt();
     

@@ -73,10 +73,8 @@ pub fn parse_to_vec_d1(file: String) -> Vec<Vec<i32>> {
 pub fn parse_to_vec_d2(file: String) -> Vec<Vec<char>> {
     let parsed = fs::read_to_string(file).unwrap();
 
-    let mut string_round: String = String::new();
     let mut round_buffer: Vec<char> = vec![];
     let mut round_list: Vec<Vec<char>> = vec![vec![]];
-    
     
     for i in parsed.chars() {
         /*
