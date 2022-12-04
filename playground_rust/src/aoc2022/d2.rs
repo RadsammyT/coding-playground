@@ -137,10 +137,3 @@ pub fn p2(fp: String) {
 
     println!("TOTAL = {}", total);
 }
-
-///do you like to call "A".chars().next().unwrap() on every if statement?
-/// 
-///i sure dont.
-fn char(inp: &str) -> char { 
-    inp.chars().next().unwrap()
-}

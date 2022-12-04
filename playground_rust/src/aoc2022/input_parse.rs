@@ -1,6 +1,5 @@
-use std::fs::{self, File};
-
-pub fn parse_to_vec(file: String) -> Vec<Vec<i32>> {
+use std::fs;
+pub fn parse_to_vec_d1(file: String) -> Vec<Vec<i32>> {
 
     let parsed = fs::read_to_string(file).unwrap();
     /*
@@ -56,7 +55,6 @@ pub fn parse_to_vec(file: String) -> Vec<Vec<i32>> {
 
     let mut finish_list: Vec<Vec<i32>> = vec![vec![]];
     let mut finish_buffer: Vec<i32> = vec![];
-    let mut first_skip = false;
     for i in elf_list {
         if i.get(0) == None {
                 finish_list.push(finish_buffer.to_owned());
@@ -108,7 +106,7 @@ pub fn parse_to_vec_d2(file: String) -> Vec<Vec<char>> {
 
 }
 
-pub fn parse_to_vec_d3(file: String) -> Vec<Vec<String>> {
+pub fn parse_to_vec_d3_p1(file: String) -> Vec<Vec<String>> {
     /*
         heres what im seeing:
             assume input being:
@@ -155,4 +153,37 @@ pub fn parse_to_vec_d3_p2(file: String) -> Vec<Vec<String>> {
     println!("{:?}", sack_group);
 
     return sack_group;
+}
+
+pub fn parse_to_vec_d4(file:String) -> Vec<Vec<i32>> {
+    let parsed = fs::read_to_string(file).unwrap();
+    let mut num_buffer: String = String::new();
+    let mut pair_buffer: Vec<i32> = vec![];
+    let mut pair_list: Vec<Vec<i32>> = vec![];
+
+    for i in parsed.chars() {
+        if i == '-' {
+            pair_buffer.push(rustils::parse::int::string_to_i32(num_buffer.to_owned()));
+            num_buffer.clear();
+        } else if i == ',' { 
+            pair_buffer.push(rustils::parse::int::string_to_i32(num_buffer.to_owned()));
+            num_buffer.clear();
+
+            pair_list.push(pair_buffer.to_owned());
+            pair_buffer.clear();
+        } else if i == '\n' {
+            pair_buffer.push(rustils::parse::int::string_to_i32(num_buffer.to_owned()));
+            num_buffer.clear();
+
+            pair_list.push(pair_buffer.to_owned());
+            pair_buffer.clear();
+        } else  {
+            if i != '\r' {
+                num_buffer.push(i);
+            }
+        }
+
+    }
+
+    return pair_list;
 }

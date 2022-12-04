@@ -18,8 +18,7 @@ mod aoc2022;
 
 fn main() {
     // select();
-    // println!("{}, {}", 'a' as u8, 'a' as u32);
-    aoc2022::d2::p2("E:/CODING WORKSPACE/coding-playground/playground_rust/src/aoc2022/inputs/d2_full.txt".to_string());
+    aoc2022::d4::p2("E:/CODING WORKSPACE/coding-playground/playground_rust/src/aoc2022/inputs/d4_full.txt".to_string());
     println!("relaunch program, because idfk how to clear/switch rusts hardcoded stdin buffer");
     user_halt();
     

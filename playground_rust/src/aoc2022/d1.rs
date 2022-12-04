@@ -3,7 +3,7 @@ use std::fs;
 use super::input_parse;
 
 pub fn p1(file_path: String) -> i32 {
-    let inp = input_parse::parse_to_vec(file_path);
+    let inp = input_parse::parse_to_vec_d1(file_path);
     let mut best = 0;
     let mut temp = 0;
     for i in inp {
@@ -23,7 +23,7 @@ pub fn p1(file_path: String) -> i32 {
 
 pub fn p2(file_path: String) -> i32 {
 
-    let inp = input_parse::parse_to_vec(file_path);
+    let inp = input_parse::parse_to_vec_d1(file_path);
     let mut temp = 0;
     let mut res: Vec<i32> = vec![];
     for i in inp {

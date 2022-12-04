@@ -3,7 +3,7 @@ use super::input_parse::{self, parse_to_vec_d3_p2};
 
 
 pub fn p1(fp: String) {
-    let input = input_parse::parse_to_vec_d3(fp);
+    let input = input_parse::parse_to_vec_d3_p1(fp);
     let mut common_letters: Vec<char> = vec![];
     for v in input {
         let i = v.get(0).unwrap();
