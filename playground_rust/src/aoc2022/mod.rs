@@ -11,3 +11,4 @@ pub mod d4;
 ///All functions within this module are used for both part 1 and 2 of a specified day unless a function for either part 1 or part 2 is specified.
 #[allow(dead_code)]
 pub mod input_parse;
+pub mod d5;

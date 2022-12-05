@@ -5,18 +5,16 @@
 #include "rad/pointers.cpp"
 using namespace std;
 
+int test();
+
 const int A = 1234;
 const int *testConst = &A;
 int main() {
-	int allah = A;
-	// int* test = &A;
-	
-	int* arr[] = {(int*) &testConst};
-	printf("const @ %p as %d\n", &testConst, testConst);
-	for (int i = -10; i < 10; i++) {
-		printf("%p (%d) \n", arr[i], i);
-	}
+	test();
 
 	return 0;
 }
 
+int test() {
+	throw runtime_error("allahu akabr");
+}

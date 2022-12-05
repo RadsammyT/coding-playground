@@ -58,8 +58,8 @@ fn p2_overlap(one: Vec<i32>, two: Vec<i32>) -> bool {
     let first: Vec<i32> = vec_between(one);
     let second: Vec<i32> = vec_between(two);
     for i in first {
-        for j in &second { // i have to borrow this vector for some reason or error
-            if i == *j { // ???????????????????
+        for j in &second {
+            if i == *j {
                 return true;
             }
         }

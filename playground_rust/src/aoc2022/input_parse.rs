@@ -185,3 +185,58 @@ pub fn parse_to_vec_d4(file:String) -> Vec<Vec<i32>> {
 
     return pair_list;
 }
+
+pub fn parse_to_vec_d5(file: String) {
+    let parsed = fs::read_to_string(file).unwrap();
+    
+    /*
+    every vector is a row of the crates
+    i plan to basically turn it 90 degrees to the right
+    so i can handle them better
+     */
+    let mut parsed_2d: Vec<String> = vec![];
+    let mut buffer: String = String::new();
+
+    for i in parsed.chars() {
+        if i == '\n' {
+            if buffer.is_empty() {
+                break;
+            }
+            parsed_2d.push(buffer.to_owned());
+            buffer.clear();
+        } else {
+            if i != '\r' {
+                buffer.push(i);
+            }
+        }
+
+
+
+    }
+    // dbg!(&parsed_2d.get(0).unwrap().chars().nth(1).unwrap());
+    // dbg!(&parsed_2d.get(1).unwrap().chars().nth(1).unwrap());
+    // dbg!(&parsed_2d.get(2).unwrap().chars().nth(1).unwrap());
+    // dbg!(&parsed_2d.get(3).unwrap().chars().nth(1).unwrap());
+    dbg!(&parsed_2d);
+
+    let mut crates_final: Vec<Vec<char>> = vec![];
+    let mut crates_buffer: Vec<char> = vec![];
+    //stores the index the number and crates are on.
+    let mut crates_string_indexes: Vec<i32> = vec![];
+
+    for (ind, ele) in parsed_2d.get(parsed_2d.len() - 1).unwrap().chars().enumerate() {
+        if ele != ' ' {
+            crates_string_indexes.push(ind as i32);
+        }
+    }
+    for i in crates_string_indexes { // col
+        for j in parsed_2d.len() - 1..0 { // row
+            if parsed_2d.get(j).unwrap().chars().nth(*&i as usize).unwrap() != ' ' {
+                crates_buffer.push(parsed_2d.get(j).unwrap().chars().nth(*&i as usize).unwrap());
+            } else {
+                crates_final.push(crates_buffer.to_owned());
+            }
+        }
+    }
+
+}
