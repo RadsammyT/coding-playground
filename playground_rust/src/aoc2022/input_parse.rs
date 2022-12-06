@@ -186,9 +186,11 @@ pub fn parse_to_vec_d4(file:String) -> Vec<Vec<i32>> {
     return pair_list;
 }
 
-pub fn parse_to_vec_d5(file: String) {
+pub fn parse_to_vec_d5(file: String) -> (Vec<Vec<char>>, Vec<Vec<i32>>) {
     let parsed = fs::read_to_string(file).unwrap();
     
+    // stack
+
     /*
     every vector is a row of the crates
     i plan to basically turn it 90 degrees to the right
@@ -217,26 +219,92 @@ pub fn parse_to_vec_d5(file: String) {
     // dbg!(&parsed_2d.get(1).unwrap().chars().nth(1).unwrap());
     // dbg!(&parsed_2d.get(2).unwrap().chars().nth(1).unwrap());
     // dbg!(&parsed_2d.get(3).unwrap().chars().nth(1).unwrap());
-    dbg!(&parsed_2d);
-
+    
     let mut crates_final: Vec<Vec<char>> = vec![];
     let mut crates_buffer: Vec<char> = vec![];
     //stores the index the number and crates are on.
     let mut crates_string_indexes: Vec<i32> = vec![];
-
+    
     for (ind, ele) in parsed_2d.get(parsed_2d.len() - 1).unwrap().chars().enumerate() {
         if ele != ' ' {
             crates_string_indexes.push(ind as i32);
         }
     }
+    parsed_2d.reverse();
+    // dbg!(&parsed_2d);
     for i in crates_string_indexes { // col
-        for j in parsed_2d.len() - 1..0 { // row
-            if parsed_2d.get(j).unwrap().chars().nth(*&i as usize).unwrap() != ' ' {
+        for j in 1..parsed_2d.len() { // row
+            
+            
+            // dbg!(&crates_buffer);
+            if parsed_2d.get(j).unwrap().chars().nth(i as usize).unwrap() != ' ' {
                 crates_buffer.push(parsed_2d.get(j).unwrap().chars().nth(*&i as usize).unwrap());
+                if j == parsed_2d.len() - 1 {
+                    crates_final.push(crates_buffer.to_owned());
+                    crates_buffer.clear();
+                    // dbg!(&crates_final);
+                }
+
             } else {
                 crates_final.push(crates_buffer.to_owned());
+                crates_buffer.clear();
             }
         }
     }
+    for _ in 0..10 {
+        for i in 0..crates_final.len() {
+            if crates_final.get(i).unwrap_or(&['a'].to_vec()).is_empty() {
+                dbg!("removed");
+                crates_final.remove(i);
+            }
+        }
+        // dbg!("new loop");
+    }
+    // dbg!(&crates_final);
+
+    // move instructions
+
+    //convert parsed string into a vector of primitive strings
+    // that have move instructions on them
+    let mut test: Vec<&str> = parsed.split("\r\n").collect();
+    for i in 0..test.len() - parsed_2d.len() {
+        if test.get(0).unwrap().chars().nth(0).unwrap_or('a') != 'm' {
+            test.remove(0);
+        } else {
+            break;
+        }
+    }
+    // dbg!(&test);
+
+    let mut num_buffer = String::new();
+    let mut move_buffer: Vec<i32> = vec![];
+    let mut move_list: Vec<Vec<i32>> = vec![vec![]];
+    
+
+    // convert that into a vector of move instructions (aka a vector)
+
+    for i in test {
+        // dbg!(&i);
+        for j in i.chars() {
+            if j.is_numeric() {
+                num_buffer.push(j);
+            }
+            if j == ' ' {
+                if !num_buffer.is_empty() { 
+                    move_buffer.push(rustils::parse::int::string_to_i32(num_buffer.to_owned()));
+                    num_buffer.clear();
+                }
+            }
+            if move_buffer.len() >= 3 {
+                move_list.push(move_buffer.to_owned());
+                move_buffer.clear();
+            }
+        }
+        // dbg!(&move_buffer);
+    }
+    
+    move_list.remove(0);
+    // dbg!(&move_list);
+    return (crates_final, move_list);
 
 }
