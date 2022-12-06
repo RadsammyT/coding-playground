@@ -308,3 +308,9 @@ pub fn parse_to_vec_d5(file: String) -> (Vec<Vec<char>>, Vec<Vec<i32>>) {
     return (crates_final, move_list);
 
 }
+
+pub fn parse_to_vec_d6(fs: String) -> Vec<char> {
+    let parsed = fs::read_to_string(fs).unwrap();
+    let ret: Vec<char> = parsed.chars().collect();
+    ret
+}

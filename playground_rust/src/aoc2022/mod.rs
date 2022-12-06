@@ -12,3 +12,4 @@ pub mod d4;
 #[allow(dead_code)]
 pub mod input_parse;
 pub mod d5;
+pub mod d6;
