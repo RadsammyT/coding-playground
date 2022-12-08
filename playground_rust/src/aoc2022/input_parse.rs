@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, slice::Split, collections::HashMap};
 pub fn parse_to_vec_d1(file: String) -> Vec<Vec<i32>> {
 
     let parsed = fs::read_to_string(file).unwrap();
@@ -313,4 +313,46 @@ pub fn parse_to_vec_d6(fs: String) -> Vec<char> {
     let parsed = fs::read_to_string(fs).unwrap();
     let ret: Vec<char> = parsed.chars().collect();
     ret
+}
+
+pub fn parse_to_vec_d7(fs: String) ->  HashMap<String, usize>{
+    let input = fs::read_to_string(fs).unwrap();
+
+    let mut current_dir = Vec::from(["/"]);
+    let mut directories: HashMap<String, usize> = HashMap::from([(String::from("/"), 0)]);
+
+    for line in input.lines().skip(2) {
+        if line.starts_with("$ cd") {
+            let dir = line.split_whitespace().last().unwrap();
+
+            if dir.ne("..") {
+                current_dir.push(dir);
+                let current_dir_str = current_dir.join("");
+                directories.insert(current_dir_str, 0);
+            } else {
+                current_dir.pop();
+            }
+        } else if line.chars().next().unwrap().is_numeric() {
+            let current_dir_str = current_dir.join("");
+            let file_size = line
+                .split_whitespace()
+                .next()
+                .unwrap()
+                .parse::<usize>()
+                .unwrap();
+
+            directories
+                .clone()
+                .keys()
+                .filter(|key| current_dir_str.starts_with(*key))
+                .for_each(|key| {
+                    if let Some(current_size) = directories.get_mut(key) {
+                        *current_size += file_size;
+                    }
+                });
+        }
+    }
+
+    return directories;
+    
 }
