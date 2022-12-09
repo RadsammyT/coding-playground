@@ -356,3 +356,28 @@ pub fn parse_to_vec_d7(fs: String) ->  HashMap<String, usize>{
     return directories;
     
 }
+
+pub fn parse_to_vec_d8(fs: String)  -> Vec<Vec<i32>>{
+    let mut parsed = fs::read_to_string(fs).unwrap();
+    let mut vec: Vec<Vec<i32>> = vec![vec![]];
+    let mut buffer: Vec<i32> = vec![];
+    parsed.push('\n');
+
+    for i in parsed.chars() {
+        if i == '\n' {
+            vec.push(buffer.to_owned());
+            buffer.clear();
+        }
+
+        if i.is_numeric() {
+            buffer.push(rustils::parse::int::string_to_i32(i.to_string()));
+        }
+    }
+
+    if vec.get(0).unwrap().is_empty() {
+        vec.remove(0);
+    }
+    // dbg!(&vec);
+
+    return vec;
+}

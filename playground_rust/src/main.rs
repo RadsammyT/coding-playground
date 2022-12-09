@@ -13,15 +13,13 @@ use rustils::parse::string::ToStr;
 use text_io::*;
 use console::*;
 
-use crate::aoc2022::input_parse;
+use crate::aoc2022::{input_parse, d8};
 
 mod rad;
 mod aoc2022;
 
 fn main() {
-    // select();
-    // input_parse::parse_to_vec_d5("E:/CODING WORKSPACE/coding-playground/playground_rust/src/aoc2022/inputs/d5_ex.txt".to_owned());
-    aoc2022::d7::p2("E:/CODING WORKSPACE/coding-playground/playground_rust/src/aoc2022/inputs/d7_full.txt".to_owned());
+    select();
     println!("relaunch program, because idfk how to clear/switch rusts hardcoded stdin buffer");
     user_halt();
     
