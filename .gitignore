@@ -5,5 +5,5 @@ playground c++/executables/*
 .vscode/*
 playground python/rad/__pycache__/*
 playground python/rad/build/*
-playground_rust/target/*
+playground_rust/target
 build
