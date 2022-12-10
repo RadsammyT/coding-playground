@@ -1,2 +1,0 @@
-Inputs go here.
-DO NOT COMMIT THEM TO ANY REPO, 
