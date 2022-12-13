@@ -13,10 +13,8 @@ use rustils::parse::string::ToStr;
 use text_io::*;
 use console::*;
 
-use crate::aoc2022::{input_parse, d8};
 
 mod rad;
-mod aoc2022;
 
 fn main() {
     select();

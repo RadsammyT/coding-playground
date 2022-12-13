@@ -1,7 +1,6 @@
 use std::{*, collections::{VecDeque, HashMap}, fs::File};
 
 use console::style;
-use rustils::parse::string::ToStr;
 use text_io::try_read;
 use num2words::{self, Num2Words};
 use open;

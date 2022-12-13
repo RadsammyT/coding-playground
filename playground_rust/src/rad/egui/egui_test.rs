@@ -7,12 +7,13 @@ use egui::{FontDefinitions, FontFamily};
 
 
 
-struct Test {  
+struct Main {  
     ui_state: i32, // enums are useless since we cant track which page is in what order, also adding a new page might not be easy to implement with enums
     ui_list: Vec<String>,
     menu_bar: MenuBar, // added separate stucts for the pages cuz its more clean
     state_0: State0,
     state_1: State1,
+    state_2: State2,
     font: FontDefinitions,
 }
 
@@ -55,6 +56,18 @@ impl Default for State1 {
     }
 }
 
+struct State2 {
+    image: Option<egui::TextureHandle>
+}
+
+impl Default for State2 {
+    fn default() -> Self {
+        Self {
+            image: None,
+        }
+    }
+}
+
 struct MenuBar {
     boolean: bool,
     number: i32,
@@ -72,11 +85,12 @@ impl Default for MenuBar {
 
 pub fn init() {
     let options = eframe::NativeOptions::default();
-    eframe::run_native("test", options, Box::new(|_cc| Box::new(Test::default())));
+    eframe::run_native("Main", options, Box::new(|_cc| Box::new(Main::default(_cc))));
 }
 
-impl Default for Test {
-    fn default() -> Self {
+impl Main {
+    fn default(cc: &eframe::CreationContext<'_>) -> Self {
+        setup(&cc.egui_ctx);
         Self {
             ui_state: 0,
             ui_list: ["code editor".to_string(), 
@@ -84,6 +98,7 @@ impl Default for Test {
                         "something".to_string()].to_vec(),
             state_0: State0::default(),
             state_1: State1::default(),
+            state_2: State2::default(),
             menu_bar: MenuBar::default(),
             font: FontDefinitions::default(),
             // state_0: State0 { 
@@ -93,12 +108,32 @@ impl Default for Test {
     }
 }
 
+fn setup(c: &egui::Context) {
+    let mut fonts = egui::FontDefinitions::default();
+    fonts.font_data.insert("font".to_owned(), 
+    egui::FontData::from_static(include_bytes!("c:/Windows/Fonts/pzim3x5.ttf")),    
+    );
 
-impl eframe::App for Test {
-    
+    fonts
+        .families
+        .entry(egui::FontFamily::Proportional)
+        .or_default()
+        .insert(0, "font".to_owned());
+
+    fonts
+        .families
+        .entry(egui::FontFamily::Monospace)
+        .or_default()
+        .push("font".to_owned());
+
+
+    c.set_fonts(fonts);
+}
+
+impl eframe::App for Main {
+
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        self.font.families.get_mut(&FontFamily::Proportional).unwrap()
-    .insert(0, "c:/Windows/Fonts/pzim3x5.ttf".to_owned());
+
 
         egui::CentralPanel::default().show(ctx, |ui| {
                 egui::menu::bar(ui, |ui| { // top bar
@@ -141,9 +176,9 @@ impl eframe::App for Test {
                     );
 
                     ui.hyperlink_to("my git", "https://github.com/RadsammyT/coding-playground");
-                    ui.menu_button("Test", |ui| {
+                    ui.menu_button("Main", |ui| {
                         ui.add(egui::widgets::DragValue::new(&mut self.menu_bar.number));
-                        ui.checkbox(&mut self.menu_bar.boolean, "Test");
+                        ui.checkbox(&mut self.menu_bar.boolean, "Main");
                         if ui.button("CLOSE").clicked() {
                             ui.close_menu();
                         }
@@ -154,7 +189,7 @@ impl eframe::App for Test {
             match self.ui_state {
                 0 => {
                     
-                    let mut _test = ui.code_editor(&mut self.state_0.text)
+                    let mut _main = ui.code_editor(&mut self.state_0.text)
                         .on_hover_ui_at_pointer(|ui| {
                             ui.heading("spooky");
                         });
@@ -177,7 +212,8 @@ impl eframe::App for Test {
                     match &mut self.state_1.thread {
                         Some(_) => {
                             if self.state_1.thread.as_ref().unwrap().is_finished() {
-                                self.state_1.output = format!("{:?}", self.state_1.thread.as_ref().unwrap()); //<-- cant join the thread without it erroring here
+                                let test = self.state_1.thread.as_ref().unwrap(); //<-- cant join the thread without it erroring here
+                                self.state_1.output = format!("{:?}", test); 
                                 // dont plan on fixing this because it will cause me a headache and a half
                             }
                             if ui.button("Retry").clicked() {
@@ -202,6 +238,10 @@ impl eframe::App for Test {
                 }
 
                 2 => {
+                    let texture: &egui::TextureHandle = self.state_2.image.get_or_insert_with(|| {
+                        ui.ctx().load_texture("test", egui::ColorImage::example(), egui::TextureFilter::Linear)
+                    });
+                    ui.image(texture, texture.size_vec2());
                 }
                 _ => {
                     ui.label(format!("uh oh, state is {} when the following states are {:?}", self.ui_state, self.ui_list));
