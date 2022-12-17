@@ -3,9 +3,21 @@
 use std::{thread::{JoinHandle, self}, convert::TryInto};
 
 use eframe::egui;
-use egui::{FontDefinitions, FontFamily};
+use egui::{FontDefinitions, FontFamily, ColorImage, Context};
+use image;
 
 
+struct Files {
+    state_2_image: String,
+}
+
+impl Files {
+    fn default() -> Self {
+        Self {
+            state_2_image: "E:/CODING WORKSPACE/coding-playground/playground_rust/src/rad/egui/assets/t6LxQ0dfin.jpg".to_string(),
+        }
+    }
+}
 
 struct Main {  
     ui_state: i32, // enums are useless since we cant track which page is in what order, also adding a new page might not be easy to implement with enums
@@ -14,7 +26,7 @@ struct Main {
     state_0: State0,
     state_1: State1,
     state_2: State2,
-    font: FontDefinitions,
+    files: Files
 }
 
 /*
@@ -57,13 +69,15 @@ impl Default for State1 {
 }
 
 struct State2 {
-    image: Option<egui::TextureHandle>
+    handle: Option<egui::TextureHandle>,
+    texture: Option<egui::ColorImage>,
 }
 
 impl Default for State2 {
     fn default() -> Self {
         Self {
-            image: None,
+            handle: None,
+            texture: None,
         }
     }
 }
@@ -91,7 +105,7 @@ pub fn init() {
 impl Main {
     fn default(cc: &eframe::CreationContext<'_>) -> Self {
         setup(&cc.egui_ctx);
-        Self {
+        let mut ret = Self {
             ui_state: 0,
             ui_list: ["code editor".to_string(), 
                         "shit shitshuffler".to_string(),
@@ -100,11 +114,17 @@ impl Main {
             state_1: State1::default(),
             state_2: State2::default(),
             menu_bar: MenuBar::default(),
-            font: FontDefinitions::default(),
+            files: Files::default(),
             // state_0: State0 { 
                 // text: "".to_string()
             // }
-        }
+        };
+
+        ret.state_2.texture = Some(image_load(std::path::Path::new(&ret.files.state_2_image)).unwrap_or({
+            ColorImage::default()
+        }));
+        
+        return ret;
     }
 }
 
@@ -128,6 +148,19 @@ fn setup(c: &egui::Context) {
 
 
     c.set_fonts(fonts);
+}
+
+fn image_load(p: &std::path::Path) -> Result<egui::ColorImage, image::ImageError> {
+    let image = image::io::Reader::open(p)?.decode()?;
+    let new = image.resize_to_fill(image.width()/5, image.height()/5, image::imageops::FilterType::Nearest);
+    let size = [new.width() as _, new.height() as _];
+    let new_buffer = new.to_rgba8();
+    let pixels = new_buffer.as_flat_samples();
+    return Ok(egui::ColorImage::from_rgba_unmultiplied(
+        size,
+        pixels.as_slice(),
+    ));
+
 }
 
 impl eframe::App for Main {
@@ -238,10 +271,13 @@ impl eframe::App for Main {
                 }
 
                 2 => {
-                    let texture: &egui::TextureHandle = self.state_2.image.get_or_insert_with(|| {
-                        ui.ctx().load_texture("test", egui::ColorImage::example(), egui::TextureFilter::Linear)
-                    });
-                    ui.image(texture, texture.size_vec2());
+
+                        let text = self.state_2.texture.to_owned().unwrap();
+                        let handle: &egui::TextureHandle = self.state_2.handle.get_or_insert_with(|| {
+                            ui.ctx().load_texture("test", text, egui::TextureFilter::Linear)
+                        });
+                        ui.image(handle, handle.size_vec2());
+                        ui.label("If image is the entire color palette then something has gone wrong.");
                 }
                 _ => {
                     ui.label(format!("uh oh, state is {} when the following states are {:?}", self.ui_state, self.ui_list));

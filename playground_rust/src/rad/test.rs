@@ -205,6 +205,22 @@ pub fn select(timer: &mut Timer) {
 
                 is_bad = false;
             }
+
+            14 => {
+                #[derive(Debug)]
+                enum Test {
+                    Num(i32),
+                    Str(String),
+                }
+
+
+
+                let mut pee: Vec<Test> = vec![Test::Num(123), Test::Str("CBT".to_string())];
+                print!("{:?}", pee);
+
+                is_bad = false;
+            }
+
             _ => {
                 is_bad = true;
             }
