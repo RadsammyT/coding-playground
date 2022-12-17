@@ -111,7 +111,7 @@ impl Main {
 fn setup(c: &egui::Context) {
     let mut fonts = egui::FontDefinitions::default();
     fonts.font_data.insert("font".to_owned(), 
-    egui::FontData::from_static(include_bytes!("c:/Windows/Fonts/pzim3x5.ttf")),    
+    egui::FontData::from_static(include_bytes!("../assets/PZIM3X5.TTF")),    
     );
 
     fonts

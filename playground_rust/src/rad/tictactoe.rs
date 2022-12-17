@@ -82,13 +82,23 @@ impl Grid {
         self.arr[coord[1] as usize][coord[0] as usize]
     }
 
+    ///loops over every vector in the outter array to see if every vector's length is the same as the provided length in self.size
+    /// 
+    /// # Panics
+    /// Panics if any size is not equal to self.size
+    fn assert_size(&mut self) {
+        for i in &self.arr {
+            assert_eq!(i.len(), self.size as usize, "something was inserted/removed in the grid. this is bad!");
+        }
+    }
+
 }
 
 impl Default for Grid {
     fn default() -> Grid {
         Grid {
             arr: vec![vec![]],
-            size: 3, // needs a rework: if any element is inserted into any vector in the grid this will not save you.
+            size: 3, // needs a rework (maybe): if any element is inserted into any vector in the grid this will not save you.
         }
     }
 }

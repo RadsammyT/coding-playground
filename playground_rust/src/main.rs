@@ -131,6 +131,7 @@ fn select() {
                     print!("how many numbers?: ");
                     try_read!().unwrap_or(10)
                 };
+                main_timer.start_timer();
                 for i in 0..len {
                     vec.push(vec.get(i).unwrap() + vec.get(i+1).unwrap());
                 }
