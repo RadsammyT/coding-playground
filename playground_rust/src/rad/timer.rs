@@ -3,6 +3,7 @@ use std;
 pub struct Timer {
     start: Option<SystemTime>,
     end: Option<SystemTime>,
+    panic_at_error: bool,
 }
 
 impl Default for Timer {
@@ -14,7 +15,7 @@ impl Default for Timer {
     /// ```
     fn default() -> Self {
         Self {
-            start: None, end: None,
+            start: None, end: None, panic_at_error: true,
         }
     }
 }
@@ -30,20 +31,39 @@ impl Timer {
     /// ```
     /// Alternatively, you can use Timer::default()
     pub fn new() -> Timer {
-        return Timer {start: None, end: None}
+        return Timer {start: None, end: None, panic_at_error: true}
     }
 
     pub fn start_timer(&mut self) {
         self.start = Some(SystemTime::now());
+
+        match self.end {
+            Some(_) => {
+                self.end = None;
+            },
+            None => {
+
+            }
+        }
     }
 
     pub fn end_timer(&mut self) {
+
+        match self.end {
+            Some(_) => {
+                if self.panic_at_error { panic!("Invocation of end_timer when it has already been set"); }
+            },
+            None => {
+
+            }
+        }
+
         match self.start {
             Some(_) => {
                 self.end = Some(SystemTime::now());
             },
             None => {
-                panic!("Invocation of end_timer when start has not been set");
+                if self.panic_at_error { panic!("Invocation of end_timer when start has not been set"); }
             }
         }
     }
@@ -61,7 +81,7 @@ impl Timer {
     }
     
     ///Gets the epoch time from either `timer.start` or `timer.end`.
-    /// * set `time` argument to true to get EPOCH from `timer.start`
+    /// * set `time` parameter to true to get EPOCH from `timer.start`
     /// * set to false to get EPOCH from `timer.end`
     /// # Example
     /// 
@@ -94,6 +114,7 @@ pub fn test(exit: bool) {
     let mut timer = Timer {
         start: None,
         end: None,
+        panic_at_error: true,
     };
     Timer::start_timer(&mut timer);
     println!("{}", Timer::get_epoch(&mut timer, true).unwrap());

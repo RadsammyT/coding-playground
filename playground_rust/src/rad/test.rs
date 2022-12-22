@@ -1,7 +1,7 @@
 use std::{*, collections::{VecDeque, HashMap}, fs::File};
 
 use console::style;
-use text_io::try_read;
+use text_io::{try_read, read};
 use num2words::{self, Num2Words};
 use open;
 use crate::rad::{self, timer::Timer};
@@ -11,7 +11,7 @@ pub fn select(timer: &mut Timer) {
     let mut is_bad: bool = true;
     let term = console::Term::stdout();
     term.clear_screen().expect("bruh");
-    println!("{} \n1: normal arrays  2: vectors \n3: pointers 4: vecdeques \n5: unions 6: hashmaps (with num2words lib) \n7: console style 8: Environment Constants + Arguments \n9: timer epoch 10: file reading (change path in /rad/test.rs) \n11: print one char at a time 12: test egui \n13:2d grid, tictactoe?", style("  TEST SELECTION  ").underlined().yellow());
+    println!("{} \n1: normal arrays  2: vectors \n3: pointers 4: vecdeques \n5: unions 6: hashmaps (with num2words lib) \n7: console style 8: Environment Constants + Arguments \n9: timer epoch 10: file reading (change path in /rad/test.rs) \n11: print one char at a time 12: test egui \n13:2d grid, tictactoe? 14: enums \n15: collatz on loop", style("  TEST SELECTION  ").underlined().yellow());
     while is_bad {
         print!("select a test entry: ");
         sel = try_read!().unwrap_or(-1);
@@ -217,6 +217,26 @@ pub fn select(timer: &mut Timer) {
 
                 let mut pee: Vec<Test> = vec![Test::Num(123), Test::Str("CBT".to_string())];
                 print!("{:?}", pee);
+
+                is_bad = false;
+            }
+
+            15 => {
+                let less: i128 = {
+                    print!("range_lesser (int): ");
+                    read!()
+                };
+
+                let great: i128 = {
+                    print!("range_greater (int): ");
+                    read!()
+                };
+
+                let print: bool = {
+                    print!("print_steps (bool): ");
+                    read!()
+                };
+                rad::collatz::loop_run(less,great,print);
 
                 is_bad = false;
             }

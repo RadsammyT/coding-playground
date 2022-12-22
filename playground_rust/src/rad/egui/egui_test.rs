@@ -1,7 +1,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
 use std::{thread::{JoinHandle, self}, convert::TryInto};
-
+use super::super::timer;
 use eframe::egui;
 use egui::{FontDefinitions, FontFamily, ColorImage, Context};
 use image;
@@ -56,6 +56,8 @@ struct State1 {
     thread: Option<JoinHandle<String>>,
     length: i32,
     output: String,
+    timer: timer::Timer,
+    finish: bool,
 }
 
 impl Default for State1 {
@@ -63,7 +65,9 @@ impl Default for State1 {
         Self {
             length: 0,
             output: "".to_string(),
-            thread: None
+            thread: None,
+            timer: timer::Timer::default(),
+            finish: false,
         }
     }
 }
@@ -120,7 +124,7 @@ impl Main {
             // }
         };
 
-        ret.state_2.texture = Some(image_load(std::path::Path::new(&ret.files.state_2_image)).unwrap_or({
+        ret.state_2.texture = Some(image_load(std::path::Path::new(&ret.files.state_2_image), 3).unwrap_or({
             ColorImage::default()
         }));
         
@@ -150,9 +154,12 @@ fn setup(c: &egui::Context) {
     c.set_fonts(fonts);
 }
 
-fn image_load(p: &std::path::Path) -> Result<egui::ColorImage, image::ImageError> {
+fn image_load(p: &std::path::Path, scale: i32) -> Result<egui::ColorImage, image::ImageError> {
+    if scale < 1 {
+        panic!("Scale is {} but must NOT be less than 1!", scale);
+    }
     let image = image::io::Reader::open(p)?.decode()?;
-    let new = image.resize_to_fill(image.width()/5, image.height()/5, image::imageops::FilterType::Nearest);
+    let new = image.resize_to_fill(image.width()/scale as u32, image.height()/scale as u32, image::imageops::FilterType::Nearest);
     let size = [new.width() as _, new.height() as _];
     let new_buffer = new.to_rgba8();
     let pixels = new_buffer.as_flat_samples();
@@ -245,18 +252,26 @@ impl eframe::App for Main {
                     match &mut self.state_1.thread {
                         Some(_) => {
                             if self.state_1.thread.as_ref().unwrap().is_finished() {
+                                if !(self.state_1.finish) {
+                                    self.state_1.timer.end_timer();
+                                    self.state_1.finish = true;
+                                }
+
                                 let test = self.state_1.thread.as_ref().unwrap(); //<-- cant join the thread without it erroring here
-                                self.state_1.output = format!("{:?}", test); 
+                                self.state_1.output = format!("{:?} in {}", test, self.state_1.timer.get_elapsed().unwrap()); 
+
                                 // dont plan on fixing this because it will cause me a headache and a half
                             }
                             if ui.button("Retry").clicked() {
                                 self.state_1.thread = None;
                                 self.state_1.output = String::new();
+                                self.state_1.finish = false;
                             }
                         },
                         None => {
                             if ui.button("submit").clicked() {
                                 let len = self.state_1.length.to_owned();
+                                self.state_1.timer.start_timer();
                                 self.state_1.thread = Some({
                                     thread::spawn(move || {
                                         super::super::shit_shuffler::run_singular_string(len)

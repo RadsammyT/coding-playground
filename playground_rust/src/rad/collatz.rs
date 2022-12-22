@@ -1,3 +1,5 @@
+use std::io::Write;
+
 pub struct Returned {
     iteration: i32,
     even: i32,
@@ -6,7 +8,7 @@ pub struct Returned {
 
 impl std::fmt::Debug for Returned {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Returned").field("iteration", &self.iteration).field("even", &self.even).field("odd", &self.odd).finish()
+        f.debug_struct("Returned").field("iter", &self.iteration).field("even", &self.even).field("odd", &self.odd).finish()
     }
 }
 
@@ -43,4 +45,18 @@ pub fn run(mut input: i128, print_steps: bool) -> Returned {
     } 
     ret // return ret
 
+}
+
+pub fn loop_run(range_lesser: i128, range_greater: i128,print_steps: bool,) {
+    let mut iter_marker: i128 = 1000000;
+    let iter_marker_copy = iter_marker.to_owned();
+
+    for i in range_lesser..range_greater {
+        run(i, false);
+        if i >= iter_marker {
+            print!("{}\r", i);
+            std::io::stdout().flush().expect("Clogged.");
+            iter_marker += iter_marker_copy;
+        }
+    }
 }
