@@ -93,7 +93,7 @@ pub fn select(timer: &mut Timer) {
                     v2: u16
                 }
                 let mut test = Uni {v1: 2000000000};
-                test.v2 = u16::MAX;
+                test.v2 = 0b1010101010101010;
                 unsafe {
                     println!("Union: v1 as u32 (UNION SIZE), v2 as u16. \nv1 = 2000000000, v2 = u16::MAX");
                     println!("{:#32b} = {} \n{:#16b} = {}", test.v1, test.v1, test.v2, test.v2);
@@ -147,7 +147,6 @@ pub fn select(timer: &mut Timer) {
                 std::env::vars_os().into_iter().for_each(|(x,y)| {
                     println!("{:?}: {:?}", x, y);
                 });
-
                 println!("arguments passed: ");
                 for i in std::env::args() {
                     println!("{}", i);

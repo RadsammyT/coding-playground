@@ -1,18 +1,24 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
 use std::{thread::{JoinHandle, self}, convert::TryInto};
+use crate::rad::{timer::Timer, shit_shuffler};
+
 use super::super::timer;
 use eframe::egui;
 use egui::{FontDefinitions, FontFamily, ColorImage, Context};
 use image;
 
-
+const CALIBRATION_LENGTH: i32 = 12;
+const CALIBRATION_AVERAGE_LEN: i32 = 10;
+const USE_PIXELZIM_FONT: bool = false;
 struct Files {
     state_2_image: String,
 }
 
 impl Files {
     fn default() -> Self {
+        let exe_path = std::env::current_dir().unwrap().as_os_str().to_owned();
+        dbg!(exe_path);
         Self {
             state_2_image: "E:/CODING WORKSPACE/coding-playground/playground_rust/src/rad/egui/assets/t6LxQ0dfin.jpg".to_string(),
         }
@@ -52,12 +58,18 @@ impl Default for State0 {
         }
     }
 }
-struct State1 {
+struct State1 { // shit shuffler
     thread: Option<JoinHandle<String>>,
     length: i32,
     output: String,
     timer: timer::Timer,
     finish: bool,
+    fail_calib: f64, 
+    /*
+    figured that since i cant access the fails I could probably approximate the fails
+    based on a single threaded shitshuffler, which means that id have to make the main program thread
+    hang on shitshuffler instead of doing it in a separate thread 
+    */
 }
 
 impl Default for State1 {
@@ -68,6 +80,7 @@ impl Default for State1 {
             thread: None,
             timer: timer::Timer::default(),
             finish: false,
+            fail_calib: 0.0,
         }
     }
 }
@@ -108,7 +121,10 @@ pub fn init() {
 
 impl Main {
     fn default(cc: &eframe::CreationContext<'_>) -> Self {
-        setup(&cc.egui_ctx);
+        
+        if USE_PIXELZIM_FONT {
+            setup(&cc.egui_ctx);
+        }
         let mut ret = Self {
             ui_state: 0,
             ui_list: ["code editor".to_string(), 
@@ -134,9 +150,10 @@ impl Main {
 
 fn setup(c: &egui::Context) {
     let mut fonts = egui::FontDefinitions::default();
-    fonts.font_data.insert("font".to_owned(), 
-    egui::FontData::from_static(include_bytes!("../assets/PZIM3X5.TTF")),    
-    );
+
+        fonts.font_data.insert("font".to_owned(), 
+        egui::FontData::from_static(include_bytes!("../assets/PZIM3X5.TTF")),    
+        );
 
     fonts
         .families
@@ -258,31 +275,51 @@ impl eframe::App for Main {
                                 }
 
                                 let test = self.state_1.thread.as_ref().unwrap(); //<-- cant join the thread without it erroring here
-                                self.state_1.output = format!("{:?} in {}", test, self.state_1.timer.get_elapsed().unwrap()); 
-
                                 // dont plan on fixing this because it will cause me a headache and a half
+                                self.state_1.output = format!("{:?} in {}", test, self.state_1.timer.get_elapsed().unwrap()); 
+                                // ui.label(format!("Approximately {} fails",   self.state_1.fail_calib * self.state_1.timer.get_elapsed().unwrap()).as_str());
+                                
+                                ui.label(format!("{}", self.state_1.output));
+                                ui.label(format!("Approximately {} fails",   self.state_1.fail_calib * self.state_1.timer.get_elapsed().unwrap()).as_str()); 
+                                // so i said screw it and instead of doing nothing i decided to APPROXIMATE the fails instead based on a previous shitshuffle
                             }
-                            if ui.button("Retry").clicked() {
-                                self.state_1.thread = None;
-                                self.state_1.output = String::new();
-                                self.state_1.finish = false;
+                            if self.state_1.thread.as_ref().unwrap().is_finished() {
+                                if ui.button("Retry").clicked() {
+                                    self.state_1.thread = None;
+                                    self.state_1.output = String::new();
+                                    self.state_1.finish = false;
+                                }
+                            } else {
+                                ui.label("Wait");
                             }
                         },
                         None => {
-                            if ui.button("submit").clicked() {
-                                let len = self.state_1.length.to_owned();
-                                self.state_1.timer.start_timer();
-                                self.state_1.thread = Some({
-                                    thread::spawn(move || {
-                                        super::super::shit_shuffler::run_singular_string(len)
-                                    })
-                                });
+                            if self.state_1.fail_calib == 0.0 {
+                                // ui.label("I will need to calibrate how fast your computer is by running shitshuffler on the same thread, which will hang this GUI. Calibration will take place on an CALIBRATION_LENGTH-sized array which won't take long (relatively speaking on a beefy computer) but I could approximate the fails based on that.");
+
+                                if ui.button("Calibrate").clicked() {
+                                    self.state_1.fail_calib = calibrate_fails();
+                                }
+                            } else {
+                                ui.label(format!("Your machine does {} fails per second", self.state_1.fail_calib));
+                                if ui.button("submit").clicked() {
+                                    let len = self.state_1.length.to_owned();
+                                    self.state_1.timer.start_timer();
+                                    self.state_1.thread = Some({
+                                        thread::spawn(move || {
+                                            super::super::shit_shuffler::run_singular_string(len)
+                                        })
+                                    });
+                                }
+                                if ui.button("Recalibrate").clicked() {
+                                    self.state_1.fail_calib = calibrate_fails();
+                                }
+
                             }
                         },
                     }
 
-                    ui.label(format!("{}", self.state_1.output));
-                    
+
                 }
 
                 2 => {
@@ -300,4 +337,21 @@ impl eframe::App for Main {
             }
         });
     }
+}
+
+fn calibrate_fails() -> f64 {
+    let mut fails: Vec<f64> = vec![];
+    let mut clock = Timer::default();
+    for _ in 0..CALIBRATION_AVERAGE_LEN {
+        clock.start_timer();
+        let temp = shit_shuffler::run_singular(CALIBRATION_LENGTH);
+        clock.stop_timer();
+        fails.push(temp.ret_2 as f64 /clock.get_elapsed().unwrap());
+    }
+
+    let mut result = 0.0;
+    for i in &fails {
+        result += *i;
+    }
+    return result / fails.len() as f64
 }

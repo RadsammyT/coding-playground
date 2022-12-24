@@ -1,5 +1,7 @@
 use std::io::Write;
 
+use super::timer::Timer;
+
 pub struct Returned {
     iteration: i32,
     even: i32,
@@ -50,7 +52,8 @@ pub fn run(mut input: i128, print_steps: bool) -> Returned {
 pub fn loop_run(range_lesser: i128, range_greater: i128,print_steps: bool,) {
     let mut iter_marker: i128 = 1000000;
     let iter_marker_copy = iter_marker.to_owned();
-
+    let mut clock = Timer::default();
+    clock.start_timer();
     for i in range_lesser..range_greater {
         run(i, false);
         if i >= iter_marker {
@@ -59,4 +62,6 @@ pub fn loop_run(range_lesser: i128, range_greater: i128,print_steps: bool,) {
             iter_marker += iter_marker_copy;
         }
     }
+    clock.stop_timer();
+    println!("loop_run time: {}", clock.get_elapsed().unwrap());
 }
