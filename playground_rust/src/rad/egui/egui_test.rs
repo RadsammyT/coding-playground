@@ -17,10 +17,14 @@ struct Files {
 
 impl Files {
     fn default() -> Self {
-        let exe_path = std::env::current_dir().unwrap().as_os_str().to_owned();
-        dbg!(exe_path);
+        let mut exe_path = std::env::current_dir().unwrap();
+        std::env::current_dir().unwrap().to_owned().to_string_lossy().replace("\\", "/");
+        println!("path: {}", exe_path.display());        
+        let mut exe_replaced = exe_path.to_owned().to_string_lossy().replace("\\", "/");
+        println!("path as string: {}", exe_replaced);
+        exe_replaced.push_str("/assets/t6LxQ0dfin.jpg");
         Self {
-            state_2_image: "E:/CODING WORKSPACE/coding-playground/playground_rust/src/rad/egui/assets/t6LxQ0dfin.jpg".to_string(),
+            state_2_image: exe_replaced,
         }
     }
 }
@@ -150,10 +154,9 @@ impl Main {
 
 fn setup(c: &egui::Context) {
     let mut fonts = egui::FontDefinitions::default();
-
-        fonts.font_data.insert("font".to_owned(), 
-        egui::FontData::from_static(include_bytes!("../assets/PZIM3X5.TTF")),    
-        );
+    fonts.font_data.insert("font".to_owned(), 
+    egui::FontData::from_static(include_bytes!("../../../assets/PZIM3X5.TTF")),    
+    );
 
     fonts
         .families
