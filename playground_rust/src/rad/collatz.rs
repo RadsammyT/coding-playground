@@ -57,7 +57,7 @@ pub fn loop_run(range_lesser: i128, range_greater: i128,print_steps: bool,) {
     for i in range_lesser..range_greater {
         run(i, false);
         if i >= iter_marker {
-            print!("{}\r", i);
+            if print_steps { print!("{}\r", i); } 
             std::io::stdout().flush().expect("Clogged.");
             iter_marker += iter_marker_copy;
         }

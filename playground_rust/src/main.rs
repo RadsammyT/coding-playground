@@ -3,16 +3,10 @@
         https://cheat.sh/rust/
         USE& LINK WHEN STUCK ON SHIT
 */
-
-
-use std::{thread, ffi::OsStr};
-
 // use std::time::SystemTime;
 use rad::timer::Timer;
-use rustils::parse::string::ToStr;
 use text_io::*;
 use console::*;
-
 
 mod rad;
 

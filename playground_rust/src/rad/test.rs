@@ -214,7 +214,7 @@ pub fn select(timer: &mut Timer) {
 
 
 
-                let mut pee: Vec<Test> = vec![Test::Num(123), Test::Str("CBT".to_string())];
+                let pee: Vec<Test> = vec![Test::Num(123), Test::Str("CBT".to_string())];
                 print!("{:?}", pee);
 
                 is_bad = false;

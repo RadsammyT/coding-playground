@@ -5,7 +5,9 @@ use crate::rad::{timer::Timer, shit_shuffler};
 
 use super::super::timer;
 use eframe::egui;
-use egui::{FontDefinitions, FontFamily, ColorImage, Context};
+use egui::{ColorImage, 
+            RichText, 
+            Color32};
 use image;
 
 const CALIBRATION_LENGTH: i32 = 12;
@@ -17,14 +19,12 @@ struct Files {
 
 impl Files {
     fn default() -> Self {
-        let mut exe_path = std::env::current_dir().unwrap();
-        std::env::current_dir().unwrap().to_owned().to_string_lossy().replace("\\", "/");
-        println!("path: {}", exe_path.display());        
-        let mut exe_replaced = exe_path.to_owned().to_string_lossy().replace("\\", "/");
-        println!("path as string: {}", exe_replaced);
-        exe_replaced.push_str("/assets/t6LxQ0dfin.jpg");
+        let mut exe_path = std::env::current_dir().unwrap().to_owned().to_string_lossy().replace("\\", "/");
+        // std::env::current_dir().unwrap().to_owned().to_string_lossy().replace("\\", "/");
+        println!("path as string: {}", exe_path);
+        exe_path.push_str("/assets/t6LxQ0dfin.jpg");
         Self {
-            state_2_image: exe_replaced,
+            state_2_image: exe_path,
         }
     }
 }
@@ -92,6 +92,7 @@ impl Default for State1 {
 struct State2 {
     handle: Option<egui::TextureHandle>,
     texture: Option<egui::ColorImage>,
+    texture_not_found: bool,
 }
 
 impl Default for State2 {
@@ -99,6 +100,7 @@ impl Default for State2 {
         Self {
             handle: None,
             texture: None,
+            texture_not_found: false,
         }
     }
 }
@@ -145,9 +147,14 @@ impl Main {
         };
 
         ret.state_2.texture = Some(image_load(std::path::Path::new(&ret.files.state_2_image), 3).unwrap_or({
-            ColorImage::default()
+            println!("Testing");
+            ColorImage::example()
         }));
         
+        if ret.state_2.texture.as_ref().unwrap().eq(&ColorImage::example()) {
+            // println!("Ok its bad");
+            ret.state_2.texture_not_found = true;
+        }
         return ret;
     }
 }
@@ -283,7 +290,12 @@ impl eframe::App for Main {
                                 // ui.label(format!("Approximately {} fails",   self.state_1.fail_calib * self.state_1.timer.get_elapsed().unwrap()).as_str());
                                 
                                 ui.label(format!("{}", self.state_1.output));
-                                ui.label(format!("Approximately {} fails",   self.state_1.fail_calib * self.state_1.timer.get_elapsed().unwrap()).as_str()); 
+                                ui.label(format!("Approximately {} fails", 
+                                (self.state_1.fail_calib * self.state_1.timer
+                                    .get_elapsed()
+                                    .unwrap())
+                                        .round() as i32)
+                                            .as_str()); 
                                 // so i said screw it and instead of doing nothing i decided to APPROXIMATE the fails instead based on a previous shitshuffle
                             }
                             if self.state_1.thread.as_ref().unwrap().is_finished() {
@@ -299,12 +311,12 @@ impl eframe::App for Main {
                         None => {
                             if self.state_1.fail_calib == 0.0 {
                                 // ui.label("I will need to calibrate how fast your computer is by running shitshuffler on the same thread, which will hang this GUI. Calibration will take place on an CALIBRATION_LENGTH-sized array which won't take long (relatively speaking on a beefy computer) but I could approximate the fails based on that.");
-
                                 if ui.button("Calibrate").clicked() {
                                     self.state_1.fail_calib = calibrate_fails();
                                 }
                             } else {
                                 ui.label(format!("Your machine does {} fails per second", self.state_1.fail_calib));
+                                ui.add_space(20.0);
                                 if ui.button("submit").clicked() {
                                     let len = self.state_1.length.to_owned();
                                     self.state_1.timer.start_timer();
@@ -332,7 +344,9 @@ impl eframe::App for Main {
                             ui.ctx().load_texture("test", text, egui::TextureFilter::Linear)
                         });
                         ui.image(handle, handle.size_vec2());
-                        ui.label("If image is the entire color palette then something has gone wrong.");
+                        if self.state_2.texture_not_found {
+                            ui.label(RichText::new("Something went wrong with getting the image!").italics().heading().underline().color(Color32::RED));
+                        }
                 }
                 _ => {
                     ui.label(format!("uh oh, state is {} when the following states are {:?}", self.ui_state, self.ui_list));

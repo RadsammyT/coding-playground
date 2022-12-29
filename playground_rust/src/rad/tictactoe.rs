@@ -178,6 +178,8 @@ pub fn game() {
             panic!("Invalid winner");
         }
     }
+
+    grid.assert_size();
 }
 
 fn player_input(grid: &mut Grid, turn: i32) -> [i32; 2]{
