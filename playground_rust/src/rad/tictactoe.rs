@@ -396,6 +396,8 @@ fn check_winner(grid: &mut Grid) -> i32 {
         for j in 0..grid.size {
             if grid.get(j, i) == 0 {
                 return 0;
+                // Despite all the checks for diagonals, horizontals, and verticals,
+                // if none of the checks returned anything, and theres a 0 somewhere in the grid then return a 0, thus panic.
             }
         }
     }

@@ -10,8 +10,7 @@ int test();
 const int A = 1234;
 const int *testConst = &A;
 int main() {
-	test();
-
+	printf("%c", 7);
 	return 0;
 }
 

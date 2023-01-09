@@ -201,58 +201,56 @@ impl eframe::App for Main {
 
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
 
+        egui::TopBottomPanel::top("god_on_top").show(ctx, |ui| {
+            ui.horizontal(|ui| { 
+                if ui.button("prev").clicked() {
+                    if !(self.ui_state == 0) {
+                        // println!("prev");
+                        self.ui_state -= 1;
+                    }
+                }
 
+                if ui.button("next").clicked() {
+                    if !(self.ui_state == (self.ui_list.len() - 1).try_into().unwrap()) {
+                        // println!("next");
+                        self.ui_state += 1;
+                    }
+                }
+
+                ui.label(
+                    format!(
+                        "{}/{}: {}",
+                        self.ui_state + 1,
+                        self.ui_list.len(),
+                        self.ui_list.get(self.ui_state as usize).unwrap()
+                    )
+                        /*
+                            note to future self:
+                                {
+                                    self.ui_list.get(self.ui_state.into()) 
+                                    OR
+                                    Into::<usize>::into(self.ui_state)
+                                }
+                            is apparently inferior to "as" when it comes to number types:
+                                {
+                                    self.ui_state as usize
+                                }
+                        */ 
+
+                );
+
+                ui.hyperlink_to("my git", "https://github.com/RadsammyT/coding-playground");
+                ui.menu_button("Main", |ui| {
+                    ui.add(egui::widgets::DragValue::new(&mut self.menu_bar.number));
+                    ui.label(format!("0b{:b}", self.menu_bar.number));
+                    ui.checkbox(&mut self.menu_bar.boolean, "Main");
+                    if ui.button("CLOSE").clicked() {
+                        ui.close_menu();
+                    }
+                });
+            });
+        });
         egui::CentralPanel::default().show(ctx, |ui| {
-                egui::menu::bar(ui, |ui| { // top bar
-                    
-
-                    if ui.button("prev").clicked() {
-                        if !(self.ui_state == 0) {
-                            // println!("prev");
-                            self.ui_state -= 1;
-                        }
-                    }
-    
-                    if ui.button("next").clicked() {
-                        if !(self.ui_state == (self.ui_list.len() - 1).try_into().unwrap()) {
-                            // println!("next");
-                            self.ui_state += 1;
-                        }
-                    }
-    
-                    ui.label(
-                        format!(
-                            "{}/{}: {}",
-                            self.ui_state + 1,
-                            self.ui_list.len(),
-                            self.ui_list.get(self.ui_state as usize).unwrap()
-                        )
-                            /*
-                                note to future self:
-                                    {
-                                        self.ui_list.get(self.ui_state.into()) 
-                                        OR
-                                        Into::<usize>::into(self.ui_state)
-                                    }
-                                is apparently inferior to "as" when it comes to number types:
-                                    {
-                                        self.ui_state as usize
-                                    }
-                            */ 
-    
-                    );
-
-                    ui.hyperlink_to("my git", "https://github.com/RadsammyT/coding-playground");
-                    ui.menu_button("Main", |ui| {
-                        ui.add(egui::widgets::DragValue::new(&mut self.menu_bar.number));
-                        ui.checkbox(&mut self.menu_bar.boolean, "Main");
-                        if ui.button("CLOSE").clicked() {
-                            ui.close_menu();
-                        }
-                    });
-                }); // end of top bar
-                
-            ui.separator();
             match self.ui_state {
                 0 => {
                     

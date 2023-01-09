@@ -88,16 +88,33 @@ pub fn select(timer: &mut Timer) {
             }
 
             5 => {
-                union Uni {
+                union Uni32And16 {
                     v1: u32,
                     v2: u16
                 }
-                let mut test = Uni {v1: 2000000000};
-                test.v2 = 0b1010101010101010;
-                unsafe {
-                    println!("Union: v1 as u32 (UNION SIZE), v2 as u16. \nv1 = 2000000000, v2 = u16::MAX");
-                    println!("{:#32b} = {} \n{:#16b} = {}", test.v1, test.v1, test.v2, test.v2);
+
+                union UniSignedAndUnsigned {
+                    v1: i16,
+                    v2: u16,
                 }
+
+                let mut dif_bits = Uni32And16 {v1: 2000000000};
+                dif_bits.v2 = 0b1010101010101010;
+
+                let dif_signs = UniSignedAndUnsigned {
+                    v2: 0b1111111111111111
+                }; 
+                unsafe {
+                    
+                    // unsigned vars with different bits
+                    println!("Union: v1 as u32 (UNION SIZE), v2 as u16. \nv1 = 2000000000, v2 = u16::MAX");
+                    println!("{:#32b} = {} \n{:#16b} = {}", dif_bits.v1, dif_bits.v1, dif_bits.v2, dif_bits.v2);
+
+                    // two 32bit integers, differing from signed or unsigned
+                    println!("Union: v1 as i16, v2 as u16");
+                    println!("{:#32b} = {} \n{:#16b} = {}", dif_signs.v1, dif_signs.v1, dif_signs.v2, dif_signs.v2);
+                }
+
                 is_bad = false;
             }
 
