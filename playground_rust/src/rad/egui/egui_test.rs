@@ -1,13 +1,13 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
-use std::{thread::{JoinHandle, self}, convert::TryInto};
+use std::{thread::{JoinHandle, self}, convert::TryInto, vec};
 use crate::rad::{timer::Timer, shit_shuffler};
 
 use super::super::timer;
 use eframe::egui;
 use egui::{ColorImage, 
             RichText, 
-            Color32};
+            Color32, Widget, plot::{BarChart, self}};
 use image;
 
 const CALIBRATION_LENGTH: i32 = 12;
@@ -15,16 +15,21 @@ const CALIBRATION_AVERAGE_LEN: i32 = 10;
 const USE_PIXELZIM_FONT: bool = false;
 struct Files {
     state_2_image: String,
+    state_0_image: String,
 }
 
 impl Files {
     fn default() -> Self {
-        let mut exe_path = std::env::current_dir().unwrap().to_owned().to_string_lossy().replace("\\", "/");
+        let mut state_2 = std::env::current_dir().unwrap().to_owned().to_string_lossy().replace("\\", "/");
+        let mut state_0 = state_2.to_owned();
         // std::env::current_dir().unwrap().to_owned().to_string_lossy().replace("\\", "/");
-        println!("path as string: {}", exe_path);
-        exe_path.push_str("/assets/t6LxQ0dfin.jpg");
+        
+        println!("path as string: {}", state_2);
+        state_2.push_str("/assets/t6LxQ0dfin.jpg");
+        state_0.push_str("/assets/jig.jpg");
         Self {
-            state_2_image: exe_path,
+            state_2_image: state_2,
+            state_0_image: state_0,
         }
     }
 }
@@ -53,12 +58,25 @@ struct Main {
 
 struct State0 {
     text: String,
+    chart: Vec<egui::plot::Bar>,
+
+    handle: Option<egui::TextureHandle>,
+    texture: Option<egui::ColorImage>,
+    texture_not_found: bool,
 }
 
 impl Default for State0 {
     fn default() -> Self {
+        use egui::plot::Bar as bar;
+        
+        let newchart = vec![bar::new(0.0, 10.10), bar::new(1.0, 4.3), bar::new(2.0, 3.4)];
         Self {
-            text: "".to_string(),
+            text: "0 = \n1 = \n2 = ".to_string(),
+            chart: newchart,
+
+            handle:None,
+            texture: None,
+            texture_not_found: false,
         }
     }
 }
@@ -69,6 +87,9 @@ struct State1 { // shit shuffler
     timer: timer::Timer,
     finish: bool,
     fail_calib: f64, 
+
+    // chart
+
     /*
     figured that since i cant access the fails I could probably approximate the fails
     based on a single threaded shitshuffler, which means that id have to make the main program thread
@@ -78,6 +99,10 @@ struct State1 { // shit shuffler
 
 impl Default for State1 {
     fn default() -> Self {
+
+
+
+
         Self {
             length: 0,
             output: "".to_string(),
@@ -133,7 +158,7 @@ impl Main {
         }
         let mut ret = Self {
             ui_state: 0,
-            ui_list: ["code editor".to_string(), 
+            ui_list: ["its jigsaw oh god oh fuck oh shit".to_string(), 
                         "shit shitshuffler".to_string(),
                         "something".to_string()].to_vec(),
             state_0: State0::default(),
@@ -147,14 +172,26 @@ impl Main {
         };
 
         ret.state_2.texture = Some(image_load(std::path::Path::new(&ret.files.state_2_image), 3).unwrap_or({
-            println!("Testing");
+            // println!("State 2 texture not found! {}", &ret.files.state_2_image);
             ColorImage::example()
         }));
         
         if ret.state_2.texture.as_ref().unwrap().eq(&ColorImage::example()) {
-            // println!("Ok its bad");
+            println!("State 2 texture not found!");
             ret.state_2.texture_not_found = true;
         }
+
+        ret.state_0.texture = Some(image_load(std::path::Path::new(&ret.files.state_0_image), 3).unwrap_or({
+            ColorImage::example()
+        }));
+        
+        if ret.state_0.texture.as_ref().unwrap().eq(&ColorImage::example()) {
+            println!("State 0 texture not found! {}", ret.files.state_0_image);
+            // println!("Ok its bad");
+            ret.state_0.texture_not_found = true;
+        }
+
+
         return ret;
     }
 }
@@ -253,12 +290,28 @@ impl eframe::App for Main {
         egui::CentralPanel::default().show(ctx, |ui| {
             match self.ui_state {
                 0 => {
-                    
+                    use egui::plot::Plot;
                     let mut _main = ui.code_editor(&mut self.state_0.text)
                         .on_hover_ui_at_pointer(|ui| {
                             ui.heading("spooky");
                         });
                     ui.label(format!("{} characters", self.state_0.text.len()));
+
+                    let handle: &egui::TextureHandle = self.state_0.handle.get_or_insert_with(|| {
+                        ui.ctx().load_texture("test", self.state_0.texture.to_owned().unwrap(), egui::TextureFilter::Linear)
+                    });
+                    ui.image(handle, handle.size_vec2());
+                    ui.label("Hello. Before you is a chart of dick sizes that is measured from 1 mother, 1 father, and 1 child. From these measurements, you will determine whose dick size belongs to which member of the family. Your answer must be inserted in the textbox at the top of this interface. The gas will be released in 10 minutes.");
+
+
+                    let plot_test = BarChart::new(self.state_0.chart.to_owned());
+                    Plot::new("bartest")
+                        .view_aspect(2.0)
+                        .allow_zoom(true)
+                        .show(ui, |pui| {
+                            pui.bar_chart(plot_test)
+                        });
+                    
                 }
 
                 1 => {
@@ -292,8 +345,8 @@ impl eframe::App for Main {
                                 (self.state_1.fail_calib * self.state_1.timer
                                     .get_elapsed()
                                     .unwrap())
-                                        .round() as i32)
-                                            .as_str()); 
+                                    .round() as i32)
+                                    .as_str()); 
                                 // so i said screw it and instead of doing nothing i decided to APPROXIMATE the fails instead based on a previous shitshuffle
                             }
                             if self.state_1.thread.as_ref().unwrap().is_finished() {

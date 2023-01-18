@@ -1,6 +1,7 @@
 use std::{*, collections::{VecDeque, HashMap}, fs::File};
 
 use console::style;
+use rustils::string::StringUtils;
 use text_io::{try_read, read};
 use num2words::{self, Num2Words};
 use open;
@@ -254,6 +255,21 @@ pub fn select(timer: &mut Timer) {
                 };
                 rad::collatz::loop_run(less,great,print);
 
+                is_bad = false;
+            }
+
+            16 => {
+                let string: &'static str = "Test message";
+                let test = string.split(" ").map(|x| {
+                    if x.contains_any_char(&['a']) {
+                        return x
+                    } else {
+                        ""
+                    }
+                }).collect::<Vec<_>>();
+                test.iter().for_each(|f| {
+                    println!("{}", f);
+                });
                 is_bad = false;
             }
 

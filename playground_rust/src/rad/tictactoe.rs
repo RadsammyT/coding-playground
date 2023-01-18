@@ -1,5 +1,6 @@
 // u *may* puke.
 use std::vec;
+use eframe::glow::FALSE;
 use text_io::try_read;
 use rustils;
 use console;
@@ -159,6 +160,8 @@ pub fn game() {
     
     match check_winner(&mut grid) {
         0 => {
+            grid.print_grid(false);
+
             panic!("nothing won?");
         }
 

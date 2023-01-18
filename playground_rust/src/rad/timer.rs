@@ -54,7 +54,7 @@ impl Timer {
                 if self.panic_at_error { panic!("Invocation of end_timer when it has already been set"); }
             },
             None => {
-
+                self.end = Some(SystemTime::now());
             }
         }
 

@@ -35,6 +35,7 @@ fn select() {
     let mut is_bad: bool = true;
     let mut main_timer = Timer::default();
     let term = console::Term::stdout();
+    
     term.clear_screen().expect("uh oh, terminal should be clear on start");
 
     while is_bad {
