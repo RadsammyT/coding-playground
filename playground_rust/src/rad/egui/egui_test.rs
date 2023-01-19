@@ -301,7 +301,7 @@ impl eframe::App for Main {
                         ui.ctx().load_texture("test", self.state_0.texture.to_owned().unwrap(), egui::TextureFilter::Linear)
                     });
                     ui.image(handle, handle.size_vec2());
-                    ui.label("Hello. Before you is a chart of dick sizes that is measured from 1 mother, 1 father, and 1 child. From these measurements, you will determine whose dick size belongs to which member of the family. Your answer must be inserted in the textbox at the top of this interface. The gas will be released in 10 minutes.");
+                    ui.label("Hello. Before you is a chart of p*nis sizes that is measured, in inches, from 1 mother, 1 father, and 1 child. From these measurements, you will determine whose p*nis size belongs to which member of the family. Your answer must be inserted in the textbox at the top of this interface. If you do not answer the question, the gas will be released in 10 minutes.");
 
 
                     let plot_test = BarChart::new(self.state_0.chart.to_owned());
