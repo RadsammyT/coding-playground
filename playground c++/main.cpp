@@ -11,6 +11,7 @@ const int A = 1234;
 const int *testConst = &A;
 int main() {
 	printf("%c", 7);
+	
 	return 0;
 }
 

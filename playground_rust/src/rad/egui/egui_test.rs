@@ -5,34 +5,26 @@ use crate::rad::{timer::Timer, shit_shuffler};
 
 use super::super::timer;
 use eframe::egui;
-use egui::{ColorImage, 
-            RichText, 
-            Color32, Widget, plot::{BarChart, self}};
+use egui::{ Color32,plot::BarChart, Stroke, Ui, Pos2};
+use egui_extras::RetainedImage;
 use image;
 
 const CALIBRATION_LENGTH: i32 = 12;
 const CALIBRATION_AVERAGE_LEN: i32 = 10;
 const USE_PIXELZIM_FONT: bool = false;
-struct Files {
-    state_2_image: String,
-    state_0_image: String,
-}
+// struct Files {
+//     state_2_image: Option<RetainedImage>,
+//     state_0_image: Option<RetainedImage>,
+// }
 
-impl Files {
-    fn default() -> Self {
-        let mut state_2 = std::env::current_dir().unwrap().to_owned().to_string_lossy().replace("\\", "/");
-        let mut state_0 = state_2.to_owned();
-        // std::env::current_dir().unwrap().to_owned().to_string_lossy().replace("\\", "/");
-        
-        println!("path as string: {}", state_2);
-        state_2.push_str("/assets/t6LxQ0dfin.jpg");
-        state_0.push_str("/assets/jig.jpg");
-        Self {
-            state_2_image: state_2,
-            state_0_image: state_0,
-        }
-    }
-}
+// impl Files {
+//     fn default() -> Self {
+//         Self {
+//             state_2_image: Some(RetainedImage::from_image_bytes("two", include_bytes!("../../../assets/t6LxQ0dfin.jpg")).unwrap()),
+//             state_0_image: Some(RetainedImage::from_image_bytes("two", include_bytes!("../../../assets/jig.jpg")).unwrap()),
+//         }
+//     }
+// }
 
 struct Main {  
     ui_state: i32, // enums are useless since we cant track which page is in what order, also adding a new page might not be easy to implement with enums
@@ -41,7 +33,6 @@ struct Main {
     state_0: State0,
     state_1: State1,
     state_2: State2,
-    files: Files
 }
 
 /*
@@ -59,10 +50,7 @@ struct Main {
 struct State0 {
     text: String,
     chart: Vec<egui::plot::Bar>,
-
-    handle: Option<egui::TextureHandle>,
-    texture: Option<egui::ColorImage>,
-    texture_not_found: bool,
+    image: Option<RetainedImage>,
 }
 
 impl Default for State0 {
@@ -74,9 +62,7 @@ impl Default for State0 {
             text: "0 = \n1 = \n2 = ".to_string(),
             chart: newchart,
 
-            handle:None,
-            texture: None,
-            texture_not_found: false,
+            image: Some(RetainedImage::from_image_bytes("two", include_bytes!("../../../assets/jig.jpg")).unwrap()),
         }
     }
 }
@@ -87,9 +73,6 @@ struct State1 { // shit shuffler
     timer: timer::Timer,
     finish: bool,
     fail_calib: f64, 
-
-    // chart
-
     /*
     figured that since i cant access the fails I could probably approximate the fails
     based on a single threaded shitshuffler, which means that id have to make the main program thread
@@ -99,10 +82,6 @@ struct State1 { // shit shuffler
 
 impl Default for State1 {
     fn default() -> Self {
-
-
-
-
         Self {
             length: 0,
             output: "".to_string(),
@@ -115,17 +94,13 @@ impl Default for State1 {
 }
 
 struct State2 {
-    handle: Option<egui::TextureHandle>,
-    texture: Option<egui::ColorImage>,
-    texture_not_found: bool,
+    image: Option<RetainedImage>,
 }
 
 impl Default for State2 {
     fn default() -> Self {
         Self {
-            handle: None,
-            texture: None,
-            texture_not_found: false,
+            image: Some(RetainedImage::from_image_bytes("two", include_bytes!("../../../assets/t6LxQ0dfin.jpg")).unwrap())
         }
     }
 }
@@ -165,31 +140,12 @@ impl Main {
             state_1: State1::default(),
             state_2: State2::default(),
             menu_bar: MenuBar::default(),
-            files: Files::default(),
             // state_0: State0 { 
                 // text: "".to_string()
             // }
         };
 
-        ret.state_2.texture = Some(image_load(std::path::Path::new(&ret.files.state_2_image), 3).unwrap_or({
-            // println!("State 2 texture not found! {}", &ret.files.state_2_image);
-            ColorImage::example()
-        }));
         
-        if ret.state_2.texture.as_ref().unwrap().eq(&ColorImage::example()) {
-            println!("State 2 texture not found!");
-            ret.state_2.texture_not_found = true;
-        }
-
-        ret.state_0.texture = Some(image_load(std::path::Path::new(&ret.files.state_0_image), 3).unwrap_or({
-            ColorImage::example()
-        }));
-        
-        if ret.state_0.texture.as_ref().unwrap().eq(&ColorImage::example()) {
-            println!("State 0 texture not found! {}", ret.files.state_0_image);
-            // println!("Ok its bad");
-            ret.state_0.texture_not_found = true;
-        }
 
 
         return ret;
@@ -296,11 +252,8 @@ impl eframe::App for Main {
                             ui.heading("spooky");
                         });
                     ui.label(format!("{} characters", self.state_0.text.len()));
-
-                    let handle: &egui::TextureHandle = self.state_0.handle.get_or_insert_with(|| {
-                        ui.ctx().load_texture("test", self.state_0.texture.to_owned().unwrap(), egui::TextureFilter::Linear)
-                    });
-                    ui.image(handle, handle.size_vec2());
+                    self.state_0.image.as_ref().unwrap().show_scaled(ui, 0.5);
+                    ui.painter().circle(Pos2::new(0.0,0.0), 5.0, Color32::RED, Stroke::default());
                     ui.label("Hello. Before you is a chart of p*nis sizes that is measured, in inches, from 1 mother, 1 father, and 1 child. From these measurements, you will determine whose p*nis size belongs to which member of the family. Your answer must be inserted in the textbox at the top of this interface. If you do not answer the question, the gas will be released in 10 minutes.");
 
 
@@ -389,15 +342,7 @@ impl eframe::App for Main {
                 }
 
                 2 => {
-
-                        let text = self.state_2.texture.to_owned().unwrap();
-                        let handle: &egui::TextureHandle = self.state_2.handle.get_or_insert_with(|| {
-                            ui.ctx().load_texture("test", text, egui::TextureFilter::Linear)
-                        });
-                        ui.image(handle, handle.size_vec2());
-                        if self.state_2.texture_not_found {
-                            ui.label(RichText::new("Something went wrong with getting the image!").italics().heading().underline().color(Color32::RED));
-                        }
+                    self.state_2.image.as_ref().unwrap().show_scaled(ui, 1.0);
                 }
                 _ => {
                     ui.label(format!("uh oh, state is {} when the following states are {:?}", self.ui_state, self.ui_list));

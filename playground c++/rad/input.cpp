@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <cstdio>
+#include <ios>
 #pragma once
 namespace input { 
     /**
@@ -121,5 +123,7 @@ namespace input {
         std::cin.ignore();
         std::cin.get();
     }
+
+
 
 }

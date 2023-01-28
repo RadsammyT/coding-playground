@@ -3,10 +3,13 @@ import java.util.Scanner;
 
 /**
  * @author RadsammyT
+ * 
+ * <p>
  * This class is used to get user input from the console.
  * You may ask why I couldn't have just use the scanner in all .java files where input is needed,
  * but to me its more easier/convenient to use this class.
  * If the scanner throws an error, it will be caught and the user will be prompted to try again.
+ * </p>
  * 
  */
 public class InputUtils {

@@ -19,9 +19,12 @@ pub fn select(timer: &mut Timer) {
         timer.start_timer();
         match sel {
             0 => {
-                match open::that("https://www.youtube.com/watch?v=GGHE7IR_vyM") {
-                    Ok(_) => {},
-                    Err(x) => panic!("{} | ????????????", x),
+                // match open::that("https://www.youtube.com/watch?v=GGHE7IR_vyM") {
+                //     Ok(_) => {},
+                //     Err(x) => panic!("{} | ????????????", x),
+                // }
+                if let Ok(_) = open::that("https://www.youtube.com/watch?v=GGHE7IR_vyM") {} else {
+                    eprintln!("Uhoh! Could not open webpage!");
                 }
                 is_bad = false;
             }
@@ -268,9 +271,14 @@ pub fn select(timer: &mut Timer) {
                     }
                 }).collect::<Vec<_>>();
                 test.iter().for_each(|f| {
-                    println!("{}", f);
+                    println!("({})", f);
                 });
+
                 is_bad = false;
+            }
+
+            17 => {
+                
             }
 
             _ => {

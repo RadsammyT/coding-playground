@@ -49,6 +49,9 @@ namespace test {
             exit(1);
         }
         printf("test int allocated @ %p w/ val of %d \n", &test, test);
+
+        free(test);
+
         return 0;
     }
 

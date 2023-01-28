@@ -12,9 +12,10 @@ rand = "0.8.5"
 num2words = "0.4.0"
 console = "0.15.2"
 open = "3.0.2"
-egui = "*"
-eframe = "*"
+egui = "0.20.1"
+eframe = "0.20.1"
 rustils = "0.1.23"
-image = "*" 
+image = "0.24.5" 
+egui_extras = {version = "0.20.0", features = ["image"]}
 #winapi = "*"
 #winapi too cursed 4 me

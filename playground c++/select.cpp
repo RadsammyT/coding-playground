@@ -21,7 +21,7 @@ void fibb() {
 }
 
 int main() { 
-    int select = input::readI32("1: ShitShuffler \n2: test print lmao \n3: collatz \n4: fibbonachi \n5: pointers testing \n6: floats \n7: array pointer test\n");
+    int select = input::readI32("1: ShitShuffler \n2: test print lmao \n3: collatz \n4: fibbonachi \n5: pointers testing \n6: floats \n7: array pointer test \n8: Mem Alloc testing \n9: Pointer Array OOB \n");
 
     switch(select) {
         case 1:

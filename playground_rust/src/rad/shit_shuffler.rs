@@ -7,7 +7,9 @@ use super::timer::Timer;
 
 /// essentially my solution for returning multiple values
 pub struct Returned {
+    ///Shuffled Array
     pub ret_1: Vec<i32>,
+    /// Fails
     pub ret_2: u64,
 }
 
