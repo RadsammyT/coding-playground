@@ -5,7 +5,7 @@ use crate::rad::{timer::Timer, shit_shuffler};
 
 use super::super::timer;
 use eframe::egui;
-use egui::{ Color32,plot::BarChart, Stroke, Ui, Pos2};
+use egui::{ Color32,plot::BarChart, Stroke, Pos2};
 use egui_extras::RetainedImage;
 use image;
 

@@ -7,6 +7,10 @@ use num2words::{self, Num2Words};
 use open;
 use crate::rad::{self, timer::Timer};
 
+trait Rad {
+    fn test() -> Self;
+}
+
 pub fn select(timer: &mut Timer) {
     let mut sel: i32;
     let mut is_bad: bool = true;
@@ -232,12 +236,19 @@ pub fn select(timer: &mut Timer) {
                     Num(i32),
                     Str(String),
                 }
-
-
-
-                let pee: Vec<Test> = vec![Test::Num(123), Test::Str("CBT".to_string())];
-                print!("{:?}", pee);
-
+                let mut u_just_got_vectord: Vec<Test> = vec![Test::Num(123), Test::Str("CBT".to_string())];
+                u_just_got_vectord
+                    .iter_mut()
+                    .for_each(|v| {
+                    if let Test::Num(n) = v {
+                        print!("num({}), ", n);
+                    } else if let Test::Str(n) = v {
+                        print!("str({}), ", n);
+                    } else {
+                        print!("not an enum variant, ");
+                    }
+                });
+                println!();
                 is_bad = false;
             }
 
