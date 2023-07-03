@@ -15,7 +15,6 @@ impl std::fmt::Debug for Returned {
 }
 
 pub fn run(mut input: i128, print_steps: bool) -> Returned {
-
     let mut ret = Returned {
         iteration: 0, even: 0, odd: 0
     };

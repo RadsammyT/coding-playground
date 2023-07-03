@@ -68,6 +68,7 @@ pub fn run() {
     let mut fail_per: u64 = 0;
     let mut fail_mark: u64 = 0;
     let mut vec: Vec<i32> = vec![];
+
     for _ in 0..length {
         vec.push(0);
     }
@@ -84,7 +85,6 @@ pub fn run() {
         } else {
             fail_per += 1;
             if fail_per >= fail_mark {
-                eprint!("{} \r", fail_per);
                 fail_mark += FAIL_STEP;
             }
         }

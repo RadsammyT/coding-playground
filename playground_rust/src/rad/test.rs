@@ -1,4 +1,4 @@
-use std::{*, collections::{VecDeque, HashMap}, fs::File};
+use std::{*, collections::{VecDeque, HashMap}, fs::File, io::Read};
 
 use console::style;
 use rustils::string::StringUtils;
@@ -195,20 +195,14 @@ pub fn select(timer: &mut Timer) {
                 // let inp = try_read!().unwrap_or({
                 //     println!("Error! Defaulting to hardcoded path...");
                 //     "E:/CODING WORKSPACE/coding-playground/test.txt".to_string()
-                // }).to_str();
+                // }).to_str(); 
                 // let  test = File::try_from(inp);
-                let mut file = match File::open("E:/CODING WORKSPACE/coding-playground/test.txt") { // change this path for your machine
-                    Ok(s) => s,
-                    Err(e) => panic!("{} | Is the file path correct for your machine? Check ->", e),
-                };
-                let mut read = String::new();
+                let f = File::open("E:/CODING WORKSPACE/coding-playground/test.txt").unwrap();
+                let mut buf = std::io::BufReader::new(f);
+                let mut line = String::new();
+                let res = buf.read_to_string(&mut line).unwrap();
 
-                let _res = match io::Read::read_to_string(&mut file, &mut read) {
-                    Ok(r) => r,
-                    Err(e) => panic!("{}", e),
-                };
-
-                println!("{}", read);
+                println!("{}: {}", res, line);
 
                 is_bad = false;
             }

@@ -3,7 +3,7 @@
 
 
 use eframe::egui;
-use egui::{Vec2, RichText};
+use egui::RichText;
 
 use super::super::shit_shuffler::Returned; // :)
 

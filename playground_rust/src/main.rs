@@ -14,7 +14,6 @@ fn main() {
     select();
     println!("relaunch program, because idfk how to clear/switch rusts hardcoded stdin buffer");
     user_halt();
-    
 }
 
 fn select() {
@@ -35,9 +34,7 @@ fn select() {
     let mut is_bad: bool = true;
     let mut main_timer = Timer::default();
     let term = console::Term::stdout();
-    
     term.clear_screen().expect("uh oh, terminal should be clear on start");
-
     while is_bad {
         // println!("{} \n1: shitshuffler \n2: test select \n3: collatz \n4: quick fibb \n5: random slices of string \n6: closure bullshittery \n7: shitshuffler, multithreading edition \n8: timer epoch \n9: file reading (change path in main.rs, fn select()) \n{}", style("welcome").underlined().fg(Color::Blue), style("0 TO EXIT").bg(Color::Red).blink());
         println!("{} \n1: test selection \n2: shitshuffler \n3: collatz \n4: quick fibb \n5: random slices, string\n{} ", style("welcome").underlined().fg(Color::Blue), style("0 TO EXIT").bg(Color::Red).blink());
@@ -175,6 +172,7 @@ fn user_halt() {
     } else {
         print!("type anything and press enter to continue... \ni didn't implement user_halt() for other platforms so i hope this works for you");
         let mut str = String::new();
+        
         match std::io::stdin().read_line(&mut str) {
             Ok(v) => {
                 print!("usize: {}\n",v);

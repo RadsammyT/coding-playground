@@ -7,7 +7,6 @@ use super::super::timer;
 use eframe::egui;
 use egui::{ Color32,plot::BarChart, Stroke, Pos2};
 use egui_extras::RetainedImage;
-use image;
 
 const CALIBRATION_LENGTH: i32 = 12;
 const CALIBRATION_AVERAGE_LEN: i32 = 10;
@@ -131,7 +130,7 @@ impl Main {
         if USE_PIXELZIM_FONT {
             setup(&cc.egui_ctx);
         }
-        let mut ret = Self {
+        let ret = Self {
             ui_state: 0,
             ui_list: ["its jigsaw oh god oh fuck oh shit".to_string(), 
                         "shit shitshuffler".to_string(),
@@ -172,22 +171,6 @@ fn setup(c: &egui::Context) {
 
 
     c.set_fonts(fonts);
-}
-
-fn image_load(p: &std::path::Path, scale: i32) -> Result<egui::ColorImage, image::ImageError> {
-    if scale < 1 {
-        panic!("Scale is {} but must NOT be less than 1!", scale);
-    }
-    let image = image::io::Reader::open(p)?.decode()?;
-    let new = image.resize_to_fill(image.width()/scale as u32, image.height()/scale as u32, image::imageops::FilterType::Nearest);
-    let size = [new.width() as _, new.height() as _];
-    let new_buffer = new.to_rgba8();
-    let pixels = new_buffer.as_flat_samples();
-    return Ok(egui::ColorImage::from_rgba_unmultiplied(
-        size,
-        pixels.as_slice(),
-    ));
-
 }
 
 impl eframe::App for Main {
@@ -342,7 +325,28 @@ impl eframe::App for Main {
                 }
 
                 2 => {
-                    self.state_2.image.as_ref().unwrap().show_scaled(ui, 1.0);
+                    self.state_2.image.as_ref().unwrap().show_scaled(ui, 0.2);
+                    egui::ScrollArea::vertical().show(ui, |ui| {
+                        egui::Grid::new("grid").striped(true).show(ui, |ui| {
+                            ui.label("I'm KILLING you.");
+                            ui.label("I'm KILLING YOU.");
+                            ui.end_row();
+
+                            ui.label("I Don't care about anything else- its just");
+                            ui.label("GET THAT FUCKING GUY RIGHT NOW.");
+                            ui.end_row();
+
+                            ui.label("There is no: \"Oh hes running? ill back off!\" ");
+                            ui.label("Nope, its just \" STOMP STOMP STOMP STOMP \"");
+
+                            for i in 0..1000 {
+                                ui.label(format!("{i}"));
+                                ui.end_row();
+                            }
+
+                        });
+                    });
+
                 }
                 _ => {
                     ui.label(format!("uh oh, state is {} when the following states are {:?}", self.ui_state, self.ui_list));

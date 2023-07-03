@@ -1,6 +1,5 @@
 // u *may* puke.
 use std::vec;
-use eframe::glow::FALSE;
 use text_io::try_read;
 use rustils;
 use console;
